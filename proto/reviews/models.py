@@ -6,8 +6,6 @@ from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.db import models
 
-from filebrowser.fields import FileBrowseField
-
 class Review(models.Model):
     STATUS_CHOICES = (
         ('d', 'Draft'),
@@ -22,7 +20,7 @@ class Review(models.Model):
     author = models.ForeignKey(User, limit_choices_to = {'is_staff': True})
     deck = models.CharField(max_length=200)
     body = models.TextField()
-    image = FileBrowseField('Image', max_length=200, directory="images/", extensions=[".jpg"], blank=True, null=True)
+    image = models.ImageField(upload_to='images/reviews')
     pub_date = models.DateTimeField('Publish date')
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
     comments = generic.GenericRelation(Comment, object_id_field='object_pk')

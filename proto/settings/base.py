@@ -138,6 +138,8 @@ INTERNAL_IPS = ('127.0.0.1',)
 
 GRAPPELLI_INDEX_DASHBOARD = 'proto.dashboard.CustomIndexDashboard'
 
+FILEBROWSER_DIRECTORY = ''
+
 INSTALLED_APPS = (
     'grappelli.dashboard',
     'grappelli',
