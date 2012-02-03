@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ul>
+    {% for object in object_list %}
+        <li>{{ object.creator }}: {{ object.body }}</li>
+    {% endfor %}
+</ul>
+
+{% include "forums/post_form.html" %}
+</body>
+
+<a href="{% url view_threads forum_slug %}">&lt;&lt; Back to list of threads</a>
+{% endblock %}

@@ -1,0 +1,12 @@
+[
+  {
+    "model": "forums.forum",
+    "pk": 1,
+    "fields": {
+      "title": "General Discussion",
+      "description": "You can talk about anything here.",
+      "slug": "general-discussion",
+      "site": 1
+    }
+  }
+]

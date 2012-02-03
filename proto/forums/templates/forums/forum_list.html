@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table>
+        <tr>
+            <th>Forum</th>
+            <th>Last Post</th>
+            <th>Threads</th>
+            <th>Posts</th>
+        </tr>
+        {% for object in object_list %}
+            <tr>
+                <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+                {% with last_post=object.last_post %}
+                    <td>
+                        {% if last_post %}
+                            <a href="{{ last_post.thread.get_absolute_url }}">{{ last_post.thread }}</a>
+                            by {{ last_post.creator }}<br />
+                            {{ last_post.created|date:"SHORT_DATETIME_FORMAT" }}
+                        {% endif %}
+                    </td>
+                {% endwith %}
+                <td>{{ object.num_threads }}</td>
+                <td>{{ object.num_posts }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

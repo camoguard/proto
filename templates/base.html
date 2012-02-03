@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block head_title %}{{ site_name }}{% endblock %}</title>
+    {% load compress %}
+
+    {% compress css %}
+    <link rel="stylesheet/less" href="{{ STATIC_URL }}css/main.less">
+    {% endcompress %}
+
+    {% compress js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/less-1.2.1.min.js">
+    </script>
+    {% endcompress %}
+
+    {% block extra_head %}
+    {% endblock %}
+    <noscript>
+      <meta http-equiv="Refresh" content="0; URL=/nojs/">
+    </noscript>
+  </head>
+  <body>
+    <header>
+      <h1>{{ site_name }}</h1>
+      <nav>
+    <p>
+    {% if request.user.is_authenticated %}
+    <a href="{% url profile %}">{% if request.user.first_name %}
+      {{request.user.first_name}}{% else %}
+      {{request.user}}{% endif %}</a>
+    (<a href="{% url auth_logout %}">not you?</a>) |
+    <a href="{% url profile %}">profile</a>
+    {% else %}
+    <a href="{% url auth_login %}">log in</a> |
+    <a href="{% url registration_register %}">register</a>
+    {% endif %}
+    <p>
+      </nav>
+    </header>
+
+    <section id="content">
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+          {{ message|safe }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% block content %}
+      <h1>{{ site_name }}</h1>
+      {% endblock %}
+    </section>
+
+    <footer>&copy; 2012</footer>
+
+    {% compress js %}
+    <script>
+      /* IE Shim for HTML 5 */
+      document.createElement('header');
+      document.createElement('nav');
+      document.createElement('section');
+      document.createElement('article');
+      document.createElement('aside');
+      document.createElement('footer');
+    </script>
+    <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
+    <!-- <script src="{{ STATIC_URL }}js/main.js"></script> -->
+    {% block extra_script %}
+    {% endblock %}
+    {% endcompress %}
+  </body>
+</html>

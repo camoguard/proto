@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="{% url create_thread forum_slug %}">Create Thread</a>
+
+<br />
+<br />
+
+<table>
+    <tr>
+        <th>Thread</th>
+        <th>Creator</th>
+        <th>Last Post</th>
+        <th>Replies</th>
+    </tr>
+    {% for object in object_list %}
+        <tr>
+            <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+            <td>{{ object.creator }}</td>
+                {% with last_post=object.last_post %}
+                    <td>{{ last_post.created|date:"SHORT_DATETIME_FORMAT" }} by {{ last_post.creator }}</td>
+                {% endwith %}
+            <td>{{ object.num_posts|add:"-1" }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<br />
+<br />
+
+{% if paginator %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+{% endblock %}

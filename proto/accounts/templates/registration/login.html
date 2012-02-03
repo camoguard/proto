@@ -1,0 +1,21 @@
+{% extends "registration/base.html" %}
+
+{% block content %}
+<h1>Log In</h1>
+
+<form action="{% url auth_login %}" method="POST">
+{% csrf_token %}
+<table>
+  <tbody>{{form}}</tbody>
+  <tfoot>
+    <tr><td></td><td>
+    <button type="submit">Log In</button>
+    </td></tr>
+  </tfoot>
+</table>
+</form>
+<p>
+  If you can't remember your details, you can
+  <a href="{% url auth_password_reset %}">reset your password</a>.
+</p>
+{% endblock %}

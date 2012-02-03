@@ -1,0 +1,17 @@
+{% extends "registration/base.html" %}
+
+{% block content %}
+<h1>Activation {% if account %}Complete{% else %}Failed{% endif %}</h1>
+
+{% if account %}
+<p>
+  You have activated your account. Visit your
+  <a href="{% url profile %}">user page</a>.
+</p>
+{% else %}
+<p>
+  Something went wrong. Try copying the link again, and make sure it
+  hasn't been broken up over multiple lines.
+</p>
+{% endif %}
+{% endblock %}

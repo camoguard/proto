@@ -1,0 +1,7 @@
+*.log
+*.pot
+*.pyc
+*.DS_Store
+dev.db
+static_root/
+site_media/

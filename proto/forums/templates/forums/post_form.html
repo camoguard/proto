@@ -1,0 +1,10 @@
+<form action="{% url process_post_form forum_slug thread_id %}" method="post" class="post_form">
+    {% csrf_token %}
+    <table>
+      {{ post_form.as_table }}
+      <tr>
+        <th></th>
+        <td><input type="submit" name="submit" value="Submit" class="button"></td>
+      </tr>
+    </table>
+</form>

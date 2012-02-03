@@ -1,0 +1,33 @@
+[
+  {
+    "model": "games.genre",
+    "pk": 1,
+    "fields": {
+      "name": "RPG"
+    }
+  },
+  {
+    "model": "games.theme",
+    "pk": 1,
+    "fields": {
+      "name": "Fantasy"
+    }
+  },
+  {
+    "model": "games.company",
+    "pk": 1,
+    "fields": {
+      "name": "Microsoft"
+    }
+  },
+  {
+    "model": "games.platform",
+    "pk": 1,
+    "fields": {
+      "name": "Xbox 360",
+      "release_date": "2005-11-22",
+      "company": 1,
+      "abbreviation": "360"
+    }
+  }
+]
