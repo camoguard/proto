@@ -18,16 +18,17 @@ class Review(models.Model):
     content_object = generic.GenericForeignKey()
 
     author = models.ForeignKey(User, limit_choices_to = {'is_staff': True})
-    deck = models.CharField(max_length=200)
+    deck = models.CharField(max_length=100)
     body = models.TextField()
     image = models.ImageField(upload_to='images/reviews')
     pub_date = models.DateTimeField('Publish date')
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
     comments = generic.GenericRelation(Comment, object_id_field='object_pk')
-    sites = models.ManyToManyField(Site)
+    site = models.ForeignKey(Site)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    objects = models.Manager()
     on_site = CurrentSiteManager()
 
     def __unicode__(self):

@@ -6,7 +6,7 @@ from django.db import models
 
 class Podcast(models.Model):
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images/podcasts')
     primary = models.BooleanField(default=False)
     site = models.ForeignKey(Site)
@@ -21,12 +21,12 @@ class Podcast(models.Model):
         return self.title
 
 
-class Episode(models.Model):
+class PodcastEpisode(models.Model):
     podcast = models.ForeignKey(Podcast)
-    title = models.CharField(max_length=100)
-    description = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='images/podcasts')
+    title = models.CharField(max_length=70)
+    description = models.CharField(max_length=100)
     file = models.FileField(upload_to='podcasts')
+    image = models.ImageField(upload_to='images/podcasts')
     pub_date = models.DateTimeField()
     comments = generic.GenericRelation(Comment, object_id_field='object_pk')
     site = models.ForeignKey(Site)

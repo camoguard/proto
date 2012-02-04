@@ -11,7 +11,7 @@ FORUM_LAST_POST_KEY = 'forums:forum:last_post:%i'
 THREAD_LAST_POST_KEY = 'forums:thread:last_post:%i'
 
 class Forum(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=70)
     description = models.CharField(max_length=100)
     slug = models.SlugField()
     # content_type = models.ForeignKey(ContentType)
@@ -48,7 +48,7 @@ class Forum(models.Model):
 class Thread(models.Model):
     forum = models.ForeignKey(Forum)
     creator = models.ForeignKey(User)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=70)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
@@ -59,7 +59,7 @@ class Thread(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/forums/%s/%i/" % (self.forum.slug, self.id)
+        return "/forums/%s/%d/" % (self.forum.slug, self.id)
 
     def last_post(self):
         # Cache the last post so that we don't have to perform a database query for each thread on the thread list

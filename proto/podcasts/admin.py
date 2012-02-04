@@ -2,7 +2,7 @@ from django.contrib import admin
 from django import forms
 
 from proto.core.admin import FileBrowseField
-from proto.podcasts.models import Podcast, Episode
+from proto.podcasts.models import Podcast, PodcastEpisode
 
 class PodcastAdminForm(forms.ModelForm):
     image = FileBrowseField()  # required=not Podcast._meta.get_field('image').blank
@@ -16,18 +16,17 @@ class PodcastAdmin(admin.ModelAdmin):
 
 
 
-
-class EpisodeAdminForm(forms.ModelForm):
+class PodcastEpisodeAdminForm(forms.ModelForm):
     image = FileBrowseField()
     file = FileBrowseField()
 
     class Meta:
-        model = Episode
+        model = PodcastEpisode
 
 
-class EpisodeAdmin(admin.ModelAdmin):
-    form = EpisodeAdminForm
+class PodcastEpisodeAdmin(admin.ModelAdmin):
+    form = PodcastEpisodeAdminForm
 
 
 admin.site.register(Podcast, PodcastAdmin)
-admin.site.register(Episode, EpisodeAdmin)
+admin.site.register(PodcastEpisode, PodcastEpisodeAdmin)

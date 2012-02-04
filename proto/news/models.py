@@ -13,15 +13,16 @@ class Article(models.Model):
         ('w', 'Withdrawn'),
     )
 
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=70)
     author = models.ForeignKey(User, limit_choices_to = {'is_staff': True})
-    deck = models.CharField(max_length=200)
+    deck = models.CharField(max_length=100)
+    slug = models.SlugField()
     body = models.TextField()
     image = models.ImageField(upload_to='images/news')
     pub_date = models.DateTimeField('Publish date')
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
     comments = generic.GenericRelation(Comment, object_id_field='object_pk')
-    sites = models.ManyToManyField(Site)
+    site = models.ForeignKey(Site)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
@@ -30,3 +31,11 @@ class Article(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('article-detail', (), {
+            'year': self.pub_date.year,
+            'month': self.pub_date.strftime('%b'),
+            'day': self.pub_date.strftime('%d'),
+            'slug': self.slug})

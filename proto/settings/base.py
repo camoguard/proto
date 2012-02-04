@@ -163,8 +163,9 @@ INSTALLED_APPS = (
     'proto.accounts',
     'proto.news',
     'proto.reviews',
-    'proto.podcasts',
     'proto.forums',
+    'proto.podcasts',
+    'proto.videos',
     'proto.games',
 )
 

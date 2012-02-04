@@ -2,20 +2,19 @@ from django import forms
 from django.contrib import admin
 
 from proto.core.admin import FileBrowseField
-from proto.news.models import Article
+from proto.videos.models import Video, VideoCategory
 
-class ArticleAdminForm(forms.ModelForm):
+class VideoAdminForm(forms.ModelForm):
     image = FileBrowseField()
 
     class Meta:
-        model = Article
+        model = Video
 
 
-class ArticleAdmin(admin.ModelAdmin):
-    form = ArticleAdminForm
-    prepopulated_fields = {'slug': ('title',)}
+class VideoAdmin(admin.ModelAdmin):
+    form = VideoAdminForm
     date_heirarchy = 'pub_date'
-    list_display = ['title', 'author', 'status', 'pub_date']
+    list_display = ['title', 'status', 'pub_date']
     actions = ['make_published']
 
     class Media:
@@ -27,11 +26,15 @@ class ArticleAdmin(admin.ModelAdmin):
 def make_published(self, request, queryset):
     rows_updated = queryset.update(status='p')
     if rows_updated == 1:
-        message_bit = "1 article was"
+        message_bit = "1 video was"
     else:
-        message_bit = "%s articles were" % rows_updated
+        message_bit = "%s videos were" % rows_updated
     self.message_user(request, "%s successfully marked as published." % message_bit)
-make_published.short_description = "Mark selected articles as published"
+make_published.short_description = "Mark selected videos as published"
 
 
-admin.site.register(Article, ArticleAdmin)
+class VideoCategoryAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Video, VideoAdmin)
+admin.site.register(VideoCategory, VideoCategoryAdmin)
