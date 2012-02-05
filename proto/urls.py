@@ -12,12 +12,11 @@ urlpatterns = patterns('',
 
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
-
     url(r'^accounts/', include('registration.urls')),
     url(r'^accounts/profile/', 'proto.accounts.views.profile', name='profile'),
-
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/filebrowser/', include(site.urls)),
+    url(r'^comments/', include('django.contrib.comments.urls')),
 
     url(r'^news/', include('proto.news.urls')),
     url(r'^forums/', include('proto.forums.urls')),

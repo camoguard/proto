@@ -160,6 +160,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'registration',
     'proto.core',
+    'proto.comments',
     'proto.accounts',
     'proto.news',
     'proto.reviews',
@@ -168,6 +169,8 @@ INSTALLED_APPS = (
     'proto.videos',
     'proto.games',
 )
+
+COMMENTS_APP = 'proto.comments'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
