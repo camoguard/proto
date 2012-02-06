@@ -4,7 +4,7 @@
 {{ comment_count }} Comments
 
 {% get_comment_list for object as comment_list %}
-<div id="comments">
+<div id="comment-list">
 {% for comment in comment_list|fill_tree|annotate_tree %}
 
     {% ifchanged comment.parent_id %}{% else %}
@@ -19,12 +19,12 @@
         <ul>
     {% endif %}
 
-    <li{% if comment.last %} class="last"{% endif %}>
+    <li id="comment-{{ comment.id }}" class="comment{% if comment.last %} last{% endif %}">
 
     {{ comment.user }} {{ comment.submit_date }}
     <p>{{ comment.comment }}</p>
 
-    {% render_comment_form for object with comment.pk %}
+    <a href="{% url ajax-comment-form comment.id %}" id="comment-reply-{{ comment.id }}" class="comment-reply">Reply</a>
 
     {% for close in comment.close %}
         </li>

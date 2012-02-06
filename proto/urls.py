@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^comments/', include('django.contrib.comments.urls')),
 
+    url(r'^comments/', include('proto.comments.urls')),
     url(r'^news/', include('proto.news.urls')),
     url(r'^forums/', include('proto.forums.urls')),
 )

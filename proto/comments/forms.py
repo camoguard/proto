@@ -11,8 +11,7 @@ class ThreadedCommentForm(CommentForm):
         if initial is None:
             initial = {}
         initial.update({'parent': self.parent})
-        super(ThreadedCommentForm, self).__init__(target_object, data=data,
-            initial=initial)
+        super(ThreadedCommentForm, self).__init__(target_object, data=data, initial=initial)
 
     def get_comment_model(self):
         return ThreadedComment
