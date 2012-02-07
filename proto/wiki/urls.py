@@ -4,7 +4,7 @@ from proto.wiki.views import WikiDetailView, WikiUpdateView, WikiCreateView, Wik
 
 
 urlpatterns = patterns('proto.wiki.views',
-    url(r'^(?P<model>\w+)/create/$', WikiCreateView.as_view(), name='wiki-create'),
+    url(r'^create/(?P<model>\w+)/$', WikiCreateView.as_view(), name='wiki-create'),
 
     url(r'^(?P<model>\w+)/(?P<pk>\d+)/$', WikiDetailView.as_view(), name='wiki-detail-pk'),
     url(r'^(?P<model>\w+)/(?P<slug>[-\w]+)/$', WikiDetailView.as_view(), name='wiki-detail-slug'),
