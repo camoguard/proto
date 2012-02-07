@@ -154,11 +154,14 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.flatpages',
     'django.contrib.comments',
+
     'gunicorn',
     'django_extensions',
     'compressor',
     'debug_toolbar',
     'registration',
+    'reversion',
+
     'proto.core',
     'proto.comments',
     'proto.accounts',
@@ -168,6 +171,7 @@ INSTALLED_APPS = (
     'proto.podcasts',
     'proto.videos',
     'proto.games',
+    'proto.wiki',
 )
 
 COMMENTS_APP = 'proto.comments'

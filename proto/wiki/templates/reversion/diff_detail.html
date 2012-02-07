@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<strong>Old Version</strong>: {{ old_version.revision.user }} - {{ old_version.revision.comment }}<br />
+<strong>New Version</strong>: {{ new_version.revision.user }} - {{ new_version.revision.comment }}<br />
+
+<p>{{ diff_html|safe }}</p>
+{% endblock %}

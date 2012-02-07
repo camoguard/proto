@@ -1,9 +1,11 @@
 from django.contrib import admin
 
+import reversion
+
 from proto.games.models import Game, Platform, DLC, Company, Genre, Theme
 
-class GameAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('title',)}
+class GameAdmin(reversion.VersionAdmin):
+    prepopulated_fields = {'slug': ('name',)}
     raw_id_fields = ('developers', 'publishers',)
     autocomplete_lookup_fields = {
         'm2m': [['developers'], ['publishers']],

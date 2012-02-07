@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="{% url wiki-history object.get_content_type object.pk %}">View History</a>
+
+<p>{{ object.title }}</p>
+
+<p>{{ object.release_date|date }}</p>
+
+<p>
+{% for platform in object.platforms.all %}
+    {{ platform }}
+{% endfor %}
+</p>
+
+<p>
+{% for developer in object.developers.all %}
+    {{ developer }}
+{% endfor %}
+</p>
+
+<p>
+{% for publisher in object.publishers.all %}
+    {{ publisher }}
+{% endfor %}
+</p>
+
+<p>
+{% for genre in object.genres.all %}
+    {{ genre }}
+{% endfor %}
+</p>
+
+<p>
+{% for theme in object.themes.all %}
+    {{ theme }}
+{% endfor %}
+<p>
+
+<p>{{ object.wiki_page }}</p>
+{% endblock %}

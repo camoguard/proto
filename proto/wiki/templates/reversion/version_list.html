@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ wiki_object }}</h1>
+
+{% for object in object_list %}
+    <p>{{ object.revision.date_created|date:"DATETIME_FORMAT" }} {{ object.revision.user }}
+        {% if object.revision.comment %}({{ object.revision.comment }}){% endif %}</p>
+{% endfor %}
+{% endblock %}

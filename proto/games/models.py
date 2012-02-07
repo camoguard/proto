@@ -1,10 +1,11 @@
 from django.contrib.contenttypes import generic
 from django.db import models
-from proto.reviews.models import Review
-from proto.core.fields import FuzzyDateField
 
-class Game(models.Model):
-    title = models.CharField(max_length=100)
+from proto.core.fields import FuzzyDateField
+from proto.reviews.models import Review
+from proto.wiki.models import WikiPage
+
+class Game(WikiPage):
     release_date = FuzzyDateField()
     platforms = models.ManyToManyField('Platform')
     developers = models.ManyToManyField('Company', related_name='developed_game_set')
@@ -14,11 +15,14 @@ class Game(models.Model):
     slug = models.SlugField(unique=True)
 
     def __unicode__(self):
-        return self.title
+        return self.name
+
+    def get_absolute_url(self):
+        return "/games/%s" % self.slug
 
     @staticmethod
     def autocomplete_search_fields():
-        return ("id__iexact", "title__icontains",)
+        return ("id__iexact", "name__icontains",)
 
 
 class Platform(models.Model):
@@ -32,7 +36,7 @@ class Platform(models.Model):
 
 
 class DLC(models.Model):
-    title = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     game = models.ForeignKey(Game)
     platforms = models.ManyToManyField(Platform)
 
@@ -40,9 +44,12 @@ class DLC(models.Model):
         verbose_name = 'DLC'
         verbose_name_plural = 'DLC'
 
+    def __unicode__(self):
+        return self.name
+
     @staticmethod
     def autocomplete_search_fields():
-        return ("id__iexact", "title__icontains",)
+        return ("id__iexact", "name__icontains",)
 
 
 class Company(models.Model):
