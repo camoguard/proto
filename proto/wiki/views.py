@@ -22,6 +22,7 @@ class VersionListView(ListView):
         context['wiki_object'] = self.wiki_object
         return context
 
+
 def diff_view(request, old_version_pk, new_version_pk):
     # Get the two versions to compare
     old_version = Version.objects.get(pk=old_version_pk)
