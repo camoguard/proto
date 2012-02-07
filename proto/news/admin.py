@@ -4,6 +4,7 @@ from django.contrib import admin
 from proto.core.admin import FileBrowseField
 from proto.news.models import Article
 
+
 class ArticleAdminForm(forms.ModelForm):
     image = FileBrowseField()
 

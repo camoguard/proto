@@ -4,6 +4,7 @@ from filebrowser.base import FileObject
 from filebrowser.fields import FileBrowseWidget as fb_FileBrowseWidget
 from filebrowser.sites import site as filebrowser_site
 
+
 class FileBrowseWidget(fb_FileBrowseWidget):
     def render(self, name, value, attrs={}):
         if not value:

@@ -3,6 +3,7 @@ from django.views.generic.dates import ArchiveIndexView, DayArchiveView, MonthAr
 
 from proto.news.models import Article
 
+
 class ArticleDetailView(DetailView):
     model = Article.on_site.all()
 

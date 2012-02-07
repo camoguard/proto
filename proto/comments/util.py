@@ -1,11 +1,14 @@
 from itertools import chain, imap
 
+
 __all__ = ['fill_tree', 'annotate_tree_properties', ]
+
 
 def _mark_as_root_path(comment):
     " Mark on comment as Being added to fill the tree. "
     setattr(comment, 'added_path', True)
     return comment
+
 
 def fill_tree(comments):
     """
@@ -18,6 +21,7 @@ def fill_tree(comments):
     it = iter(comments)
     first = it.next()
     return chain(imap(_mark_as_root_path, first.root_path), [first], it)
+
 
 def annotate_tree_properties(comments):
     """
@@ -48,7 +52,7 @@ def annotate_tree_properties(comments):
         if c.depth > old.depth:
             c.open = True
 
-        else: # c.depth <= old.depth
+        else:  # c.depth <= old.depth
             # close some depths
             old.close = range(old.depth - c.depth)
 

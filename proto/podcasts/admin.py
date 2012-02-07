@@ -4,6 +4,7 @@ from django import forms
 from proto.core.admin import FileBrowseField
 from proto.podcasts.models import Podcast, PodcastEpisode
 
+
 class PodcastAdminForm(forms.ModelForm):
     image = FileBrowseField()  # required=not Podcast._meta.get_field('image').blank
 
@@ -13,7 +14,6 @@ class PodcastAdminForm(forms.ModelForm):
 
 class PodcastAdmin(admin.ModelAdmin):
     form = PodcastAdminForm
-
 
 
 class PodcastEpisodeAdminForm(forms.ModelForm):

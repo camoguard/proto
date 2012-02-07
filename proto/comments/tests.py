@@ -9,11 +9,14 @@ from django.conf import settings
 from proto.comments.util import annotate_tree_properties
 from proto.comments.templatetags import threadedcomments_tags as tags
 
+
 PATH_SEPARATOR = getattr(settings, 'COMMENT_PATH_SEPARATOR', '/')
 PATH_DIGITS = getattr(settings, 'COMMENT_PATH_DIGITS', 10)
 
+
 def sanitize_html(html):
     return '\n'.join((i.strip() for i in html.split('\n') if i.strip() != ''))
+
 
 class SanityTests(TransactionTestCase):
     BASE_DATA = {
@@ -182,14 +185,16 @@ class HierarchyTest(TransactionTestCase):
         comment = Comment.objects.get(pk=1)
         self.assertEqual(comment.last_child, new_child_comment)
 
+
 # Templatetags tests
 ##############################################################################
-
 class MockParser(object):
     "Mock parser object for handle_token()"
+
     def compile_filter(self, var):
         return var
 mock_parser = MockParser()
+
 
 class MockToken(object):
     "Mock token object for handle_token()"
@@ -200,14 +205,15 @@ class MockToken(object):
     def split(self):
         return self.bits
 
-class TestCommentListNode(TestCase):
 
+class TestCommentListNode(TestCase):
     """
     {% get_comment_list for [object] as [varname] %}
     {% get_comment_list for [app].[model] [object_id] as [varname] %}
     """
     correct_ct_pk_params = ['get_comment_list', 'for', 'sites.site', '1', 'as', 'var']
     correct_var_params = ['get_comment_list', 'for', 'var', 'as', 'var']
+
     def test_parsing_fails_for_empty_token(self):
         self.assertRaises(TemplateSyntaxError, tags.get_comment_list, mock_parser, MockToken(['get_comment_list']))
 
@@ -256,4 +262,3 @@ class TestCommentListNode(TestCase):
         node = tags.get_comment_list(mock_parser, MockToken(params))
         self.assertTrue(isinstance(node, tags.CommentListNode))
         self.assertTrue(node.root_only)
-

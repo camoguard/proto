@@ -3,11 +3,12 @@ from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, CreateView, DeleteView
 
 import reversion
 from reversion.helpers import generate_patch_html
 from reversion.models import Version
+
 
 class WikiDetailView(DetailView):
     def get_queryset(self):
@@ -32,6 +33,41 @@ class WikiUpdateView(UpdateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(WikiUpdateView, self).dispatch(*args, **kwargs)
+
+
+class WikiCreateView(CreateView):
+    def get_queryset(self):
+        self.model = ContentType.objects.get(model=self.kwargs['model']).model_class()
+        return super(WikiCreateView, self).get_queryset()
+
+    def post(self, request, *args, **kwargs):
+        with reversion.create_revision():
+            reversion.set_user(request.user)
+            if 'comment' in request.POST:
+                reversion.set_comment(request.POST['comment'])
+            return super(WikiCreateView, self).post(request, *args, **kwargs)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(WikiCreateView, self).dispatch(*args, **kwargs)
+
+
+class WikiDeleteView(DeleteView):
+    def get_queryset(self):
+        wiki_class = ContentType.objects.get(model=self.kwargs['model']).model_class()
+        self.queryset = wiki_class.objects.all()
+        return super(WikiDeleteView, self).get_queryset()
+
+    def post(self, request, *args, **kwargs):
+        with reversion.create_revision():
+            reversion.set_user(request.user)
+            if 'comment' in request.POST:
+                reversion.set_comment(request.POST['comment'])
+            return super(WikiDeleteView, self).post(request, *args, **kwargs)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(WikiDeleteView, self).dispatch(*args, **kwargs)
 
 
 class VersionListView(ListView):

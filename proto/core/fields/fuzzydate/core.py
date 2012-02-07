@@ -1,5 +1,6 @@
 import datetime
 
+
 class Enumeration(object):
     """
     A small helper class for more readable enumerations,

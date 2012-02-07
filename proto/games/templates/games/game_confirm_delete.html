@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h1>{{ object.name }}</h1>
+<p>Are you sure you want to delete this game?</p>
+
 <form action="." method="post">
 {% csrf_token %}
 {{ form.as_ul }}
 <li>
     <label for="id-comment">Comment:</label>
-    <input id="id-comment" type="text" max_length="100" name="comment" /><input type="submit" value="save" />
+    <input id="id-comment" type="text" max_length="100" name="comment" /><input type="submit" value="delete" />
 </li>
 </form>
 {% endblock %}

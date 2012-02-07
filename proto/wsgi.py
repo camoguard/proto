@@ -1,5 +1,6 @@
 import os
 
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "proto.settings.development")
 
 # This application object is used by the development server

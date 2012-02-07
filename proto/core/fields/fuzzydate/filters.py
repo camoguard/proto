@@ -4,6 +4,7 @@ from django.utils import dateformat
 
 from core import FuzzyDate, DATE_PRECISIONS
 
+
 FUZZYDATE_FORMATS = {
     DATE_PRECISIONS.DAY: getattr(settings, 'DATE_FORMAT', 'd m Y'),
     DATE_PRECISIONS.MONTH: 'M Y',
@@ -11,6 +12,7 @@ FUZZYDATE_FORMATS = {
     DATE_PRECISIONS.QUARTER: '%QQ Y',
     DATE_PRECISIONS.HALFYEAR: '%H\\H Y',
 }
+
 
 def date(value, arg=None):
     """

@@ -3,6 +3,7 @@ from django.contrib import admin
 from proto.games.models import Game, Platform, DLC, Company, Genre, Theme
 from proto.wiki.admin import WikiPageAdmin
 
+
 class GameAdmin(WikiPageAdmin):
     prepopulated_fields = {'slug': ('name',)}
     raw_id_fields = ('developers', 'publishers',)
@@ -12,22 +13,27 @@ class GameAdmin(WikiPageAdmin):
 
 
 class PlatformAdmin(WikiPageAdmin):
+    prepopulated_fields = {'slug': ('name',)}
     pass
 
 
 class DLCAdmin(WikiPageAdmin):
+    prepopulated_fields = {'slug': ('name',)}
     pass
 
 
 class CompanyAdmin(WikiPageAdmin):
+    prepopulated_fields = {'slug': ('name',)}
     pass
 
 
 class GenreAdmin(WikiPageAdmin):
+    prepopulated_fields = {'slug': ('name',)}
     pass
 
 
 class ThemeAdmin(WikiPageAdmin):
+    prepopulated_fields = {'slug': ('name',)}
     pass
 
 

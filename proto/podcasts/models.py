@@ -4,6 +4,7 @@ from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.db import models
 
+
 class Podcast(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=100)

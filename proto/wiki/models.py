@@ -1,9 +1,11 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
+
 class WikiPage(models.Model):
-    " Wiki object models should subclass this model "
+    "Abstract base model for wiki models"
     name = models.CharField(max_length=70)
+    slug = models.SlugField(unique=True)
     deck = models.CharField(max_length=100)
     content = models.TextField()
     image = models.ImageField(upload_to='images/wiki', blank=True, null=True)

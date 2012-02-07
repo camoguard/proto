@@ -3,6 +3,7 @@ from django.contrib.comments.forms import CommentForm
 
 from proto.comments.models import ThreadedComment
 
+
 class ThreadedCommentForm(CommentForm):
     parent = forms.IntegerField(required=False, widget=forms.HiddenInput)
 
@@ -20,4 +21,3 @@ class ThreadedCommentForm(CommentForm):
         d = super(ThreadedCommentForm, self).get_comment_create_data()
         d['parent_id'] = self.cleaned_data['parent']
         return d
-

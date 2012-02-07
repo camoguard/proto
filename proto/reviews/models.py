@@ -6,6 +6,7 @@ from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.db import models
 
+
 class Review(models.Model):
     STATUS_CHOICES = (
         ('d', 'Draft'),

@@ -3,6 +3,7 @@ from django.forms.models import inlineformset_factory
 
 from proto.forums.models import Thread, Post
 
+
 class ThreadForm(ModelForm):
 
     class Meta:

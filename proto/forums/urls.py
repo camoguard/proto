@@ -2,6 +2,7 @@ from django.conf.urls.defaults import patterns, url, include
 
 from proto.forums.views import ForumListView, ThreadListView, PostListView
 
+
 urlpatterns = patterns('proto.forums.views',
     url(r'^(?P<forum_slug>[-\w]+)/create-thread/$', 'create_thread', name='create-thread'),
     url(r'^(?P<forum_slug>[-\w]+)/(?P<thread_id>\d+)/process-post/$', 'process_post_form', name='process-post'),

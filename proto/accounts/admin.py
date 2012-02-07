@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from proto.accounts.models import UserProfile
 from proto.core.admin import FileBrowseField
 
+
 class UserProfileAdminForm(forms.ModelForm):
     image = FileBrowseField()
 

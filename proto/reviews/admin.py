@@ -4,6 +4,7 @@ from django import forms
 from proto.core.admin import FileBrowseField
 from proto.reviews.models import Review
 
+
 class ReviewAdminForm(forms.ModelForm):
     image = FileBrowseField()
 

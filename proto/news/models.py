@@ -5,6 +5,7 @@ from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.db import models
 
+
 class Article(models.Model):
     " Stores a single news article. "
     STATUS_CHOICES = (

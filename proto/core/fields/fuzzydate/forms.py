@@ -4,10 +4,12 @@ from django.forms import fields
 from django.utils.functional import curry
 from core import FuzzyDate, DATE_PRECISIONS
 
+
 __all__ = (
     'FuzzyDateInput',
     'FuzzyDateField'
 )
+
 
 class FuzzyDateInput(widgets.DateInput):
     def render(self, name, value, attrs=None):

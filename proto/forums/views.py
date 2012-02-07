@@ -10,6 +10,7 @@ from django.views.generic import ListView
 from proto.forums.forms import ThreadForm, PostInlineFormSet, PostForm
 from proto.forums.models import Forum, Thread, Post, FORUM_LAST_POST_KEY, THREAD_LAST_POST_KEY
 
+
 class ForumListView(ListView):
     # Retrieve the number of threads and posts in each forum for display with the queryset
     queryset = Forum.on_site.all().annotate(num_threads=Count('thread', distinct=True),

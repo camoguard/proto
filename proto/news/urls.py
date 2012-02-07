@@ -2,6 +2,7 @@ from django.conf.urls.defaults import patterns, url, include
 
 from proto.news.views import ArticleDetailView, ArticleIndexView, ArticleYearView, ArticleMonthView, ArticleDayView
 
+
 urlpatterns = patterns('proto.news.views',
     url(r'^(?P<year>\d{4})/$', ArticleYearView.as_view(), name='article-year-archive'),
     url(r'^(?P<year>\d{4})/(?P<month>\w{3})/$', ArticleMonthView.as_view(), name='article-month-archive'),

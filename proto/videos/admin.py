@@ -4,6 +4,7 @@ from django.contrib import admin
 from proto.core.admin import FileBrowseField
 from proto.videos.models import Video, VideoCategory
 
+
 class VideoAdminForm(forms.ModelForm):
     image = FileBrowseField()
 
@@ -23,6 +24,7 @@ class VideoAdmin(admin.ModelAdmin):
             '/static/js/tinymce_setup.js'
         ]
 
+
 def make_published(self, request, queryset):
     rows_updated = queryset.update(status='p')
     if rows_updated == 1:
@@ -35,6 +37,7 @@ make_published.short_description = "Mark selected videos as published"
 
 class VideoCategoryAdmin(admin.ModelAdmin):
     pass
+
 
 admin.site.register(Video, VideoAdmin)
 admin.site.register(VideoCategory, VideoCategoryAdmin)
