@@ -9,12 +9,42 @@ import reversion
 from reversion.helpers import generate_patch_html
 from reversion.models import Version
 
+class WikiDetailView(DetailView):
+    def get_queryset(self):
+        wiki_class = ContentType.objects.get(model=self.kwargs['model']).model_class()
+        self.queryset = wiki_class.objects.all()
+        return super(WikiDetailView, self).get_queryset()
+
+
+class WikiUpdateView(UpdateView):
+    def get_queryset(self):
+        wiki_class = ContentType.objects.get(model=self.kwargs['model']).model_class()
+        self.queryset = wiki_class.objects.all()
+        return super(WikiUpdateView, self).get_queryset()
+
+    def post(self, request, *args, **kwargs):
+        with reversion.create_revision():
+            reversion.set_user(request.user)
+            if 'comment' in request.POST:
+                reversion.set_comment(request.POST['comment'])
+            return super(WikiUpdateView, self).post(request, *args, **kwargs)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(WikiUpdateView, self).dispatch(*args, **kwargs)
+
+
 class VersionListView(ListView):
     def get_queryset(self):
         content_type = ContentType.objects.get(model=self.kwargs['model'])
-        self.wiki_object = content_type.get_object_for_this_type(pk=self.kwargs['object_id'])
-        self.queryset = reversion.get_for_object(self.wiki_object)
-        self.queryset = self.queryset.select_related('revision__user')
+
+        # Fetch the revisions for the wiki object using either the pk or slug, depending on what's provided
+        if 'slug' in self.kwargs:
+            self.wiki_object = content_type.get_object_for_this_type(slug=self.kwargs['slug'])
+        else:
+            self.wiki_object = content_type.get_object_for_this_type(pk=self.kwargs['pk'])
+
+        self.queryset = reversion.get_for_object(self.wiki_object).select_related('revision__user')
         return super(VersionListView, self).get_queryset()
 
     def get_context_data(self, **kwargs):
@@ -36,20 +66,3 @@ def diff_view(request, old_version_pk, new_version_pk):
         'new_version': new_version,
         'diff_html': diff_html
     })
-
-
-class WikiDetailView(DetailView):
-    pass
-
-
-class WikiUpdateView(UpdateView):
-    def post(self, request, *args, **kwargs):
-        with reversion.create_revision():
-            reversion.set_user(request.user)
-            if 'comment' in request.POST:
-                reversion.set_comment(request.POST['comment'])
-            return super(WikiUpdateView, self).post(request, *args, **kwargs)
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(WikiUpdateView, self).dispatch(*args, **kwargs)

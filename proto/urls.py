@@ -21,7 +21,6 @@ urlpatterns = patterns('',
     url(r'^comments/', include('proto.comments.urls')),
     url(r'^news/', include('proto.news.urls')),
     url(r'^forums/', include('proto.forums.urls')),
-    url(r'^games/', include('proto.games.urls')),
     url(r'^wiki/', include('proto.wiki.urls')),
 )
 

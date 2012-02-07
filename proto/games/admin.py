@@ -1,10 +1,9 @@
 from django.contrib import admin
 
-import reversion
-
 from proto.games.models import Game, Platform, DLC, Company, Genre, Theme
+from proto.wiki.admin import WikiPageAdmin
 
-class GameAdmin(reversion.VersionAdmin):
+class GameAdmin(WikiPageAdmin):
     prepopulated_fields = {'slug': ('name',)}
     raw_id_fields = ('developers', 'publishers',)
     autocomplete_lookup_fields = {
@@ -12,23 +11,23 @@ class GameAdmin(reversion.VersionAdmin):
     }
 
 
-class PlatformAdmin(admin.ModelAdmin):
+class PlatformAdmin(WikiPageAdmin):
     pass
 
 
-class DLCAdmin(admin.ModelAdmin):
+class DLCAdmin(WikiPageAdmin):
     pass
 
 
-class CompanyAdmin(admin.ModelAdmin):
+class CompanyAdmin(WikiPageAdmin):
     pass
 
 
-class GenreAdmin(admin.ModelAdmin):
+class GenreAdmin(WikiPageAdmin):
     pass
 
 
-class ThemeAdmin(admin.ModelAdmin):
+class ThemeAdmin(WikiPageAdmin):
     pass
 
 
