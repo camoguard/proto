@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h1>{{ object.name }}</h1>
 <a href="{% url wiki-edit-slug object.get_content_type object.slug %}">Edit</a>
 <a href="{% url wiki-history-slug object.get_content_type object.slug %}">View History</a>
-
-<p>{{ object.title }}</p>
 
 <p>{{ object.release_date|date }}</p>
 

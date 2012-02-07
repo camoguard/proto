@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
-from django.shortcuts import render
+from django.http import HttpResponseForbidden
+from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
@@ -12,14 +13,14 @@ from reversion.models import Version
 
 class WikiDetailView(DetailView):
     def get_queryset(self):
-        wiki_class = ContentType.objects.get(model=self.kwargs['model']).model_class()
+        wiki_class = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
         self.queryset = wiki_class.objects.all()
         return super(WikiDetailView, self).get_queryset()
 
 
 class WikiUpdateView(UpdateView):
     def get_queryset(self):
-        wiki_class = ContentType.objects.get(model=self.kwargs['model']).model_class()
+        wiki_class = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
         self.queryset = wiki_class.objects.all()
         return super(WikiUpdateView, self).get_queryset()
 
@@ -37,7 +38,7 @@ class WikiUpdateView(UpdateView):
 
 class WikiCreateView(CreateView):
     def get_queryset(self):
-        self.model = ContentType.objects.get(model=self.kwargs['model']).model_class()
+        self.model = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
         return super(WikiCreateView, self).get_queryset()
 
     def post(self, request, *args, **kwargs):
@@ -49,12 +50,15 @@ class WikiCreateView(CreateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
+        permission = 'can_create_%s' % kwargs['model']
+        if not args[0].user.has_perm(permission):
+            return HttpResponseForbidden('You do not have permission to create a %s.' % kwargs['model'])
         return super(WikiCreateView, self).dispatch(*args, **kwargs)
 
 
 class WikiDeleteView(DeleteView):
     def get_queryset(self):
-        wiki_class = ContentType.objects.get(model=self.kwargs['model']).model_class()
+        wiki_class = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
         self.queryset = wiki_class.objects.all()
         return super(WikiDeleteView, self).get_queryset()
 
@@ -67,12 +71,15 @@ class WikiDeleteView(DeleteView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
+        permission = 'can_delete_%s' % kwargs['model']
+        if not args[0].user.has_perm(permission):
+            return HttpResponseForbidden('You do not have permission to delete this %s.' % kwargs['model'])
         return super(WikiDeleteView, self).dispatch(*args, **kwargs)
 
 
 class VersionListView(ListView):
     def get_queryset(self):
-        content_type = ContentType.objects.get(model=self.kwargs['model'])
+        content_type = get_object_or_404(ContentType, model=self.kwargs['model'])
 
         # Fetch the revisions for the wiki object using either the pk or slug, depending on what's provided
         if 'slug' in self.kwargs:
