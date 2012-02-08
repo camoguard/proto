@@ -18,5 +18,5 @@ urlpatterns = patterns('proto.wiki.views',
     url(r'^(?P<model>\w+)/(?P<pk>\d+)/history/$', VersionListView.as_view(), name='wiki-history-pk'),
     url(r'^(?P<model>\w+)/(?P<slug>[-\w]+)/history/$', VersionListView.as_view(), name='wiki-history-slug'),
 
-    url(r'^diff/(?P<old_version_pk>\d+)/(?P<new_version_pk>\d+)$', 'diff_view', name='wiki-diff')
+    url(r'^diff/(?P<old_version_pk>\d+)/(?P<new_version_pk>\d+)/$', 'diff_view', name='wiki-diff')
 )
