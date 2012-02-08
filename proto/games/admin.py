@@ -14,27 +14,22 @@ class GameAdmin(WikiPageAdmin):
 
 class PlatformAdmin(WikiPageAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    pass
 
 
 class DLCAdmin(WikiPageAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    pass
 
 
 class CompanyAdmin(WikiPageAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    pass
 
 
 class GenreAdmin(WikiPageAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    pass
 
 
 class ThemeAdmin(WikiPageAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    pass
 
 
 admin.site.register(Game, GameAdmin)
