@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block head_title %}Edit History for {{ object.name }} {% endblock %}
+{% block head_title %}Edit History for {{ wiki_object }}{% endblock %}
 
 {% block content %}
-<h1>{{ wiki_object }}</h1>
+<h1>Edit History for {{ wiki_object }}</h1>
 
 {% for object in object_list %}
     <p>{{ object.revision.date_created|date:"DATETIME_FORMAT" }} {{ object.revision.user }}

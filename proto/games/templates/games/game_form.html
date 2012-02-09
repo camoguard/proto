@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 
-{% block head_title %}Edit {{ object.name }} {% endblock %}
+{% block head_title %}
+{% if object %}Edit {{ object.name }}{% else %}Create Game{% endif %}
+{% endblock %}
 
 {% block content %}
+<h1>
+    {% if object %}Edit {{ object.name }}{% else %}Create Game{% endif %}
+</h1>
+
 <form action="." method="post">
 {% csrf_token %}
 {{ form.as_ul }}

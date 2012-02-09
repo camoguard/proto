@@ -1,4 +1,3 @@
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 
@@ -21,8 +20,9 @@ class WikiPage(models.Model):
     def get_absolute_url(self):
         return '/wiki/%s/%s' % (self.__class__.__name__.lower(), self.pk)
 
-    def get_content_type(self):
-        return ContentType.objects.get_for_model(self)
+    @property
+    def wiki_type(self):
+        return self.__class__.__name__.lower()
 
     @staticmethod
     def autocomplete_search_fields():
