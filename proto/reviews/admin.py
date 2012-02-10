@@ -6,7 +6,7 @@ from proto.reviews.models import Review
 
 
 class ReviewAdminForm(forms.ModelForm):
-    image = FileBrowseField()
+    image = FileBrowseField(required=not Review._meta.get_field('image').blank)
 
     class Meta:
         model = Review

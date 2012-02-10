@@ -1,28 +1,37 @@
 from django.db import models
 
+from model_utils.managers import InheritanceManager
 
-class WikiPage(models.Model):
-    "Abstract base model for wiki models"
+from proto.core.models import InheritanceMixIn
+
+
+class WikiPage(InheritanceMixIn, models.Model):
+    """ Super class of wiki models. This model cannot be instantiated directly;
+        it must be subclassed. """
     name = models.CharField(max_length=70)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField()
     deck = models.CharField(max_length=100)
-    content = models.TextField()
-    image = models.ImageField(upload_to='images/wiki', blank=True, null=True)
+    wiki_content = models.TextField()
+    image = models.ImageField(upload_to='images/wiki', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    objects = InheritanceManager()
+
     class Meta:
-        abstract = True
+        unique_together = ('_class', 'slug')
 
     def __unicode__(self):
         return self.name
 
+    @models.permalink
     def get_absolute_url(self):
-        return '/wiki/%s/%s' % (self.__class__.__name__.lower(), self.pk)
+        return ('wiki-detail-pk', (), {
+            'model': self._class,
+            'pk': self.pk})
 
-    @property
-    def wiki_type(self):
-        return self.__class__.__name__.lower()
+    def related_label(self):
+        return '%s (%s)' % (self.name, self._class)
 
     @staticmethod
     def autocomplete_search_fields():

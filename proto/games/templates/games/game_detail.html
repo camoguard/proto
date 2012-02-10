@@ -5,8 +5,8 @@
 {% block content %}
 <h1>{{ object.name }}</h1>
 
-<a href="{% url wiki-edit-slug object.wiki_type object.slug %}">Edit</a>
-<a href="{% url wiki-history-slug object.wiki_type object.slug %}">View History</a>
+<a href="{% url wiki-edit-slug object._class object.slug %}">Edit</a>
+<a href="{% url wiki-history-slug object._class object.slug %}">View History</a>
 
 <p>{{ object.release_date|date }}</p>
 
@@ -40,5 +40,5 @@
 {% endfor %}
 <p>
 
-<p>{{ object.wiki_page }}</p>
+<p>{{ object.wiki_content }}</p>
 {% endblock %}

@@ -5,7 +5,7 @@ from proto.news.models import Article
 
 
 class ArticleDetailView(DetailView):
-    model = Article.on_site.all()
+    queryset = Article.on_site.all()
 
 
 class ArticleIndexView(ArchiveIndexView):

@@ -4,7 +4,7 @@
 
 {% block content %}
     {{ object.title }}<br/>
-    by {{ object.author.get_full_name }} {{ object.pub_date|date:"DATETIME_FORMAT" }}<br />
+    by {% firstof object.author.get_full_name object.author.username %} {{ object.pub_date|date:"DATETIME_FORMAT" }}<br />
     <img src="{% version object.image 'large' %}" /><br/>
     {{ object.body|safe }}
 

@@ -6,7 +6,7 @@ from proto.podcasts.models import Podcast, PodcastEpisode
 
 
 class PodcastAdminForm(forms.ModelForm):
-    image = FileBrowseField()  # required=not Podcast._meta.get_field('image').blank
+    image = FileBrowseField(required=not Podcast._meta.get_field('image').blank)
 
     class Meta:
         model = Podcast
@@ -17,8 +17,8 @@ class PodcastAdmin(admin.ModelAdmin):
 
 
 class PodcastEpisodeAdminForm(forms.ModelForm):
-    image = FileBrowseField()
-    file = FileBrowseField()
+    image = FileBrowseField(required=not PodcastEpisode._meta.get_field('image').blank)
+    file = FileBrowseField(required=not PodcastEpisode._meta.get_field('file').blank)
 
     class Meta:
         model = PodcastEpisode

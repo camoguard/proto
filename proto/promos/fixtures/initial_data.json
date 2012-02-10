@@ -1,0 +1,9 @@
+[
+  {
+    "model": "promos.promocontainer",
+    "pk": 1,
+    "fields": {
+      "site": 1
+    }
+  }
+]

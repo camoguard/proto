@@ -5,6 +5,8 @@ from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.db import models
 
+from proto.wiki.models import WikiPage
+
 
 class Article(models.Model):
     " Stores a single news article. "
@@ -19,10 +21,11 @@ class Article(models.Model):
     deck = models.CharField(max_length=100)
     slug = models.SlugField()
     body = models.TextField()
-    image = models.ImageField(upload_to='images/news')
+    image = models.ImageField(upload_to='images/news', null=True, blank=True)
     pub_date = models.DateTimeField('Publish date')
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
     comments = generic.GenericRelation(Comment, object_id_field='object_pk')
+    tags = models.ManyToManyField(WikiPage, null=True, blank=True)
     site = models.ForeignKey(Site)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

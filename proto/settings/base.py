@@ -138,8 +138,6 @@ INTERNAL_IPS = ('127.0.0.1',)
 
 GRAPPELLI_INDEX_DASHBOARD = 'proto.dashboard.CustomIndexDashboard'
 
-FILEBROWSER_DIRECTORY = ''
-
 INSTALLED_APPS = (
     # 'grappelli.dashboard',
     'grappelli',
@@ -161,6 +159,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'registration',
     'reversion',
+    'dilla',
 
     'proto.core',
     'proto.comments',
@@ -172,9 +171,16 @@ INSTALLED_APPS = (
     'proto.videos',
     'proto.games',
     'proto.wiki',
+    'proto.promos'
 )
 
 COMMENTS_APP = 'proto.comments'
+
+
+# DICTIONARY = "/usr/share/dict/words"
+DILLA_USE_LOREM_IPSUM = True # set to True ignores dictionary
+DILLA_APPS = ['wiki', 'games']
+DILLA_EXCLUDE_MODELS = ['myapp.Comments',]
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -6,7 +6,7 @@ from proto.news.models import Article
 
 
 class ArticleAdminForm(forms.ModelForm):
-    image = FileBrowseField()
+    image = FileBrowseField(required=not Article._meta.get_field('image').blank)
 
     class Meta:
         model = Article
@@ -18,6 +18,10 @@ class ArticleAdmin(admin.ModelAdmin):
     date_heirarchy = 'pub_date'
     list_display = ['title', 'author', 'status', 'pub_date']
     actions = ['make_published']
+    raw_id_fields = ('tags',)
+    autocomplete_lookup_fields = {
+        'm2m': ['tags']
+    }
 
     class Media:
         js = [

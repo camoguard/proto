@@ -1,9 +1,12 @@
+from itertools import chain
+from operator import attrgetter
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView, ListView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
 
 import reversion
@@ -16,6 +19,13 @@ class WikiDetailView(DetailView):
         wiki_class = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
         self.queryset = wiki_class.objects.all()
         return super(WikiDetailView, self).get_queryset()
+
+
+class WikiListView(ListView):
+    def get_queryset(self):
+        wiki_class = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
+        self.queryset = wiki_class.objects.all()
+        return super(WikiListView, self).get_queryset()
 
 
 class WikiUpdateView(UpdateView):
@@ -109,3 +119,8 @@ def diff_view(request, old_version_pk, new_version_pk):
         'new_version': new_version,
         'diff_html': diff_html
     })
+
+
+def wiki_home(request):
+    wiki_list = []
+    return render(request, 'wiki/wiki_home.html', {'object_list': wiki_list})

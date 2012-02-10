@@ -6,7 +6,8 @@ from proto.videos.models import Video, VideoCategory
 
 
 class VideoAdminForm(forms.ModelForm):
-    image = FileBrowseField()
+    image = FileBrowseField(required=not Video._meta.get_field('image').blank)
+    file = FileBrowseField(required=not Video._meta.get_field('file').blank)
 
     class Meta:
         model = Video
