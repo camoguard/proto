@@ -49,4 +49,3 @@ class Genre(WikiPage):
 
 class Theme(WikiPage):
     pass
-

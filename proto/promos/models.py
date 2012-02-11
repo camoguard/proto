@@ -23,7 +23,7 @@ class PromoContainer(models.Model):
         verbose_name = 'promo'
 
     def __unicode__(self):
-        return '%s Promos' % self.site
+        return '%s promos' % self.site
 
 
 class Promo(models.Model):

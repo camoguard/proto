@@ -29,7 +29,7 @@ class PromoInline(admin.TabularInline):
     def image_thumbnail(self, obj):
         image = obj.content_object.image
         if image:
-            fb_image = FileObject(obj.content_object.image.path)
+            fb_image = FileObject(image.path)
             if fb_image.filetype == 'Image':
                 url = image.url.rsplit('/', 1)[0] + '/' + fb_image.version_generate(ADMIN_THUMBNAIL).filename
                 return '<img src="%s" />' % url
