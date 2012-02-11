@@ -4,7 +4,7 @@ from proto.settings.base import *
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-COMPRESS_ENABLED = DEBUG
+COMPRESS_ENABLED = not DEBUG
 
 DATABASES = {
     "default": {

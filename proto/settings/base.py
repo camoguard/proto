@@ -159,7 +159,6 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'registration',
     'reversion',
-    'dilla',
 
     'proto.core',
     'proto.comments',
@@ -175,12 +174,6 @@ INSTALLED_APPS = (
 )
 
 COMMENTS_APP = 'proto.comments'
-
-
-# DICTIONARY = "/usr/share/dict/words"
-DILLA_USE_LOREM_IPSUM = True # set to True ignores dictionary
-DILLA_APPS = ['wiki', 'games']
-DILLA_EXCLUDE_MODELS = ['myapp.Comments',]
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
