@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block head_title %}Edit History for {{ wiki_object }}{% endblock %}
+
+<h1>Edit History for {{ wiki_object }}</h1>
+
+{% block content %}
+        <p>Choose a date from the list below to revert to a previous version of this object.</p>
+
+            {% if object_list %}
+                <table id="change-history">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for object in object_list %}
+                            <tr>
+                                <th scope="row"><a href="{{ object.url }}">{{ object.revision.date_created|date:"DATETIME_FORMAT" }}</a></th>
+                                <td>
+                                    {{ object.revision.user }}
+                                </td>
+                                <td>{{ object.revision.comment }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+{% endblock %}

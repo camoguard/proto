@@ -18,6 +18,10 @@ class VideoAdmin(admin.ModelAdmin):
     date_heirarchy = 'pub_date'
     list_display = ['title', 'status', 'pub_date']
     actions = ['make_published']
+    raw_id_fields = ('tags',)
+    autocomplete_lookup_fields = {
+        'm2m': ['tags']
+    }
 
     class Media:
         js = [

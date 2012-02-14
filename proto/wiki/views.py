@@ -1,9 +1,8 @@
-from itertools import chain
-from operator import attrgetter
+from xml.etree import ElementTree
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponseForbidden
+from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
@@ -12,6 +11,8 @@ from django.views.generic.edit import UpdateView, CreateView, DeleteView
 import reversion
 from reversion.helpers import generate_patch_html
 from reversion.models import Version
+
+from proto.wiki.models import WikiPage
 
 
 class WikiDetailView(DetailView):
@@ -87,7 +88,9 @@ class WikiDeleteView(DeleteView):
         return super(WikiDeleteView, self).dispatch(*args, **kwargs)
 
 
-class VersionListView(ListView):
+class WikiHistoryView(ListView):
+    template_name = 'wiki/wiki_history.html'
+
     def get_queryset(self):
         content_type = get_object_or_404(ContentType, model=self.kwargs['model'])
 
@@ -98,26 +101,51 @@ class VersionListView(ListView):
             self.wiki_object = content_type.get_object_for_this_type(pk=self.kwargs['pk'])
 
         self.queryset = reversion.get_for_object(self.wiki_object).select_related('revision__user')
-        return super(VersionListView, self).get_queryset()
+        return super(WikiHistoryView, self).get_queryset()
 
     def get_context_data(self, **kwargs):
-        context = super(VersionListView, self).get_context_data(**kwargs)
+        context = super(WikiHistoryView, self).get_context_data(**kwargs)
         context['wiki_object'] = self.wiki_object
         return context
 
 
-def diff_view(request, old_version_pk, new_version_pk):
+def wiki_diff(request, old_version_pk, new_version_pk):
     # Get the two versions to compare
     old_version = Version.objects.get(pk=old_version_pk)
     new_version = Version.objects.get(pk=new_version_pk)
 
-    # Generate and render the diff
-    diff_html = generate_patch_html(old_version, new_version, "content", cleanup="semantic")
+    # Don't generate a diff if the versions belong to different wiki objects
+    if old_version.object_id != new_version.object_id:
+        raise Http404
 
-    return render(request, 'reversion/diff_detail.html', {
+    wiki_object = new_version.object
+
+    # Get the list of fields for which we want to include in the diff
+    # field_list = [f.name for f in wiki_object._meta.fields if f.editable and not f.name.endswith('_ptr')]
+
+    # Generate and render the diff for all fields
+    diff_html = {}
+    for key, value in new_version.field_dict.items():
+        if isinstance(value, list):
+            # Only the pks of any foreign keys are stored in versions
+            # We need to replace these keys with the names of the objects to show meaningful values to the user
+            fk_pks = set(old_version.field_dict[key] + new_version.field_dict[key])
+            fk_objects = WikiPage.objects.in_bulk(fk_pks)
+
+            old_fk_names = [fk_objects[int(fk)].name for fk in old_version.field_dict[key]]
+            old_version.field_dict[key] = ', '.join(old_fk_names)
+
+            new_fk_names = [fk_objects[int(fk)].name for fk in new_version.field_dict[key]]
+            new_version.field_dict[key] = ', '.join(new_fk_names)
+
+        # Generate the diff for the field
+        diff_html[key] = generate_patch_html(old_version, new_version, key, cleanup='semantic')
+
+    return render(request, 'wiki/wiki_diff.html', {
         'old_version': old_version,
         'new_version': new_version,
-        'diff_html': diff_html
+        'diff_html': diff_html,
+        'wiki_object': wiki_object
     })
 
 

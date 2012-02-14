@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, url, include
 
-from proto.wiki.views import WikiCreateView, WikiListView, WikiDetailView, WikiUpdateView, WikiDeleteView, VersionListView
+from proto.wiki.views import WikiCreateView, WikiListView, WikiDetailView, WikiUpdateView, WikiDeleteView, WikiHistoryView
 
 
 urlpatterns = patterns('proto.wiki.views',
@@ -17,10 +17,10 @@ urlpatterns = patterns('proto.wiki.views',
     url(r'^(?P<model>\w+)/(?P<pk>\d+)/delete/$', WikiDeleteView.as_view(), name='wiki-delete-pk'),
     url(r'^(?P<model>\w+)/(?P<slug>[-\w]+)/delete/$', WikiDeleteView.as_view(), name='wiki-delete-slug'),
 
-    url(r'^(?P<model>\w+)/(?P<pk>\d+)/history/$', VersionListView.as_view(), name='wiki-history-pk'),
-    url(r'^(?P<model>\w+)/(?P<slug>[-\w]+)/history/$', VersionListView.as_view(), name='wiki-history-slug'),
+    url(r'^(?P<model>\w+)/(?P<pk>\d+)/history/$', WikiHistoryView.as_view(), name='wiki-history-pk'),
+    url(r'^(?P<model>\w+)/(?P<slug>[-\w]+)/history/$', WikiHistoryView.as_view(), name='wiki-history-slug'),
 
-    url(r'^diff/(?P<old_version_pk>\d+)/(?P<new_version_pk>\d+)/$', 'diff_view', name='wiki-diff'),
+    url(r'^diff/(?P<old_version_pk>\d+)/(?P<new_version_pk>\d+)/$', 'wiki_diff', name='wiki-diff'),
 
     url(r'^$', 'wiki_home', name='wiki-home'),
 )

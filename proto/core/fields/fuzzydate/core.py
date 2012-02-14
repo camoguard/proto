@@ -84,7 +84,7 @@ class FuzzyDate(object):
     precision = property(lambda self: self.__precision)
 
     def __repr__(self):
-        return "%s (%s)" % (repr(self.date), self.precision[1])
+        return "%s (%s)" % (repr(self.date), DATE_PRECISIONS[self.precision][1])
 
     def __str__(self):
         return self.strftime()
