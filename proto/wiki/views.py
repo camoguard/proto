@@ -1,5 +1,3 @@
-from xml.etree import ElementTree
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponseForbidden
