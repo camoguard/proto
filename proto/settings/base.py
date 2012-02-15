@@ -118,7 +118,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
-    "proto.core.context_processors.site",
 )
 
 ROOT_URLCONF = 'proto.urls'

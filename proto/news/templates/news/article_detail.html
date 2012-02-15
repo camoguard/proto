@@ -3,10 +3,14 @@
 {% load fb_versions %}
 
 {% block content %}
-    {{ object.title }}<br/>
-    by {% firstof object.author.get_full_name object.author.username %} {{ object.pub_date|date:"DATETIME_FORMAT" }}<br />
-    <img src="{% version object.image 'large' %}" /><br/>
-    {{ object.body|safe }}
+<h1>{{ object.title }}</h1>
+<h3>by {% firstof object.author.get_full_name object.author.username %} {{ object.pub_date|date:"DATETIME_FORMAT" }}</h3>
 
-    {% include "comments/comment_list.html" %}
+<img src="{% version object.image 'large' %}" />
+
+<br />
+
+{{ object.body|safe }}
+
+{% include "comments/comment_list.html" %}
 {% endblock %}

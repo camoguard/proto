@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.comments.admin import CommentsAdmin
 
 from proto.comments.models import ThreadedComment

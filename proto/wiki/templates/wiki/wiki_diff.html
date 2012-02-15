@@ -7,6 +7,6 @@
 <strong>New Version</strong>: {{ new_version.revision.user }} - {{ new_version.revision.comment }}<br />
 
 {% for field, html in diff_html.items %}
-    <p><strong>{{ field }}</strong>: {{ html|safe }}</p>
+  <p><strong>{{ field }}</strong>: {{ html|safe }}</p>
 {% endfor %}
 {% endblock %}

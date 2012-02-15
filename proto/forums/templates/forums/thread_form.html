@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form action="." method="post" class="thread_form">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-    {{ post_formset.as_table }}
-    <tr>
-      <th></th>
-      <td><input type="submit" name="submit" value="Submit" class="button"></td>
-    </tr>
-  </table>
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url forum-list %}">Forums</a> <span class="divider">/</span>
+  </li>
+  <li>
+    <a href="{{ forum.get_absolute_url }}">{{ forum.title }}</a> <span class="divider">/</span>
+  </li>
+  <li class="active">
+    New Thread
+  </li>
+</ul>
+
+<form action="." method="post" class="thread_form">{% csrf_token %}
+{{ form }}
+{{ post_formset }}
+<p><input type="submit" name="submit" value="Create New Thread" class="btn" /></p>
 </form>
 {% endblock %}

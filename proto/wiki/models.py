@@ -6,8 +6,10 @@ from proto.core.models import InheritanceMixIn
 
 
 class WikiPage(InheritanceMixIn, models.Model):
-    """ Super class of wiki models. This model cannot be instantiated directly;
-        it must be subclassed. """
+    """
+    Super class of wiki models.
+    This model cannot be instantiated directly; it must be subclassed.
+    """
     name = models.CharField(max_length=70)
     slug = models.SlugField()
     deck = models.CharField(max_length=100)

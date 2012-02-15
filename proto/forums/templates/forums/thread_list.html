@@ -1,48 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href="{% url create-thread forum_slug %}">Create Thread</a>
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url forum-list %}">Forums</a> <span class="divider">/</span>
+  </li>
+  <li class="active">
+    {{ forum.title }}
+  </li>
+</ul>
+
+<a href="{% url create-thread forum.slug %}" class="btn">Create New Thread</a>
 
 <br />
 <br />
 
-<table>
-    <tr>
+{% if object_list %}
+  <table class="table">
+    <thead>
+      <tr>
         <th>Thread</th>
         <th>Creator</th>
         <th>Last Post</th>
         <th>Replies</th>
-    </tr>
-    {% for object in object_list %}
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for object in object_list %}
         <tr>
-            <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
-            <td>{{ object.creator }}</td>
-                {% with last_post=object.last_post %}
-                    <td>{{ last_post.created|date:"SHORT_DATETIME_FORMAT" }} by {{ last_post.creator }}</td>
-                {% endwith %}
-            <td>{{ object.num_posts|add:"-1" }}</td>
+          <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+          <td>{{ object.creator }}</td>
+          {% with last_post=object.last_post %}
+            <td>{{ last_post.created|date:"SHORT_DATETIME_FORMAT" }} by {{ last_post.creator }}</td>
+          {% endwith %}
+          <td>{{ object.num_posts|add:"-1" }}</td>
         </tr>
-    {% endfor %}
-</table>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
 
 <br />
 <br />
 
 {% if paginator %}
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
+  <div class="pagination">
+    <ul>
+      {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+      {% endif %}
 
-            <span class="current">
-                Page {{ page_obj.number }} of {{ paginator.num_pages }}.
-            </span>
+      <li class="active">{{ page_obj.number }}</li>
 
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-            {% endif %}
-        </span>
-    </div>
+      {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      {% endif %}
+    </ul>
+  </div>
 {% endif %}
 {% endblock %}

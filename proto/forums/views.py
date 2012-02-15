@@ -19,24 +19,24 @@ class ForumListView(ListView):
 
 class ThreadListView(ListView):
     def get_queryset(self):
-        forum = get_object_or_404(Forum, slug=self.kwargs['forum_slug'], site=settings.SITE_ID)
-        return Thread.objects.filter(forum=forum).select_related('creator', 'forum').annotate(num_posts=Count('post'))
+        self.forum = get_object_or_404(Forum, slug=self.kwargs['forum_slug'], site=settings.SITE_ID)
+        return Thread.objects.filter(forum=self.forum).select_related('creator', 'forum').annotate(num_posts=Count('post'))
 
     def get_context_data(self, **kwargs):
         context = super(ThreadListView, self).get_context_data(**kwargs)
-        context['forum_slug'] = self.kwargs['forum_slug']
+        context['forum'] = self.forum
         return context
 
 
 class PostListView(ListView):
     def get_queryset(self):
-        thread = get_object_or_404(Thread, pk=self.kwargs['thread_id'], forum__site=settings.SITE_ID)
-        return Post.objects.filter(thread=thread).select_related('creator')
+        self.thread = get_object_or_404(Thread.objects.select_related('forum'),
+                                        pk=self.kwargs['thread_pk'], forum__site=settings.SITE_ID)
+        return Post.objects.filter(thread=self.thread).select_related('creator')
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
-        context['forum_slug'] = self.kwargs['forum_slug']
-        context['thread_id'] = self.kwargs['thread_id']
+        context['thread'] = self.thread
         context['post_form'] = PostForm()
         return context
 
@@ -72,15 +72,16 @@ def create_thread(request, forum_slug):
     return render(request, 'forums/thread_form.html', {
         'form': form,
         'post_formset': post_formset,
+        'forum': forum
     })
 
 
 @login_required
 @require_POST
-def process_post_form(request, forum_slug, thread_id):
+def process_post_form(request, forum_slug, thread_pk):
     # Makes sure that the user is posting to an existing thread
     thread = get_object_or_404(Thread.objects.select_related('forum'),
-                                pk=thread_id, forum__slug=forum_slug, forum__site=settings.SITE_ID)
+                                pk=thread_pk, forum__slug=forum_slug, forum__site=settings.SITE_ID)
 
     form = PostForm(request.POST)
     if form.is_valid():

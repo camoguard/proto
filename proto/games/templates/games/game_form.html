@@ -5,16 +5,29 @@
 {% endblock %}
 
 {% block content %}
+{% if object %}
+<ul class="nav nav-tabs">
+  <li><a href="{{ object.get_absolute_url }}">Read</a></li>
+  <li class="active">
+    <a href="#">Edit</a>
+  </li>
+  <li><a href="{% url wiki-history-slug object.get_class object.slug %}">View History</a></li>
+</ul>
+{% endif %}
+
 <h1>
-    {% if object %}Edit {{ object.name }}{% else %}Create Game{% endif %}
+  {% if object %}{{ object.name }}{% else %}Create Game{% endif %}
 </h1>
+
+<br />
 
 <form action="." method="post">
 {% csrf_token %}
-{{ form.as_ul }}
+{{ form }}
 <li>
-    <label for="id-comment">Comment:</label>
-    <input id="id-comment" type="text" max_length="100" name="comment" /><input type="submit" value="save" />
+  <label for="id-comment">Comment:</label>
+  <input id="id-comment" type="text" max_length="100" name="comment" />
 </li>
+<p><p><input type="submit" name="submit" value="Submit Edit" class="btn btn-primary" /></p></p>
 </form>
 {% endblock %}

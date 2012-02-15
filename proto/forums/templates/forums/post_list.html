@@ -1,14 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<ul>
-    {% for object in object_list %}
-        <li>{{ object.creator }}: {{ object.body }}</li>
-    {% endfor %}
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url forum-list %}">Forums</a> <span class="divider">/</span>
+  </li>
+  <li>
+    <a href="{{ thread.forum.get_absolute_url }}">{{ thread.forum.title }}</a> <span class="divider">/</span>
+  </li>
+  <li class="active">
+    {{ thread.title }}
+  </li>
 </ul>
 
-{% include "forums/post_form.html" %}
-</body>
+<ul>
+  {% for object in object_list %}
+    <li>{{ object.creator }}: {{ object.body }}</li>
+  {% endfor %}
+</ul>
 
-<a href="{% url thread-list forum_slug %}">&lt;&lt; Back to list of threads</a>
+<br />
+
+{% include "forums/post_form.html" %}
 {% endblock %}

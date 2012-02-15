@@ -3,40 +3,51 @@
 {% block head_title %}{{ object.name }}{% endblock %}
 
 {% block content %}
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#">Read</a></li>
+  <li><a href="{% url wiki-edit-slug object.get_class object.slug %}">Edit</a></li>
+  <li><a href="{% url wiki-history-slug object.get_class object.slug %}">View History</a></li>
+</ul>
+
 <h1>{{ object.name }}</h1>
 
-<a href="{% url wiki-edit-slug object.get_class object.slug %}">Edit</a>
-<a href="{% url wiki-history-slug object.get_class object.slug %}">View History</a>
+<br />
 
+<strong>Release Date</strong>
 <p>{{ object.release_date|date }}</p>
 
+<strong>Platforms</strong>
 <p>
 {% for platform in object.platforms.all %}
-    {{ platform }}
+  {{ platform }}
 {% endfor %}
 </p>
 
+<strong>Developers</strong>
 <p>
 {% for developer in object.developers.all %}
-    {{ developer }}
+  {{ developer }}
 {% endfor %}
 </p>
 
+<strong>Publishers</strong>
 <p>
 {% for publisher in object.publishers.all %}
-    {{ publisher }}
+  {{ publisher }}
 {% endfor %}
 </p>
 
+<strong>Genres</strong>
 <p>
 {% for genre in object.genres.all %}
-    {{ genre }}
+  {{ genre }}
 {% endfor %}
 </p>
 
+<strong>Themes</strong>
 <p>
 {% for theme in object.themes.all %}
-    {{ theme }}
+  {{ theme }}
 {% endfor %}
 <p>
 
