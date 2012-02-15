@@ -16,18 +16,15 @@
 {% endif %}
 
 <h1>
-  {% if object %}{{ object.name }}{% else %}Create Game{% endif %}
+  {% if object %}{{ object.name }}{% else %}Edit Game{% endif %}
 </h1>
 
 <br />
 
-<form action="." method="post">
-{% csrf_token %}
+<form action="." method="post">{% csrf_token %}
 {{ form }}
-<li>
-  <label for="id-comment">Comment:</label>
-  <input id="id-comment" type="text" max_length="100" name="comment" />
-</li>
-<p><p><input type="submit" name="submit" value="Submit Edit" class="btn btn-primary" /></p></p>
+<label for="id-comment">Comment:</label>
+<input id="id-comment" type="text" max_length="100" name="comment" />
+<p><input type="submit" name="submit" value="Submit Edit" class="btn btn-primary" /></p>
 </form>
 {% endblock %}
