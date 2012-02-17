@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
 
     'gunicorn',
+    'storages',
     'django_extensions',
     'compressor',
     'debug_toolbar',

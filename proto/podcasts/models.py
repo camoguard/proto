@@ -30,12 +30,10 @@ class PodcastEpisode(models.Model):
     image = models.ImageField(upload_to='images/podcasts', null=True, blank=True)
     pub_date = models.DateTimeField()
     comments = generic.GenericRelation(Comment, object_id_field='object_pk')
-    site = models.ForeignKey(Site)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
     objects = models.Manager()
-    on_site = CurrentSiteManager()
 
     def __unicode__(self):
         return self.title

@@ -1,9 +1,12 @@
 from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.core.files.storage import default_storage
 
 from filebrowser.sites import site
-from django.contrib import admin
+from filebrowser.storage import S3BotoStorageMixin
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -24,3 +27,9 @@ urlpatterns = patterns('',
     url(r'^forums/', include('proto.forums.urls')),
     url(r'^wiki/', include('proto.wiki.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+if S3BotoStorageMixin not in default_storage.__class__.__bases__:
+    default_storage.__class__.__bases__ += (S3BotoStorageMixin,)
+
+site.storage = default_storage
