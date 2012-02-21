@@ -8,7 +8,7 @@ from proto.core.admin import FileBrowseField
 
 
 class UserProfileAdminForm(forms.ModelForm):
-    image = FileBrowseField()
+    avatar = FileBrowseField(required=not UserProfile._meta.get_field('avatar').blank)
 
     class Meta:
         model = UserProfile

@@ -3,53 +3,55 @@
 {% block head_title %}{{ object.name }}{% endblock %}
 
 {% block content %}
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#">Read</a></li>
-  <li><a href="{% url wiki-edit-slug object.get_class object.slug %}">Edit</a></li>
-  <li><a href="{% url wiki-history-slug object.get_class object.slug %}">View History</a></li>
-</ul>
+<div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#">Read</a></li>
+    <li><a href="{% url wiki-edit-slug object.get_class object.slug %}">Edit</a></li>
+    <li><a href="{% url wiki-history-slug object.get_class object.slug %}">View History</a></li>
+  </ul>
 
-<h1>{{ object.name }}</h1>
+  <h1>{{ object.name }}</h1>
 
-<br />
+  <br />
 
-<strong>Release Date</strong>
-<p>{{ object.release_date|date }}</p>
+  <strong>Release Date</strong>
+  <p>{{ object.release_date|date }}</p>
 
-<strong>Platforms</strong>
-<p>
-{% for platform in object.platforms.all %}
-  <a href="{{ platform.get_absolute_url }}">{{ platform }}</a>
-{% endfor %}
-</p>
+  <strong>Platforms</strong>
+  <p>
+  {% for platform in object.platforms.all %}
+    <a href="{{ platform.get_absolute_url }}">{{ platform }}</a>
+  {% endfor %}
+  </p>
 
-<strong>Developers</strong>
-<p>
-{% for developer in object.developers.all %}
-  <a href="{{ developer.get_absolute_url }}">{{ developer }}</a>
-{% endfor %}
-</p>
+  <strong>Developers</strong>
+  <p>
+  {% for developer in object.developers.all %}
+    <a href="{{ developer.get_absolute_url }}">{{ developer }}</a>
+  {% endfor %}
+  </p>
 
-<strong>Publishers</strong>
-<p>
-{% for publisher in object.publishers.all %}
-  <a href="{{ publisher.get_absolute_url }}">{{ publisher }}</a>
-{% endfor %}
-</p>
+  <strong>Publishers</strong>
+  <p>
+  {% for publisher in object.publishers.all %}
+    <a href="{{ publisher.get_absolute_url }}">{{ publisher }}</a>
+  {% endfor %}
+  </p>
 
-<strong>Genres</strong>
-<p>
-{% for genre in object.genres.all %}
-  <a href="{{ genre.get_absolute_url }}">{{ genre }}</a>
-{% endfor %}
-</p>
+  <strong>Genres</strong>
+  <p>
+  {% for genre in object.genres.all %}
+    <a href="{{ genre.get_absolute_url }}">{{ genre }}</a>
+  {% endfor %}
+  </p>
 
-<strong>Themes</strong>
-<p>
-{% for theme in object.themes.all %}
-  <a href="{{ theme.get_absolute_url }}">{{ theme }}</a>
-{% endfor %}
-<p>
+  <strong>Themes</strong>
+  <p>
+  {% for theme in object.themes.all %}
+    <a href="{{ theme.get_absolute_url }}">{{ theme }}</a>
+  {% endfor %}
+  <p>
 
-<p>{{ object.wiki_content }}</p>
+  <p>{{ object.wiki_content }}</p>
+</div>
 {% endblock %}

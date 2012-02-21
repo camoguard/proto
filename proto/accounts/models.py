@@ -6,7 +6,7 @@ from django.dispatch import receiver
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    avatar = models.ImageField(upload_to='images/avatars')
+    avatar = models.ImageField(upload_to='images/avatars', null=True, blank=True)
 
 
 @receiver(post_save, sender=User)

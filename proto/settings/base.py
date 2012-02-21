@@ -5,7 +5,7 @@ PROJECT_ROOT = os.path.realpath(os.path.join(os.path.dirname(__file__), os.pardi
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-COMPRESS_ENABLED = True
+COMPRESS_ENABLED = not DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),

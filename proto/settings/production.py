@@ -15,7 +15,6 @@ DATABASES = {
 }
 
 STATIC_URL = 'http://cbsi-proto.s3.amazonaws.com/'
-COMPRESS_URL = STATIC_URL
 STATICFILES_STORAGE = 'proto.core.storage.CachedS3BotoStorage'
 COMPRESS_STORAGE = STATICFILES_STORAGE
 
