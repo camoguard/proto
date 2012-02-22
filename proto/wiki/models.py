@@ -1,5 +1,6 @@
 from django.db import models
 
+from django_extensions.db.fields import AutoSlugField
 from model_utils.managers import InheritanceManager
 
 from proto.core.models import InheritanceMixIn
@@ -11,7 +12,7 @@ class WikiPage(InheritanceMixIn, models.Model):
     This model cannot be instantiated directly; it must be subclassed.
     """
     name = models.CharField(max_length=70)
-    slug = models.SlugField()
+    slug = AutoSlugField(populate_from='name')
     deck = models.CharField(max_length=100)
     wiki_content = models.TextField()
     image = models.ImageField(upload_to='images/wiki', null=True, blank=True)

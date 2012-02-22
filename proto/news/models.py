@@ -6,6 +6,8 @@ from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.db import models
 
+from django_extensions.db.fields import AutoSlugField
+
 from proto.comments.models import ThreadedComment
 from proto.wiki.models import WikiPage
 
@@ -26,7 +28,7 @@ class Article(models.Model):
     title = models.CharField(max_length=70)
     author = models.ForeignKey(User, limit_choices_to = {'is_staff': True})
     deck = models.CharField(max_length=100)
-    slug = models.SlugField()
+    slug = AutoSlugField(populate_from='title')
     body = models.TextField()
     image = models.ImageField(upload_to='images/news', null=True, blank=True)
     pub_date = models.DateTimeField('Publish date')

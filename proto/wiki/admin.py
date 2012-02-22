@@ -14,5 +14,4 @@ class WikiPageAdminForm(forms.ModelForm):
 
 
 class WikiPageAdmin(reversion.VersionAdmin):
-    prepopulated_fields = {'slug': ('name',)}
     list_display = ['name', 'slug', 'deck']

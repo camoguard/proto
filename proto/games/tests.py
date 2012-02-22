@@ -22,6 +22,8 @@ class WikiViewTestCase(TestCase):
         response = self.client.get('/wiki/game/mass-effect-3/history/')
         self.assertEqual(response.status_code, 200)
 
+
+
     def test_update_view_for_anonymous_user(self):
          # Test that an anonymous user gets redirected
         response = self.client.get('/wiki/create/game/')
@@ -32,6 +34,8 @@ class WikiViewTestCase(TestCase):
         self.client.login(username='test_user', password='test')
         response = self.client.get('/wiki/game/mass-effect-3/edit/')
         self.assertEqual(response.status_code, 200)
+
+
 
     def test_create_view_for_anonymous_user(self):
         # Test that an anonymous user gets redirected
@@ -49,6 +53,8 @@ class WikiViewTestCase(TestCase):
         self.client.login(username='test_superuser', password='test')
         response = self.client.get('/wiki/create/game/')
         self.assertEqual(response.status_code, 200)
+
+
 
     def test_delete_view(self):
         # Test that an anonymous user gets redirected

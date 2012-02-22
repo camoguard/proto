@@ -6,11 +6,11 @@ from proto.wiki.models import WikiPage
 
 class Game(WikiPage):
     release_date = FuzzyDateField(null=True, blank=True)
-    platforms = models.ManyToManyField('Platform')
-    developers = models.ManyToManyField('Company', related_name='developed_game_set')
-    publishers = models.ManyToManyField('Company', related_name='published_game_set')
-    genres = models.ManyToManyField('Genre')
-    themes = models.ManyToManyField('Theme')
+    platforms = models.ManyToManyField('Platform', null=True, blank=True)
+    developers = models.ManyToManyField('Company', related_name='developed_game_set', null=True, blank=True)
+    publishers = models.ManyToManyField('Company', related_name='published_game_set', null=True, blank=True)
+    genres = models.ManyToManyField('Genre', null=True, blank=True)
+    themes = models.ManyToManyField('Theme', null=True, blank=True)
 
 
 class Platform(WikiPage):

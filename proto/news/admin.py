@@ -14,7 +14,6 @@ class ArticleAdminForm(forms.ModelForm):
 
 class ArticleAdmin(admin.ModelAdmin):
     form = ArticleAdminForm
-    prepopulated_fields = {'slug': ('title',)}
     date_heirarchy = 'pub_date'
     list_display = ['title', 'author', 'status', 'pub_date']
     actions = ['make_published']
