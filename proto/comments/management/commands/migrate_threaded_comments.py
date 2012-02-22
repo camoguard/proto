@@ -3,7 +3,7 @@ from django.contrib.sites.models import Site
 from django.db import transaction, connection
 from django.conf import settings
 
-from threadedcomments.models import ThreadedComment
+from proto.comments.models import ThreadedComment
 
 USER_SQL = """
 SELECT

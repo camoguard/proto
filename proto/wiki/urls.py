@@ -1,9 +1,13 @@
 from django.conf.urls.defaults import patterns, url, include
 
-from proto.wiki.views import WikiCreateView, WikiListView, WikiDetailView, WikiUpdateView, WikiDeleteView, WikiHistoryView
+from proto.wiki.views import WikiCreateView, WikiListView, WikiDetailView, WikiUpdateView, \
+                            WikiDeleteView, WikiHistoryView
 
 
 urlpatterns = patterns('proto.wiki.views',
+    url(r'^diff/$', 'process_wiki_history_form', name='process-wiki-history-form'),
+    url(r'^diff/(?P<old_version_pk>\d+)/(?P<new_version_pk>\d+)/$', 'wiki_diff', name='wiki-diff'),
+
     url(r'^create/(?P<model>\w+)/$', WikiCreateView.as_view(), name='wiki-create'),
 
     url(r'^(?P<model>\w+)/$', WikiListView.as_view(), name='wiki-list'),
@@ -19,8 +23,6 @@ urlpatterns = patterns('proto.wiki.views',
 
     url(r'^(?P<model>\w+)/(?P<pk>\d+)/history/$', WikiHistoryView.as_view(), name='wiki-history-pk'),
     url(r'^(?P<model>\w+)/(?P<slug>[-\w]+)/history/$', WikiHistoryView.as_view(), name='wiki-history-slug'),
-
-    url(r'^diff/(?P<old_version_pk>\d+)/(?P<new_version_pk>\d+)/$', 'wiki_diff', name='wiki-diff'),
 
     url(r'^$', 'wiki_home', name='wiki-home'),
 )

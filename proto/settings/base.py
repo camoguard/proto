@@ -137,7 +137,7 @@ INTERNAL_IPS = ('127.0.0.1',)
 
 GRAPPELLI_INDEX_DASHBOARD = 'proto.dashboard.CustomIndexDashboard'
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     # 'grappelli.dashboard',
     'grappelli',
     'filebrowser',
@@ -171,7 +171,7 @@ INSTALLED_APPS = (
     'proto.games',
     'proto.wiki',
     'proto.promos'
-)
+]
 
 COMMENTS_APP = 'proto.comments'
 

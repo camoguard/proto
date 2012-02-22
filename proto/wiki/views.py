@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
@@ -107,6 +107,12 @@ class WikiHistoryView(ListView):
         return context
 
 
+def process_wiki_history_form(request):
+    old_version_pk = request.GET.get('old-version')
+    new_version_pk = request.GET.get('new-version')
+    return redirect('wiki-diff', old_version_pk=old_version_pk, new_version_pk=new_version_pk)
+
+
 def wiki_diff(request, old_version_pk, new_version_pk):
     # Get the two versions to compare
     old_version = Version.objects.get(pk=old_version_pk)
@@ -148,5 +154,5 @@ def wiki_diff(request, old_version_pk, new_version_pk):
 
 
 def wiki_home(request):
-    wiki_list = []
+    wiki_list = WikiPage.objects.all()
     return render(request, 'wiki/wiki_home.html', {'object_list': wiki_list})

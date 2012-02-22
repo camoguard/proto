@@ -16,6 +16,9 @@
 {{ form }}
 <label for="id-comment">Comment:</label>
 <input id="id-comment" type="text" max_length="100" name="comment" />
-<p><input type="submit" name="submit" value="Delete Game" class="btn btn-danger" /></p>
+<p>
+    <input type="submit" name="submit" value="Delete Game" class="btn btn-danger" />
+    <a href="{{ object.get_absolute_url }}"><input type="button" name="cancel" value="Cancel" class="btn" /></a>
+</p>
 </form>
 {% endblock %}

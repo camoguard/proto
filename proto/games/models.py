@@ -5,7 +5,7 @@ from proto.wiki.models import WikiPage
 
 
 class Game(WikiPage):
-    release_date = FuzzyDateField()
+    release_date = FuzzyDateField(null=True, blank=True)
     platforms = models.ManyToManyField('Platform')
     developers = models.ManyToManyField('Company', related_name='developed_game_set')
     publishers = models.ManyToManyField('Company', related_name='published_game_set')

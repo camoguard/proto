@@ -9,6 +9,6 @@ class ThreadedCommentsAdmin(CommentsAdmin):
                     'ip_address', 'submit_date', 'is_public', 'is_removed')
     search_fields = ('comment', 'user__username', 'user_name',
                      'user_email', 'user_url', 'ip_address')
-    raw_id_fields = ("parent",)
+    raw_id_fields = ('parent',)
 
 admin.site.register(ThreadedComment, ThreadedCommentsAdmin)

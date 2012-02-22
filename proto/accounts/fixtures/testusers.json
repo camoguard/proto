@@ -8,12 +8,12 @@
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
-        "last_login": "2012-02-20 09:19:58",
+        "last_login": "2012-02-20T09:19:58.692",
         "groups": [],
         "user_permissions": [],
-        "password": "sha1$fcab2$4cfd99ac76db03f899d395d9a7515c9151d74929",
+        "password": "pbkdf2_sha256$10000$0QkVXfeLoDQc$RdvNd1KNiBEtRKT2W63WeFpOslrnhhvgm4b6lFN+d/s=",
         "email": "",
-        "date_joined": "2012-02-20 09:19:58"
+        "date_joined": "2012-02-20T09:19:58.692"
     }
 }, {
     "pk": 3,
@@ -25,11 +25,11 @@
         "is_active": true,
         "is_superuser": true,
         "is_staff": false,
-        "last_login": "2012-02-20 09:20:15",
+        "last_login": "2012-02-20T09:20:15",
         "groups": [],
         "user_permissions": [],
-        "password": "sha1$20a02$9e2797f8bf20a3848e49c8bd680f2800e6591c61",
+        "password": "pbkdf2_sha256$10000$4UQ1pZTJnw3r$W3cu1V8PU5sPfmq0L6DeFaefrlJA95kpCU2RHGglbDE=",
         "email": "",
-        "date_joined": "2012-02-20 09:20:15"
+        "date_joined": "2012-02-20T09:20:15"
     }
 }]
