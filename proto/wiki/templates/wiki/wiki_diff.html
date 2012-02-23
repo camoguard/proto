@@ -3,10 +3,16 @@
 {% block content %}
 <h1><a href="{{ wiki_object.get_absolute_url }}">{{ wiki_object.name }}</a></h1>
 
-<strong>Old Version</strong>: {{ old_version.revision.user }} - {{ old_version.revision.comment }}<br />
-<strong>New Version</strong>: {{ new_version.revision.user }} - {{ new_version.revision.comment }}<br />
+<br />
 
-{% for field, html in diff_html.items %}
-  <p><strong>{{ field }}</strong>: {{ html|safe }}</p>
-{% endfor %}
+<p><strong>Old Version</strong>: {{ old_version.revision.user }} - {{ old_version.revision.comment }}</p>
+<p><strong>New Version</strong>: {{ new_version.revision.user }} - {{ new_version.revision.comment }}</p>
+
+<br />
+
+<div id="diff">
+  {% for field, html in diff_html.items %}
+    <p><strong>{{ field|capfirst }}</strong>: {{ html|safe }}</p>
+  {% endfor %}
+</div>
 {% endblock %}

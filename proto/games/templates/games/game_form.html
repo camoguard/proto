@@ -26,7 +26,12 @@
   {{ form }}
   <label for="id-comment">Comment:</label>
   <input id="id-comment" type="text" max_length="100" name="comment" />
-  <p><input type="submit" name="submit" value="Save Changes" class="btn btn-primary" /></p>
+  <p>
+    <input type="submit" name="submit" value="{% if object %}Save changes{% else %}Create game{% endif %}" class="btn btn-primary" />
+    {% if not object %}
+      <a href="{% url wiki-list 'game' %}"><input type="button" name="cancel" value="Cancel" class="btn" /></a>
+    {% endif %}
+  </p>
   </form>
 {% if object %}
 </div>

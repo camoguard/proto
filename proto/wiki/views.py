@@ -66,6 +66,8 @@ class WikiCreateView(CreateView):
 
 
 class WikiDeleteView(DeleteView):
+    template_name = 'wiki/wiki_confirm_delete.html'
+
     def get_queryset(self):
         wiki_class = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
         self.queryset = wiki_class.objects.all()

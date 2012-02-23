@@ -13,11 +13,13 @@
   </li>
 </ul>
 
-<ul>
-  {% for object in object_list %}
-    <li>{{ object.creator }}: {{ object.body }}</li>
-  {% endfor %}
-</ul>
+{% if object_list %}
+  <ul>
+    {% for object in object_list %}
+      <li>{{ object.creator }}: {{ object.body }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
 
 <br />
 
