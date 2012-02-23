@@ -129,7 +129,7 @@ class FuzzyDate(object):
         if self.precision == DATE_PRECISIONS.MONTH:
             format = fpmonth
         elif self.precision == DATE_PRECISIONS.QUARTER:
-            format = fpquarter%((self.date.month-1)//3+1)
+            format = fpquarter % ((self.date.month-1)//3+1)
         elif self.precision == DATE_PRECISIONS.HALFYEAR:
             format = fphalfyear % ((self.date.month-1)//6+1)
         elif self.precision == DATE_PRECISIONS.YEAR:

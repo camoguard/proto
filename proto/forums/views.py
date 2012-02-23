@@ -31,7 +31,7 @@ class ThreadListView(ListView):
 class PostListView(ListView):
     def get_queryset(self):
         self.thread = get_object_or_404(Thread.objects.select_related('forum'),
-                                        pk=self.kwargs['thread_pk'], forum__site=settings.SITE_ID)
+                                        slug=self.kwargs['thread_slug'], forum__site=settings.SITE_ID)
         return Post.objects.filter(thread=self.thread).select_related('creator')
 
     def get_context_data(self, **kwargs):
@@ -78,10 +78,10 @@ def create_thread(request, forum_slug):
 
 @login_required
 @require_POST
-def process_post_form(request, forum_slug, thread_pk):
+def process_post_form(request, forum_slug, thread_slug):
     # Makes sure that the user is posting to an existing thread
     thread = get_object_or_404(Thread.objects.select_related('forum'),
-                                pk=thread_pk, forum__slug=forum_slug, forum__site=settings.SITE_ID)
+                                pk=thread_slug, forum__slug=forum_slug, forum__site=settings.SITE_ID)
 
     form = PostForm(request.POST)
     if form.is_valid():

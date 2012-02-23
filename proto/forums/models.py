@@ -6,6 +6,9 @@ from django.contrib.sites.models import Site
 from django.core.cache import cache
 from django.db import models
 
+from django_extensions.db.fields import AutoSlugField
+
+
 
 # CACHE KEYS
 FORUM_LAST_POST_KEY = 'forums:forum:last_post:%i'
@@ -14,7 +17,7 @@ THREAD_LAST_POST_KEY = 'forums:thread:last_post:%i'
 class Forum(models.Model):
     title = models.CharField(max_length=70)
     description = models.CharField(max_length=100)
-    slug = models.SlugField()
+    slug = AutoSlugField(populate_from='title')
     # content_type = models.ForeignKey(ContentType)
     # object_id = models.PositiveIntegerField()
     # content_object = generic.GenericForeignKey('content_type', 'object_id')
@@ -50,6 +53,7 @@ class Thread(models.Model):
     forum = models.ForeignKey(Forum)
     creator = models.ForeignKey(User)
     title = models.CharField(max_length=70)
+    slug = AutoSlugField(populate_from='title')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
@@ -60,7 +64,7 @@ class Thread(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/forums/%s/%d/" % (self.forum.slug, self.id)
+        return "/forums/%s/%s/" % (self.forum.slug, self.slug)
 
     def last_post(self):
         # Cache the last post so that we don't have to perform a database query for each thread on the thread list

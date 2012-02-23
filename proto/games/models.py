@@ -1,11 +1,10 @@
 from django.db import models
 
-from proto.core.fields import FuzzyDateField
 from proto.wiki.models import WikiPage
 
 
 class Game(WikiPage):
-    release_date = FuzzyDateField(null=True, blank=True)
+    release_date = models.DateField(null=True, blank=True)
     platforms = models.ManyToManyField('Platform', null=True, blank=True)
     developers = models.ManyToManyField('Company', related_name='developed_game_set', null=True, blank=True)
     publishers = models.ManyToManyField('Company', related_name='published_game_set', null=True, blank=True)
@@ -14,9 +13,9 @@ class Game(WikiPage):
 
 
 class Platform(WikiPage):
-    release_date = models.DateField()
+    release_date = models.DateField(null=True, blank=True)
     company = models.ForeignKey('Company')
-    abbreviation = models.CharField(max_length=10, blank=True, null=True)
+    abbreviation = models.CharField(max_length=10, null=True, blank=True)
 
 
 class Franchise(WikiPage):
@@ -37,7 +36,6 @@ class DLC(WikiPage):
 
 
 class Company(WikiPage):
-    pass
 
     class Meta:
         verbose_name_plural = 'companies'

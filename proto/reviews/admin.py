@@ -23,8 +23,8 @@ class ReviewAdmin(admin.ModelAdmin):
 
     class Media:
         js = [
-            '/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-            '/static/js/tinymce_setup.js'
+            'grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
+            'js/tinymce_setup.js'
         ]
 
 def make_published(self, request, queryset):
