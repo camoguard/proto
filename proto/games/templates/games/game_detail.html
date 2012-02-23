@@ -2,6 +2,8 @@
 
 {% block head_title %}{{ object.name }}{% endblock %}
 
+{% load markup %}
+
 {% block content %}
 <div class="tabbable">
   <ul class="nav nav-tabs">
@@ -52,8 +54,10 @@
   {% for theme in object.themes.all %}
     <a href="{{ theme.get_absolute_url }}">{{ theme }}</a>
   {% endfor %}
-  <p>
+  </p>
 
-  <p>{{ object.wiki_content }}</p>
+  <div id="wiki-content">
+    {{ object.wiki_content|creole }}
+  </div>
 </div>
 {% endblock %}
