@@ -2,7 +2,7 @@ from django import forms
 
 import reversion
 
-from proto.core.admin import FileBrowseField
+from proto.common.admin import FileBrowseField
 from proto.wiki.models import Wiki
 
 

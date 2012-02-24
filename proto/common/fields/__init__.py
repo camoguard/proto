@@ -1,24 +1,9 @@
 from fuzzydate.fields import FuzzyDateField
 from fuzzydate.core import FuzzyDate, DATE_PRECISIONS
 
-"""
-Django Extensions additional model fields
-"""
-
 from django.template.defaultfilters import slugify
-from django.db.models import DateTimeField, CharField, SlugField
+from django.db.models import SlugField
 import re
-
-try:
-    import uuid
-except ImportError:
-    from django_extensions.utils import uuid
-
-try:
-    from django.utils.timezone import now as datetime_now
-except ImportError:
-    import datetime
-    datetime_now = datetime.datetime.now
 
 
 class AutoSlugField(SlugField):
@@ -41,6 +26,9 @@ class AutoSlugField(SlugField):
 
     Inspired by SmileyChris' Unique Slugify snippet:
     http://www.djangosnippets.org/snippets/690/
+
+    Modified from the AutoSlugField in django_extensions to better handle slugs
+    that end with a number.
     """
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('blank', True)
@@ -80,6 +68,8 @@ class AutoSlugField(SlugField):
         slug_field = model_instance._meta.get_field(self.attname)
 
         if not add and not self.overwrite:
+            # no point in recalculating a slug if we already have a
+            # perfectly good one stored on the instance
             slug = self._slug_strip(getattr(model_instance, self.attname))
             return slug
 

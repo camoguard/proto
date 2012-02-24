@@ -6,9 +6,8 @@ from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.db import models
 
-from django_extensions.db.fields import AutoSlugField
-
 from proto.comments.models import ThreadedComment
+from proto.common.fields import AutoSlugField
 from proto.wiki.models import Wiki
 
 

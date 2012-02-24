@@ -160,7 +160,7 @@ INSTALLED_APPS = [
     'registration',
     'reversion',
 
-    'proto.core',
+    'proto.common',
     'proto.comments',
     'proto.accounts',
     'proto.news',

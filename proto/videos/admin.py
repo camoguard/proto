@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import admin
 
-from proto.core.admin import FileBrowseField
+from proto.common.admin import FileBrowseField
 from proto.videos.models import Video, VideoCategory
 
 

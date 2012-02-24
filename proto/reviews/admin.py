@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 
-from proto.core.admin import FileBrowseField
+from proto.common.admin import FileBrowseField
 from proto.reviews.models import Review
 
 
