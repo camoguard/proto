@@ -6,7 +6,7 @@ from model_utils.managers import InheritanceManager
 from proto.core.models import InheritanceMixIn
 
 
-class WikiPage(InheritanceMixIn, models.Model):
+class Wiki(InheritanceMixIn, models.Model):
     """
     Super class of wiki models.
     This model cannot be instantiated directly; it must be subclassed.

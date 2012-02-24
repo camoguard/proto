@@ -1,10 +1,10 @@
 from django.test import TestCase
 from django.test.client import Client
 
-from proto.wiki.models import WikiPage
+from proto.wiki.models import Wiki
 
 
-class TestGame(WikiPage):
+class TestGame(Wiki):
     pass
 
 

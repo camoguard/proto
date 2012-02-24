@@ -3,15 +3,15 @@ from django import forms
 import reversion
 
 from proto.core.admin import FileBrowseField
-from proto.wiki.models import WikiPage
+from proto.wiki.models import Wiki
 
 
-class WikiPageAdminForm(forms.ModelForm):
-    image = FileBrowseField(required=not WikiPage._meta.get_field('image').blank)
+class WikiAdminForm(forms.ModelForm):
+    image = FileBrowseField(required=not Wiki._meta.get_field('image').blank)
 
     class Meta:
-        model = WikiPage
+        model = Wiki
 
 
-class WikiPageAdmin(reversion.VersionAdmin):
+class WikiAdmin(reversion.VersionAdmin):
     list_display = ['name', 'slug', 'deck']

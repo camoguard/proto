@@ -1,47 +1,47 @@
 from django.contrib import admin
 
 from proto.games.models import Game, Platform, Franchise, Character, DLC, Company, Genre, Theme
-from proto.wiki.admin import WikiPageAdmin
+from proto.wiki.admin import WikiAdmin
 
 
-class GameAdmin(WikiPageAdmin):
+class GameAdmin(WikiAdmin):
     raw_id_fields = ('developers', 'publishers',)
     autocomplete_lookup_fields = {
         'm2m': [['developers'], ['publishers']],
     }
 
 
-class PlatformAdmin(WikiPageAdmin):
+class PlatformAdmin(WikiAdmin):
     pass
 
 
-class FranchiseAdmin(WikiPageAdmin):
+class FranchiseAdmin(WikiAdmin):
     raw_id_fields = ('games',)
     autocomplete_lookup_fields = {
         'm2m': [['games']],
     }
 
 
-class CharacterAdmin(WikiPageAdmin):
+class CharacterAdmin(WikiAdmin):
     raw_id_fields = ('games',)
     autocomplete_lookup_fields = {
         'm2m': [['games']],
     }
 
 
-class DLCAdmin(WikiPageAdmin):
+class DLCAdmin(WikiAdmin):
     pass
 
 
-class CompanyAdmin(WikiPageAdmin):
+class CompanyAdmin(WikiAdmin):
     pass
 
 
-class GenreAdmin(WikiPageAdmin):
+class GenreAdmin(WikiAdmin):
     pass
 
 
-class ThemeAdmin(WikiPageAdmin):
+class ThemeAdmin(WikiAdmin):
     pass
 
 

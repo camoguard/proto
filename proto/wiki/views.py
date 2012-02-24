@@ -10,7 +10,7 @@ import reversion
 from reversion.helpers import generate_patch_html
 from reversion.models import Version
 
-from proto.wiki.models import WikiPage
+from proto.wiki.models import Wiki
 
 
 class WikiDetailView(DetailView):
@@ -150,7 +150,7 @@ def process_wiki_history_form(request):
 
 
 def wiki_diff(request, old_version_pk, new_version_pk):
-    """Displays a diff between two :model:`wiki.WikiPage` versions."""
+    """Displays a diff between two :model:`wiki.Wiki` versions."""
     # Get the two versions to compare
     old_version = Version.objects.get(pk=old_version_pk)
     new_version = Version.objects.get(pk=new_version_pk)
@@ -171,7 +171,7 @@ def wiki_diff(request, old_version_pk, new_version_pk):
             # Only the pks of any foreign keys are stored in versions
             # We need to replace these keys with the names of the objects to show meaningful values to the user
             fk_pks = set(old_version.field_dict[key] + new_version.field_dict[key])
-            fk_objects = WikiPage.objects.in_bulk(fk_pks)
+            fk_objects = Wiki.objects.in_bulk(fk_pks)
 
             old_fk_names = [fk_objects[int(fk)].name for fk in old_version.field_dict[key]]
             old_version.field_dict[key] = ', '.join(old_fk_names)
@@ -191,5 +191,5 @@ def wiki_diff(request, old_version_pk, new_version_pk):
 
 
 def wiki_home(request):
-    wiki_list = WikiPage.objects.all()
+    wiki_list = Wiki.objects.all()
     return render(request, 'wiki/wiki_home.html', {'object_list': wiki_list})

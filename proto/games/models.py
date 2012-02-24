@@ -1,9 +1,9 @@
 from django.db import models
 
-from proto.wiki.models import WikiPage
+from proto.wiki.models import Wiki
 
 
-class Game(WikiPage):
+class Game(Wiki):
     release_date = models.DateField(null=True, blank=True)
     platforms = models.ManyToManyField('Platform', null=True, blank=True)
     developers = models.ManyToManyField('Company', related_name='developed_game_set', null=True, blank=True)
@@ -12,21 +12,21 @@ class Game(WikiPage):
     themes = models.ManyToManyField('Theme', null=True, blank=True)
 
 
-class Platform(WikiPage):
+class Platform(Wiki):
     release_date = models.DateField(null=True, blank=True)
     company = models.ForeignKey('Company')
     abbreviation = models.CharField(max_length=10, null=True, blank=True)
 
 
-class Franchise(WikiPage):
+class Franchise(Wiki):
     games = models.ManyToManyField('Game')
 
 
-class Character(WikiPage):
+class Character(Wiki):
     games = models.ManyToManyField('Game')
 
 
-class DLC(WikiPage):
+class DLC(Wiki):
     game = models.ForeignKey('Game')
     platforms = models.ManyToManyField('Platform')
 
@@ -35,15 +35,15 @@ class DLC(WikiPage):
         verbose_name_plural = 'DLC'
 
 
-class Company(WikiPage):
+class Company(Wiki):
 
     class Meta:
         verbose_name_plural = 'companies'
 
 
-class Genre(WikiPage):
+class Genre(Wiki):
     pass
 
 
-class Theme(WikiPage):
+class Theme(Wiki):
     pass
