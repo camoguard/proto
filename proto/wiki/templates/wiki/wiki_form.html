@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head_title %}
-{% if object %}Edit {{ object.name }}{% else %}Create Game{% endif %}
+{% if object %}Edit {{ object.name }}{% else %}Create {{ model|capfirst }}{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@
 {% endif %}
 
   <h1>
-    {% if object %}{{ object.name }}{% else %}Create Game{% endif %}
+    {% if object %}{{ object.name }}{% else %}Create {{ model }}{% endif %}
   </h1>
 
   <br />
@@ -27,7 +27,7 @@
   <label for="id-comment">Comment:</label>
   <input id="id-comment" type="text" max_length="100" name="comment" />
   <p>
-    <input type="submit" name="submit" value="{% if object %}Save changes{% else %}Create game{% endif %}" class="btn btn-primary" />
+    <input type="submit" name="submit" value="{% if object %}Save changes{% else %}Create {{ model }}{% endif %}" class="btn btn-primary" />
     {% if not object %}
       <a href="{% url wiki-list 'game' %}"><input type="button" name="cancel" value="Cancel" class="btn" /></a>
     {% endif %}

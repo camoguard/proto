@@ -6,7 +6,8 @@ from django.utils.safestring import mark_safe
 
 register = template.Library()
 
-@register.filter(is_safe=True)
+# @register.filter(is_safe=True)
+@register.filter()
 def creole(value):
     try:
         import creole
@@ -16,3 +17,5 @@ def creole(value):
         return force_unicode(value)
     else:
         return mark_safe(force_unicode(creole.creole2html(value)))
+
+creole.is_safe = True

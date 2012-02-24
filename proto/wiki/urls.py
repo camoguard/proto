@@ -12,16 +12,16 @@ urlpatterns = patterns('proto.wiki.views',
 
     url(r'^(?P<model>\w+)/$', WikiListView.as_view(), name='wiki-list'),
 
-    url(r'^(?P<model>\w+)/(?P<pk>\d+)/$', WikiDetailView.as_view(), name='wiki-detail-pk'),
+    # url(r'^(?P<model>\w+)/(?P<pk>\d+)/$', WikiDetailView.as_view(), name='wiki-detail-pk'),
     url(r'^(?P<model>\w+)/(?P<slug>[-\w]+)/$', WikiDetailView.as_view(), name='wiki-detail-slug'),
 
-    url(r'^(?P<model>\w+)/(?P<pk>\d+)/edit/$', WikiUpdateView.as_view(), name='wiki-edit-pk'),
+    # url(r'^(?P<model>\w+)/(?P<pk>\d+)/edit/$', WikiUpdateView.as_view(), name='wiki-edit-pk'),
     url(r'^(?P<model>\w+)/(?P<slug>[-\w]+)/edit/$', WikiUpdateView.as_view(), name='wiki-edit-slug'),
 
-    url(r'^(?P<model>\w+)/(?P<pk>\d+)/delete/$', WikiDeleteView.as_view(), name='wiki-delete-pk'),
+    # url(r'^(?P<model>\w+)/(?P<pk>\d+)/delete/$', WikiDeleteView.as_view(), name='wiki-delete-pk'),
     url(r'^(?P<model>\w+)/(?P<slug>[-\w]+)/delete/$', WikiDeleteView.as_view(), name='wiki-delete-slug'),
 
-    url(r'^(?P<model>\w+)/(?P<pk>\d+)/history/$', WikiHistoryView.as_view(), name='wiki-history-pk'),
+    # url(r'^(?P<model>\w+)/(?P<pk>\d+)/history/$', WikiHistoryView.as_view(), name='wiki-history-pk'),
     url(r'^(?P<model>\w+)/(?P<slug>[-\w]+)/history/$', WikiHistoryView.as_view(), name='wiki-history-slug'),
 
     url(r'^$', 'wiki_home', name='wiki-home'),

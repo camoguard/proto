@@ -14,23 +14,41 @@ from proto.wiki.models import WikiPage
 
 
 class WikiDetailView(DetailView):
+    """Displays an individual wiki page."""
+    def get_template_names(self):
+        names = super(WikiDetailView, self).get_template_names()
+        names.append('wiki/wiki_detail.html')
+        return names
+
     def get_queryset(self):
-        wiki_class = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
-        self.queryset = wiki_class.objects.all()
+        wiki_type = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
+        self.queryset = wiki_type.objects.all()
         return super(WikiDetailView, self).get_queryset()
 
 
 class WikiListView(ListView):
+    """Displays a list of wiki pages of a specific wiki type."""
+    def get_template_names(self):
+        names = super(WikiDetailView, self).get_template_names()
+        names.append('wiki/wiki_list.html')
+        return names
+
     def get_queryset(self):
-        wiki_class = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
-        self.queryset = wiki_class.objects.all()
+        wiki_type = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
+        self.queryset = wiki_type.objects.all()
         return super(WikiListView, self).get_queryset()
 
 
 class WikiUpdateView(UpdateView):
+    """Displays the form for editing an individual wiki object."""
+    def get_template_names(self):
+        names = super(WikiUpdateView, self).get_template_names()
+        names.append('wiki/wiki_form.html')
+        return names
+
     def get_queryset(self):
-        wiki_class = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
-        self.queryset = wiki_class.objects.all()
+        wiki_type = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
+        self.queryset = wiki_type.objects.all()
         return super(WikiUpdateView, self).get_queryset()
 
     def post(self, request, *args, **kwargs):
@@ -46,6 +64,12 @@ class WikiUpdateView(UpdateView):
 
 
 class WikiCreateView(CreateView):
+    """Displays the form for creating a new wiki object."""
+    def get_template_names(self):
+        names = super(WikiCreateView, self).get_template_names()
+        names.append('wiki/wiki_form.html')
+        return names
+
     def get_queryset(self):
         self.model = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
         return super(WikiCreateView, self).get_queryset()
@@ -57,6 +81,11 @@ class WikiCreateView(CreateView):
                 reversion.set_comment(request.POST['comment'])
             return super(WikiCreateView, self).post(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super(WikiCreateView, self).get_context_data(**kwargs)
+        context['model'] = self.kwargs['model']
+        return context
+
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         permission = 'can_create_%s' % kwargs['model']
@@ -66,11 +95,15 @@ class WikiCreateView(CreateView):
 
 
 class WikiDeleteView(DeleteView):
-    template_name = 'wiki/wiki_confirm_delete.html'
+    """Displays the page for deleting an individual wiki object."""
+    def get_template_names(self):
+        names = super(WikiDeleteView, self).get_template_names()
+        names.append('wiki/wiki_confirm_delete.html')
+        return names
 
     def get_queryset(self):
-        wiki_class = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
-        self.queryset = wiki_class.objects.all()
+        wiki_type = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
+        self.queryset = wiki_type.objects.all()
         return super(WikiDeleteView, self).get_queryset()
 
     def post(self, request, *args, **kwargs):
@@ -89,6 +122,7 @@ class WikiDeleteView(DeleteView):
 
 
 class WikiHistoryView(ListView):
+    """Displays the edit history of an individual wiki object."""
     template_name = 'wiki/wiki_history.html'
 
     def get_queryset(self):
@@ -116,6 +150,7 @@ def process_wiki_history_form(request):
 
 
 def wiki_diff(request, old_version_pk, new_version_pk):
+    """Displays a diff between two :model:`wiki.WikiPage` versions."""
     # Get the two versions to compare
     old_version = Version.objects.get(pk=old_version_pk)
     new_version = Version.objects.get(pk=new_version_pk)
