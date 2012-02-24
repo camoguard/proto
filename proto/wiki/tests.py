@@ -28,7 +28,7 @@ class WikiViewsTestCase(TestCase):
         response = self.client.get('/wiki/testgame/')
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['object_list'],
-                            ['<TestGame: Mass Effect 3>', '<TestGame: Half-Life 3>'])
+                                ['<TestGame: Mass Effect 3>', '<TestGame: Half-Life 3>'])
 
     def test_history_view(self):
         response = self.client.get('/wiki/%s/%s/history/' % (self.game._class, self.game.slug))
@@ -47,7 +47,7 @@ class WikiViewsTestCase(TestCase):
         self.client.login(username='test_user', password='test')
         response = self.client.get('/wiki/%s/%s/edit/' % (self.game._class, self.game.slug))
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(isinstance(response.context['form'], forms.ModelForm))
+        self.assertIsInstance(response.context['form'], forms.ModelForm)
         # Test that the 'name' field has been removed from the form since we don't allow users
         # to edit the names of wiki pages
         self.assertNotIn('name', response.context['form'].fields)
@@ -95,7 +95,7 @@ class WikiViewsTestCase(TestCase):
         response = self.client.get('/wiki/create/testgame/')
         self.assertEqual(response.status_code, 200)
         self.assertNotIn('object', response.context)
-        self.assertTrue(isinstance(response.context['form'], forms.ModelForm))
+        self.assertIsInstance(response.context['form'], forms.ModelForm)
         # Test that the form contains the 'name' field since we're creating an object
         self.assertIn('name', response.context['form'].fields)
         self.assertIn('model', response.context)
