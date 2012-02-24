@@ -29,7 +29,7 @@ class WikiDetailView(DetailView):
 class WikiListView(ListView):
     """Displays a list of wiki pages of a specific wiki type."""
     def get_template_names(self):
-        names = super(WikiDetailView, self).get_template_names()
+        names = super(WikiListView, self).get_template_names()
         names.append('wiki/wiki_list.html')
         return names
 
