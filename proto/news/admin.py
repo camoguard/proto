@@ -19,7 +19,7 @@ class ArticleAdmin(admin.ModelAdmin):
     actions = ['make_published']
     raw_id_fields = ('tags',)
     autocomplete_lookup_fields = {
-        'm2m': ['tags']
+        'm2m': ['tags'],
     }
 
     class Media:

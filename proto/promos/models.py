@@ -28,8 +28,8 @@ class PromoContainer(models.Model):
 
 class Promo(models.Model):
     promo_container = models.ForeignKey(PromoContainer)
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
+    content_type = models.ForeignKey(ContentType, editable=False)
+    object_id = models.PositiveIntegerField(editable=False)
     content_object = generic.GenericForeignKey()
     position = models.PositiveSmallIntegerField(unique=True)
 

@@ -4,7 +4,7 @@ from proto.forums.models import Forum, Thread, Post
 
 
 class ForumAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('title',)}
+    pass
 
 
 class PostInline(admin.TabularInline):

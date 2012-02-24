@@ -10,7 +10,7 @@ from proto.promos.models import PromoContainer, Promo
 
 class PromoInline(admin.TabularInline):
     model = Promo
-    readonly_fields = ['image_thumbnail']
+    readonly_fields = ['image_thumbnail', 'name', 'type']
     autocomplete_lookup_fields = {
         'generic': [['content_type', 'object_id']],
     }
@@ -25,6 +25,12 @@ class PromoInline(admin.TabularInline):
 
     # def has_delete_permission(self, request, obj=None):
     #     return False
+
+    def name(self, obj):
+        return obj.content_object
+
+    def type(self, obj):
+        return obj.content_object._meta.verbose_name
 
     def image_thumbnail(self, obj):
         image = obj.content_object.image
