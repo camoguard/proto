@@ -1,9 +1,9 @@
 from django.db import models
 
-from django_extensions.db.fields import AutoSlugField
 from model_utils.managers import InheritanceManager
 
 from proto.core.models import InheritanceMixIn
+from proto.core.fields import AutoSlugField
 
 
 class Wiki(InheritanceMixIn, models.Model):

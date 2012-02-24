@@ -1,5 +1,7 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
@@ -27,7 +29,7 @@ class WikiDetailView(DetailView):
 
 
 class WikiListView(ListView):
-    """Displays a list of wiki pages of a specific wiki type."""
+    """Displays a list of wiki pages for a specific wiki type."""
     def get_template_names(self):
         names = super(WikiListView, self).get_template_names()
         names.append('wiki/wiki_list.html')
@@ -40,7 +42,7 @@ class WikiListView(ListView):
 
 
 class WikiUpdateView(UpdateView):
-    """Displays the form for editing an individual wiki object."""
+    """Displays the form for editing an individual wiki page."""
     def get_template_names(self):
         names = super(WikiUpdateView, self).get_template_names()
         names.append('wiki/wiki_form.html')
@@ -51,10 +53,17 @@ class WikiUpdateView(UpdateView):
         self.queryset = wiki_type.objects.all()
         return super(WikiUpdateView, self).get_queryset()
 
+    def get_form(self, form_class):
+        # Don't let users change the names of wiki pages
+        # as this could lead to all sorts of trouble
+        form = super(WikiUpdateView, self).get_form(form_class)
+        del form.fields['name']
+        return form
+
     def post(self, request, *args, **kwargs):
         with reversion.create_revision():
             reversion.set_user(request.user)
-            if 'comment' in request.POST:
+            if 'comment' in request.POST and request.POST['comment']:
                 reversion.set_comment(request.POST['comment'])
             return super(WikiUpdateView, self).post(request, *args, **kwargs)
 
@@ -64,7 +73,7 @@ class WikiUpdateView(UpdateView):
 
 
 class WikiCreateView(CreateView):
-    """Displays the form for creating a new wiki object."""
+    """Displays the form for creating a new wiki page."""
     def get_template_names(self):
         names = super(WikiCreateView, self).get_template_names()
         names.append('wiki/wiki_form.html')
@@ -77,7 +86,7 @@ class WikiCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         with reversion.create_revision():
             reversion.set_user(request.user)
-            if 'comment' in request.POST:
+            if 'comment' in request.POST and request.POST['comment']:
                 reversion.set_comment(request.POST['comment'])
             return super(WikiCreateView, self).post(request, *args, **kwargs)
 
@@ -95,7 +104,7 @@ class WikiCreateView(CreateView):
 
 
 class WikiDeleteView(DeleteView):
-    """Displays the page for deleting an individual wiki object."""
+    """Displays the page for deleting an individual wiki page."""
     def get_template_names(self):
         names = super(WikiDeleteView, self).get_template_names()
         names.append('wiki/wiki_confirm_delete.html')
@@ -109,9 +118,13 @@ class WikiDeleteView(DeleteView):
     def post(self, request, *args, **kwargs):
         with reversion.create_revision():
             reversion.set_user(request.user)
-            if 'comment' in request.POST:
+            if 'comment' in request.POST and request.POST['comment']:
                 reversion.set_comment(request.POST['comment'])
             return super(WikiDeleteView, self).post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        messages.success(self.request, "The %s %s was deleted." % (self.kwargs['model'], self.object.name))
+        return reverse('wiki-list', kwargs={'model': self.kwargs['model']})
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -122,7 +135,7 @@ class WikiDeleteView(DeleteView):
 
 
 class WikiHistoryView(ListView):
-    """Displays the edit history of an individual wiki object."""
+    """Displays the edit history of an individual wiki page."""
     template_name = 'wiki/wiki_history.html'
 
     def get_queryset(self):
