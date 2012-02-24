@@ -62,7 +62,7 @@ def create_thread(request, forum_slug):
                 thread.save()
                 post_formset.save()
 
-                messages.success(request, "Your thread '%s' was created." % thread.title)
+                messages.success(request, "Your thread <em>%s</em> was created." % thread.title)
 
             return redirect(thread.get_absolute_url())
     else:

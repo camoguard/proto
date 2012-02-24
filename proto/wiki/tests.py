@@ -22,7 +22,6 @@ class WikiViewsTestCase(TestCase):
     def test_detail_view(self):
         response = self.client.get('/wiki/testgame/mass-effect-3/')
         self.assertEqual(response.status_code, 200)
-        self.assertIn('object', response.context)
         self.assertEqual(response.context['object'], self.game_1)
 
     def test_list_view(self):
@@ -47,7 +46,6 @@ class WikiViewsTestCase(TestCase):
         response = self.client.get('/wiki/testgame/mass-effect-3/edit/')
         self.assertEqual(response.status_code, 200)
         self.assertIn('form', response.context)
-        self.assertIn('object', response.context)
         self.assertEqual(response.context['object'], self.game_1)
 
     def test_update_view_with_good_data(self):
