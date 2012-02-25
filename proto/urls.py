@@ -35,7 +35,6 @@ urlpatterns = patterns('',
     url(r'^wiki/', include('proto.wiki.urls')),
 
     url(r'^api/', include(v1_api.urls)),
-    url(r'^search/', include('haystack.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
