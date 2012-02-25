@@ -6,8 +6,15 @@ from django.core.files.storage import default_storage
 
 from filebrowser.sites import site
 from filebrowser.storage import S3BotoStorageMixin
+from tastypie.api import Api
+
+from proto.api import GameResource
+
 
 admin.autodiscover()
+
+v1_api = Api(api_name='v1')
+v1_api.register(GameResource())
 
 urlpatterns = patterns('',
     # Examples:
@@ -26,6 +33,9 @@ urlpatterns = patterns('',
     url(r'^news/', include('proto.news.urls')),
     url(r'^forums/', include('proto.forums.urls')),
     url(r'^wiki/', include('proto.wiki.urls')),
+
+    url(r'^api/', include(v1_api.urls)),
+    url(r'^search/', include('haystack.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

@@ -159,6 +159,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'registration',
     'reversion',
+    'tastypie',
 
     'proto.common',
     'proto.comments',
