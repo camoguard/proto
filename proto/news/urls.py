@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, url, include
+from django.conf.urls import patterns, url
 
 from proto.news.views import ArticleDetailView, ArticleIndexView, ArticleYearView, ArticleMonthView, ArticleDayView
 

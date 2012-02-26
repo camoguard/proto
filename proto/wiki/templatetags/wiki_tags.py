@@ -22,8 +22,7 @@ def get_verbose_name_plural(value):
     return value._meta.verbose_name_plural
 
 
-# @register.filter(is_safe=True)
-@register.filter()
+@register.filter(is_safe=True)
 def creole(value):
     try:
         import creole
@@ -33,5 +32,3 @@ def creole(value):
         return force_unicode(value)
     else:
         return mark_safe(force_unicode(creole.creole2html(value)))
-
-creole.is_safe = True

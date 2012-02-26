@@ -31,8 +31,10 @@ class Forum(models.Model):
     def __unicode__(self):
         return self.title
 
+    @models.permalink
     def get_absolute_url(self):
-        return "/forums/%s/" % self.slug
+        return ('thread-list', (), {
+            'forum_slug': self.slug})
 
     def last_post(self):
         # Cache the last post so that we don't have to perform a database query for each forum on the forum list
@@ -62,8 +64,11 @@ class Thread(models.Model):
     def __unicode__(self):
         return self.title
 
+    @models.permalink
     def get_absolute_url(self):
-        return "/forums/%s/%s/" % (self.forum.slug, self.slug)
+        return ('post-list', (), {
+            'forum_slug': self.forum.slug,
+            'thread_slug': self.slug})
 
     def last_post(self):
         # Cache the last post so that we don't have to perform a database query for each thread on the thread list
