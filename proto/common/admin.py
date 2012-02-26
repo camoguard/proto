@@ -17,4 +17,4 @@ class FileBrowseWidget(fb_FileBrowseWidget):
 class FileBrowseField(forms.CharField):
     # Use a CharField, not an ImageField or FileField, since filebrowser
     # is handling any file uploading
-    widget = FileBrowseWidget(attrs={'site': filebrowser_site})
+    widget = FileBrowseWidget(attrs={'filebrowser_site': filebrowser_site})

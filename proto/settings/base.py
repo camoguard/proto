@@ -159,6 +159,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'registration',
     'reversion',
+    'haystack',
     'tastypie',
 
     'proto.common',
@@ -174,11 +175,23 @@ INSTALLED_APPS = [
     'proto.promos'
 ]
 
+def custom_show_toolbar(request):
+    return False
+
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
+    # 'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
 }
 
 COMMENTS_APP = 'proto.comments'
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

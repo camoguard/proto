@@ -23,8 +23,8 @@ class WikiDetailView(DetailView):
         return names
 
     def get_queryset(self):
-        wiki_type = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
-        self.queryset = wiki_type.objects.all()
+        wiki_model = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
+        self.queryset = wiki_model.objects.all()
         return super(WikiDetailView, self).get_queryset()
 
 
@@ -36,8 +36,8 @@ class WikiListView(ListView):
         return names
 
     def get_queryset(self):
-        wiki_type = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
-        self.queryset = wiki_type.objects.all()
+        wiki_model = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
+        self.queryset = wiki_model.objects.all()
         return super(WikiListView, self).get_queryset()
 
 
@@ -49,8 +49,8 @@ class WikiUpdateView(UpdateView):
         return names
 
     def get_queryset(self):
-        wiki_type = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
-        self.queryset = wiki_type.objects.all()
+        wiki_model = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
+        self.queryset = wiki_model.objects.all()
         return super(WikiUpdateView, self).get_queryset()
 
     def get_form(self, form_class):
@@ -91,7 +91,8 @@ class WikiCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(WikiCreateView, self).get_context_data(**kwargs)
-        context['model'] = self.kwargs['model']
+        context['model'] = self.model
+        print self.model
         return context
 
     @method_decorator(login_required)
@@ -110,8 +111,8 @@ class WikiDeleteView(DeleteView):
         return names
 
     def get_queryset(self):
-        wiki_type = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
-        self.queryset = wiki_type.objects.all()
+        wiki_model = get_object_or_404(ContentType, model=self.kwargs['model']).model_class()
+        self.queryset = wiki_model.objects.all()
         return super(WikiDeleteView, self).get_queryset()
 
     def post(self, request, *args, **kwargs):

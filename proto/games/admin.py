@@ -12,7 +12,10 @@ class GameAdmin(WikiAdmin):
 
 
 class PlatformAdmin(WikiAdmin):
-    pass
+    raw_id_fields = ('company',)
+    autocomplete_lookup_fields = {
+        'fk': [['company']],
+    }
 
 
 class FranchiseAdmin(WikiAdmin):

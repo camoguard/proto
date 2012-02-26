@@ -9,7 +9,7 @@ from proto.common.models import InheritanceMixIn
 class Wiki(InheritanceMixIn, models.Model):
     """
     Super class of wiki models.
-    This model cannot be instantiated directly; it must be subclassed.
+    This model should not be instantiated directly; it should be subclassed.
     """
     name = models.CharField(max_length=70)
     slug = AutoSlugField(populate_from='name')

@@ -1,7 +1,18 @@
 {% extends "base.html" %}
 
+{% load wiki_tags %}
+
+{% block head_title %}{{ object_list|get_verbose_name_plural|capfirst }}{% endblock %}
+
 {% block content %}
+<h1>{{ object_list|get_verbose_name_plural|capfirst }}</h1>
+
+<br />
+
 {% for object in object_list %}
-  <a href="{{ object.get_absolute_url }}">{{ object.name }}</a><br />
+<ul>
+  <li><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
+</ul>
 {% endfor %}
+
 {% endblock %}

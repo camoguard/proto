@@ -8,13 +8,20 @@ from filebrowser.sites import site
 from filebrowser.storage import S3BotoStorageMixin
 from tastypie.api import Api
 
-from proto.api import GameResource
+from proto.games.api import GameResource, PlatformResource, CharacterResource, DLCResource, \
+    CompanyResource, GenreResource, ThemeResource
 
 
 admin.autodiscover()
 
 v1_api = Api(api_name='v1')
 v1_api.register(GameResource())
+v1_api.register(PlatformResource())
+v1_api.register(CharacterResource())
+v1_api.register(DLCResource())
+v1_api.register(CompanyResource())
+v1_api.register(GenreResource())
+v1_api.register(ThemeResource())
 
 urlpatterns = patterns('',
     # Examples:
@@ -34,6 +41,7 @@ urlpatterns = patterns('',
     url(r'^forums/', include('proto.forums.urls')),
     url(r'^wiki/', include('proto.wiki.urls')),
 
+    url(r'^search/', include('haystack.urls')),
     url(r'^api/', include(v1_api.urls)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -1,7 +1,5 @@
 from proto.settings.base import *
 
-from S3 import CallingFormat
-
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -18,8 +16,8 @@ STATIC_URL = 'http://cbsi-proto.s3.amazonaws.com/'
 STATICFILES_STORAGE = 'proto.common.storage.CachedS3BotoStorage'
 COMPRESS_STORAGE = STATICFILES_STORAGE
 
-MEDIA_ROOT = 'http://cbsi-proto.s3.amazonaws.com/'
-MEDIA_URL = 'http://cbsi-proto.s3.amazonaws.com/'
+MEDIA_ROOT = 'http://cbsi-proto.s3.amazonaws.com/uploads/'
+MEDIA_URL = 'http://cbsi-proto.s3.amazonaws.com/uploads/'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 FILEBROWSER_DIRECTORY = ''
 
@@ -28,7 +26,6 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'
 AWS_ACCESS_KEY_ID = 'AKIAJZFJLRNQNCJWGHIQ'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'cbsi-proto'
-AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

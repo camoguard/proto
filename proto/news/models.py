@@ -40,7 +40,7 @@ class Article(models.Model):
 
     objects = models.Manager()
     on_site = CurrentSiteManager()
-    public = PublicManager()
+    public_objects = PublicManager()
 
     class Meta:
         ordering = ['-pub_date']

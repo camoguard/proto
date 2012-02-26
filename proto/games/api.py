@@ -1,0 +1,37 @@
+from proto.games.models import Game, Platform, Character, DLC, Company, Genre, Theme
+from proto.wiki.api import WikiResource
+
+
+class GameResource(WikiResource):
+    class Meta(WikiResource.Meta):
+        queryset = Game.objects.all()
+
+
+class PlatformResource(WikiResource):
+    class Meta(WikiResource.Meta):
+        queryset = Platform.objects.all()
+
+
+class CharacterResource(WikiResource):
+    class Meta(WikiResource.Meta):
+        queryset = Character.objects.all()
+
+
+class DLCResource(WikiResource):
+    class Meta(WikiResource.Meta):
+        queryset = DLC.objects.all()
+
+
+class CompanyResource(WikiResource):
+    class Meta(WikiResource.Meta):
+        queryset = Company.objects.all()
+
+
+class GenreResource(WikiResource):
+    class Meta(WikiResource.Meta):
+        queryset = Genre.objects.all()
+
+
+class ThemeResource(WikiResource):
+    class Meta(WikiResource.Meta):
+        queryset = Theme.objects.all()
