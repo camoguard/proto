@@ -92,7 +92,6 @@ class WikiCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(WikiCreateView, self).get_context_data(**kwargs)
         context['model'] = self.model
-        print self.model
         return context
 
     @method_decorator(login_required)
