@@ -1,20 +1,20 @@
 -e git://github.com/django/django#egg=django
-PIL==1.1.7
-docutils==0.8.1
-pygments==1.4
-south==0.7.3
-gunicorn==0.13.4
-django-grappelli==2.3.7
-django-filebrowser==3.4.0
-django-model-utils==1.0.0
-django-extensions==0.7.1
-django_compressor==1.1.2
-django-debug-toolbar==0.9.4
-django-reversion==1.5.1
-diff-match-patch==20110725.1
-python-creole==1.0.1
-tastypie==0.9.11
+PIL>=1.1.7
+docutils>=0.8.1
+pygments>=1.4
+south>=0.7.3
+gunicorn>=0.13.4
+django-grappelli>=2.3.7
+django-filebrowser>=3.4.0
+django-model-utils>=1.0.0
+django-extensions>=0.8
+django_compressor>=1.1.2
+django-debug-toolbar>=0.9.4
+django-reversion>=1.5.1
+diff-match-patch>=20110725.1
+python-creole>=1.0.1
+django-tastypie>=0.9.11
 -e git://github.com/toastdriven/django-haystack#egg=django-haystack
-requests==0.10.4
+requests>=0.10.6
 -e git://github.com/toastdriven/pyelasticsearch#egg=pyelasticsearch
 -e hg+http://bitbucket.org/ubernostrum/django-registration/#egg=django-registration

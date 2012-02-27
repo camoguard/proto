@@ -13,4 +13,4 @@ def home(request):
 
 def ajax_autocomplete(request):
     results = SearchQuerySet().autocomplete(title_auto=request.GET.get('q', '')).values('title', 'model_name', 'pk')
-    return HttpResponse(json.dumps(results[:5]), content_type='application/json')
+    return HttpResponse(json.dumps(results[:8]), content_type='application/json')

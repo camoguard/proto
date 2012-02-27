@@ -47,8 +47,8 @@ urlpatterns = patterns('',
     url(r'^api/', include(v1_api.urls)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+if not settings.DEBUG:
+    if S3BotoStorageMixin not in default_storage.__class__.__bases__:
+        default_storage.__class__.__bases__ += (S3BotoStorageMixin,)
 
-if S3BotoStorageMixin not in default_storage.__class__.__bases__:
-    default_storage.__class__.__bases__ += (S3BotoStorageMixin,)
-
-site.storage = default_storage
+    site.storage = default_storage
