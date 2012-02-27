@@ -32,7 +32,7 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('registration.urls')),
-    url(r'^accounts/profile/', 'proto.accounts.views.profile', name='profile'),
+    url(r'^accounts/profile/$', 'proto.accounts.views.profile', name='profile'),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^comments/', include('django.contrib.comments.urls')),
@@ -43,7 +43,7 @@ urlpatterns = patterns('',
     url(r'^wiki/', include('proto.wiki.urls')),
 
     url(r'^search/', include('haystack.urls')),
-    url(r'^search/autocomplete/', 'proto.views.ajax_autocomplete', name='ajax-autocomplete'),
+    url(r'^search/autocomplete/$', 'proto.views.ajax_autocomplete', name='ajax-autocomplete'),
     url(r'^api/', include(v1_api.urls)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
