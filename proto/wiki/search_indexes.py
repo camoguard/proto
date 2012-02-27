@@ -11,7 +11,7 @@ class WikiIndex(indexes.SearchIndex):
     text = indexes.CharField(document=True, use_template=True)
     title = indexes.CharField(model_attr='name')
     deck = indexes.CharField(model_attr='deck')
-    title_autocomplete = indexes.EdgeNgramField(model_attr='name')
+    title_auto = indexes.EdgeNgramField(model_attr='name')
 
     def get_model(self):
         return Wiki

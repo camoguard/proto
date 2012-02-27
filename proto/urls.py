@@ -8,8 +8,8 @@ from filebrowser.sites import site
 from filebrowser.storage import S3BotoStorageMixin
 from tastypie.api import Api
 
-from proto.games.api import GameResource, PlatformResource, CharacterResource, DLCResource, \
-    CompanyResource, GenreResource, ThemeResource
+from proto.games.api import GameResource, PlatformResource, FranchiseResource, CharacterResource, \
+    DLCResource, CompanyResource, GenreResource, ThemeResource
 
 
 admin.autodiscover()
@@ -17,6 +17,7 @@ admin.autodiscover()
 v1_api = Api(api_name='v1')
 v1_api.register(GameResource())
 v1_api.register(PlatformResource())
+v1_api.register(FranchiseResource())
 v1_api.register(CharacterResource())
 v1_api.register(DLCResource())
 v1_api.register(CompanyResource())
@@ -42,6 +43,7 @@ urlpatterns = patterns('',
     url(r'^wiki/', include('proto.wiki.urls')),
 
     url(r'^search/', include('haystack.urls')),
+    url(r'^search/autocomplete/', 'proto.views.ajax_autocomplete', name='ajax-autocomplete'),
     url(r'^api/', include(v1_api.urls)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

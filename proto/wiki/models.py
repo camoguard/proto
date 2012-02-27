@@ -23,6 +23,7 @@ class Wiki(InheritanceMixIn, models.Model):
 
     class Meta:
         unique_together = ('_class', 'slug')
+        ordering = ['name']
 
     def __unicode__(self):
         return self.name

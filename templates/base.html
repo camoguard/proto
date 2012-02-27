@@ -41,7 +41,7 @@
             </ul>
 
             <form class="navbar-search pull-left">
-              <input type="text" class="search-query" placeholder="Search">
+              <input type="text" id="navbar-search" class="search-query" placeholder="Search" data-provide="typeahead" autocomplete='off'>
             </form>
 
             <ul class="nav pull-right">
@@ -95,6 +95,7 @@
     </script>
     <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-typeahead.js"></script>
     <script src="{{ STATIC_URL }}js/jquery-ajaxQueue.js"></script>
     <script src="{{ STATIC_URL }}js/main.js"></script>
     {% block extra_script %}

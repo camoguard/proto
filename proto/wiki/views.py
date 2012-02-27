@@ -54,9 +54,11 @@ class WikiUpdateView(UpdateView):
         return super(WikiUpdateView, self).get_queryset()
 
     def get_form(self, form_class):
-        # Don't let users change the names of existing wiki pages as this could lead to all sorts of trouble
+        # Don't let non-staff users change the names of existing wiki pages as
+        # this could lead to all sorts of trouble
         form = super(WikiUpdateView, self).get_form(form_class)
-        del form.fields['name']
+        if not self.request.user.is_staff:
+            del form.fields['name']
         return form
 
     def post(self, request, *args, **kwargs):

@@ -1,0 +1,6 @@
+{{ object.name }}
+{{ object.deck }}
+{{ object.wiki_content }}
+{% for game in object.games.all %}
+    {{ game.name }}
+{% endfor %}

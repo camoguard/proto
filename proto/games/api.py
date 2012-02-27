@@ -1,4 +1,4 @@
-from proto.games.models import Game, Platform, Character, DLC, Company, Genre, Theme
+from proto.games.models import Game, Platform, Franchise, Character, DLC, Company, Genre, Theme
 from proto.wiki.api import WikiResource
 
 
@@ -10,6 +10,11 @@ class GameResource(WikiResource):
 class PlatformResource(WikiResource):
     class Meta(WikiResource.Meta):
         queryset = Platform.objects.all()
+
+
+class FranchiseResource(WikiResource):
+    class Meta(WikiResource.Meta):
+        queryset = Franchise.objects.all()
 
 
 class CharacterResource(WikiResource):

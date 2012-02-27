@@ -27,6 +27,14 @@ AWS_ACCESS_KEY_ID = 'AKIAJZFJLRNQNCJWGHIQ'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'cbsi-proto'
 
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+#       'django.template.loaders.eggs.Loader',
+    )),
+)
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # LOGGING = {

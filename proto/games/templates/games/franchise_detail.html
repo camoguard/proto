@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load wiki_tags %}
+
+{% block head_title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+<div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#">Read</a></li>
+    <li><a href="{% url wiki-edit-slug object.get_class object.slug %}">Edit</a></li>
+    <li><a href="{% url wiki-history-slug object.get_class object.slug %}">View History</a></li>
+  </ul>
+
+  <h1>{{ object.name }}</h1>
+
+  <h3>{{ object.deck }}</h3>
+
+  <br />
+
+  <div id="wiki-content">
+    {{ object.wiki_content|creole }}
+  </div>
+
+  <strong>Games</strong>
+  <p>
+  {% for game in object.games.all|dictsort:"release_date" %}
+    <a href="{{ game.get_absolute_url }}">{{ game.name }}
+    {% if game.release_date %}</a>({{ game.release_date.year }}){% endif %}
+    <br />
+  {% endfor %}
+  </p>
+
+</div>
+{% endblock %}
