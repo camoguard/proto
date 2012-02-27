@@ -16,7 +16,7 @@ from proto.wiki.models import Wiki
 
 
 class WikiDetailView(DetailView):
-    """Displays an individual wiki page."""
+    """Display an individual :model:`wiki.Wiki`."""
     def get_template_names(self):
         names = super(WikiDetailView, self).get_template_names()
         names.append('wiki/wiki_detail.html')
@@ -29,7 +29,7 @@ class WikiDetailView(DetailView):
 
 
 class WikiListView(ListView):
-    """Displays a list of wiki pages for a specific wiki type."""
+    """Display a list of :model:`wiki.Wiki` of a specific subclass."""
     def get_template_names(self):
         names = super(WikiListView, self).get_template_names()
         names.append('wiki/wiki_list.html')
@@ -42,7 +42,7 @@ class WikiListView(ListView):
 
 
 class WikiUpdateView(UpdateView):
-    """Displays the form for editing an individual wiki page."""
+    """Display the form for editing an existing :model:`wiki.Wiki`."""
     def get_template_names(self):
         names = super(WikiUpdateView, self).get_template_names()
         names.append('wiki/wiki_form.html')
@@ -74,7 +74,7 @@ class WikiUpdateView(UpdateView):
 
 
 class WikiCreateView(CreateView):
-    """Displays the form for creating a new wiki page."""
+    """Display the form for creating a new :model:`wiki.Wiki`."""
     def get_template_names(self):
         names = super(WikiCreateView, self).get_template_names()
         names.append('wiki/wiki_form.html')
@@ -105,7 +105,7 @@ class WikiCreateView(CreateView):
 
 
 class WikiDeleteView(DeleteView):
-    """Displays the page for deleting an individual wiki page."""
+    """Display the page for deleting an individual :model:`wiki.Wiki`."""
     def get_template_names(self):
         names = super(WikiDeleteView, self).get_template_names()
         names.append('wiki/wiki_confirm_delete.html')
@@ -136,7 +136,7 @@ class WikiDeleteView(DeleteView):
 
 
 class WikiHistoryView(ListView):
-    """Displays the edit history of an individual wiki page."""
+    """Display the edit history of an individual :model:`wiki.Wiki`."""
     template_name = 'wiki/wiki_history.html'
 
     def get_queryset(self):
@@ -164,37 +164,35 @@ def process_wiki_history_form(request):
 
 
 def wiki_diff(request, old_version_pk, new_version_pk):
-    """Displays a diff between two :model:`wiki.Wiki` versions."""
+    """Display a diff between two :model:`wiki.Wiki` versions."""
     # Get the two versions to compare
-    old_version = Version.objects.get(pk=old_version_pk)
-    new_version = Version.objects.get(pk=new_version_pk)
+    old_version = Version.objects.select_related('revision__user', 'revision__comment').get(pk=old_version_pk)
+    new_version = Version.objects.select_related('revision__user', 'revision__comment').get(pk=new_version_pk)
 
     # Don't generate a diff if the versions belong to different wiki objects
     if old_version.object_id != new_version.object_id:
         raise Http404
 
-    wiki_object = new_version.object
+    wiki_object = new_version.object.get_object()
 
-    # Get the list of fields for which we want to include in the diff
-    # field_list = [f.name for f in wiki_object._meta.fields if f.editable and not f.name.endswith('_ptr')]
-
-    # Generate and render the diff for all fields
     diff_html = {}
-    for key, value in new_version.field_dict.items():
+    for field, value in new_version.field_dict.items():
+
         if isinstance(value, list):
-            # Only the pks of any foreign keys are stored in versions
+            # Only the PKs of any foreign keys are stored in versions
             # We need to replace these keys with the names of the objects to show meaningful values to the user
-            fk_pks = set(old_version.field_dict[key] + new_version.field_dict[key])
+            fk_pks = set(old_version.field_dict[field] + new_version.field_dict[field])
             fk_objects = Wiki.objects.in_bulk(fk_pks)
 
-            old_fk_names = [fk_objects[int(fk)].name for fk in old_version.field_dict[key]]
-            old_version.field_dict[key] = ', '.join(old_fk_names)
+            old_fk_names = [fk_objects[int(fk)].name for fk in old_version.field_dict[field]]
+            old_version.field_dict[field] = ', '.join(old_fk_names)
 
-            new_fk_names = [fk_objects[int(fk)].name for fk in new_version.field_dict[key]]
-            new_version.field_dict[key] = ', '.join(new_fk_names)
+            new_fk_names = [fk_objects[int(fk)].name for fk in new_version.field_dict[field]]
+            new_version.field_dict[field] = ', '.join(new_fk_names)
 
-        # Generate the diff for the field
-        diff_html[key] = generate_patch_html(old_version, new_version, key, cleanup='semantic')
+        real_field = wiki_object._meta.get_field_by_name(field)[0]
+        if real_field.editable and field not in ['id', 'wiki_ptr']:
+            diff_html[real_field.verbose_name] = generate_patch_html(old_version, new_version, field, cleanup='semantic')
 
     return render(request, 'wiki/wiki_diff.html', {
         'old_version': old_version,

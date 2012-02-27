@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 
+{% load wiki_tags %}
+
+{% block head_title %}Diff for {{ wiki_object.name }} ({{ wiki_object|get_verbose_name }}){{% endblock %}
+
 {% block content %}
-<h1><a href="{{ wiki_object.get_absolute_url }}">{{ wiki_object.name }}</a></h1>
+<h1>{{ wiki_object.name }}</h1>
 
 <br />
 
-<p><strong>Old Version</strong>: {{ old_version.revision.user }} - {{ old_version.revision.comment }}</p>
-<p><strong>New Version</strong>: {{ new_version.revision.user }} - {{ new_version.revision.comment }}</p>
+<p><strong>Old Version</strong>: {{ old_version.revision.date_created }} - {{ old_version.revision.user }}
+{% if old_version.revision.comment %}({{ old_version.revision.comment }}){% endif %}</p>
+<p><strong>New Version</strong>: {{ new_version.revision.date_created }} - {{ new_version.revision.user }}
+{% if new_version.revision.comment %}({{ new_version.revision.comment }}){% endif %}</p>
 
 <br />
 

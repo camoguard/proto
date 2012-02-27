@@ -2,7 +2,7 @@
 
 {% load wiki_tags %}
 
-{% block head_title %}{{ object.name }}{% endblock %}
+{% block head_title %}{{ object.name }} ({{ object|get_verbose_name }}){% endblock %}
 
 {% block content %}
 <div class="tabbable">

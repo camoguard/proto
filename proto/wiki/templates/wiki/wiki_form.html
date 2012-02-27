@@ -3,7 +3,11 @@
 {% load wiki_tags %}
 
 {% block head_title %}
-{% if object %}Edit {{ object.name }}{% else %}Create {{ model|get_verbose_name|capfirst }}{% endif %}
+  {% if object %}
+    Edit {{ object.name }} ({{ object|get_verbose_name }})
+  {% else %}
+    Create {{ model|get_verbose_name|capfirst }}
+  {% endif %}
 {% endblock %}
 
 {% block content %}
