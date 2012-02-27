@@ -1,3 +1,5 @@
+from tastypie import fields
+
 from proto.games.models import Game, Platform, Franchise, Character, DLC, Company, Genre, Theme
 from proto.wiki.api import WikiResource
 
@@ -13,6 +15,8 @@ class PlatformResource(WikiResource):
 
 
 class FranchiseResource(WikiResource):
+    games = fields.ManyToManyField(GameResource, 'games', full=False)
+
     class Meta(WikiResource.Meta):
         queryset = Franchise.objects.all()
 

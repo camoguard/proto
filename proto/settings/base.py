@@ -102,12 +102,14 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -175,22 +177,14 @@ INSTALLED_APPS = [
     'proto.promos'
 ]
 
+COMMENTS_APP = 'proto.comments'
+
 def custom_show_toolbar(request):
     return False
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
     # 'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
-}
-
-COMMENTS_APP = 'proto.comments'
-
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'haystack',
-    },
 }
 
 # A sample logging configuration. The only tangible logging

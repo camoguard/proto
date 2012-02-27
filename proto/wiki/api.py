@@ -12,6 +12,7 @@ class WikiResource(SearchModelResource):
         list_allowed_methods = ['get']
         detail_allowed_methods = ['get']
         include_absolute_url = True
+        excludes = ['_class']
         filtering = {
             'slug': ('exact', 'startswith',),
             'name': ALL,
