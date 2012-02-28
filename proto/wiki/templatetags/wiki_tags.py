@@ -9,6 +9,7 @@ register = template.Library()
 
 @register.filter()
 def get_verbose_name(value):
+    "Gets the model's verbose name for either an individual object or a QuerySet."
     if isinstance(value, QuerySet):
         return value.model._meta.verbose_name
     return value._meta.verbose_name
@@ -16,6 +17,7 @@ def get_verbose_name(value):
 
 @register.filter()
 def get_verbose_name_plural(value):
+    "Gets the model's verbose name plural for either an individual object or a QuerySet."
     if isinstance(value, QuerySet):
         return value.model._meta.verbose_name_plural
     return value._meta.verbose_name_plural
@@ -23,6 +25,7 @@ def get_verbose_name_plural(value):
 
 @register.filter(is_safe=True)
 def creole(value):
+    "Converts Creole-formatted text to formatted HTML."
     try:
         import creole
     except ImportError:

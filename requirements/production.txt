@@ -5,4 +5,4 @@ django-storages>=1.1.4
 pylibmc>=1.2.2
 BeautifulSoup>=3.2.1,<4.0
 lxml>=2.3.3
-raven>=1.4.5
+raven>=1.4.6
