@@ -26,7 +26,7 @@ class Forum(models.Model):
     on_site = CurrentSiteManager()
 
     class Meta:
-        unique_together = (('site', 'slug'),)
+        unique_together = ('site', 'slug')
 
     def __unicode__(self):
         return self.title

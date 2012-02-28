@@ -9,6 +9,7 @@ class Podcast(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images/podcasts', null=True, blank=True)
+    categories = models.ManyToManyField('PodcastCategory', null=True, blank=True)
     primary = models.BooleanField(default=False)
     site = models.ForeignKey(Site)
 
@@ -35,9 +36,16 @@ class PodcastEpisode(models.Model):
 
     objects = models.Manager()
 
+    class Meta:
+        ordering = ['-pub_date']
+
     def __unicode__(self):
         return self.title
 
     @property
     def site(self):
         return self.podcast.site
+
+
+class PodcastCategory(models.Model):
+    name = models.CharField(max_length=50)

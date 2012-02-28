@@ -28,7 +28,7 @@ class WikiViewsTestCase(TestCase):
         response = self.client.get('/wiki/testgame/')
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['object_list'],
-                                ['<TestGame: Mass Effect 3>', '<TestGame: Half-Life 3>'])
+                                ['<TestGame: Half-Life 3>', '<TestGame: Mass Effect 3>'])
 
     def test_history_view(self):
         response = self.client.get('/wiki/%s/%s/history/' % (self.game._class, self.game.slug))
@@ -108,7 +108,7 @@ class WikiViewsTestCase(TestCase):
                                     'wiki_content': 'Is this one in Africa too?'})
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, 'http://testserver/wiki/testgame/far-cry-3/')
-        self.assertQuerysetEqual(TestGame.objects.all(), ['<TestGame: Mass Effect 3>', '<TestGame: Far Cry 3>'])
+        self.assertQuerysetEqual(TestGame.objects.all(), ['<TestGame: Far Cry 3>', '<TestGame: Mass Effect 3>'])
 
     def test_create_view_post_with_bad_data(self):
         self.client.login(username='test_superuser', password='test')

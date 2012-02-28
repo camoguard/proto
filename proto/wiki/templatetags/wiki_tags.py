@@ -9,7 +9,6 @@ register = template.Library()
 
 @register.filter()
 def get_verbose_name(value):
-    print 'test'
     if isinstance(value, QuerySet):
         return value.model._meta.verbose_name
     return value._meta.verbose_name
