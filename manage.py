@@ -4,8 +4,7 @@ import sys
 
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "proto.settings.development")
-
     from django.core.management import execute_from_command_line
 
-    execute_from_command_line(sys.argv)
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "proto.settings.{}".format(sys.argv[1]))
+    execute_from_command_line([sys.argv[0]] + sys.argv[2:])

@@ -6,6 +6,8 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 COMPRESS_ENABLED = not DEBUG
 
+ADMIN_FOR = ('proto.settings.development',)
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",

@@ -16,7 +16,7 @@ from proto.wiki.models import Wiki
 
 
 class WikiDetailView(DetailView):
-    """Display an individual :model:`wiki.Wiki`."""
+    """Displays an individual :model:`wiki.Wiki`."""
     def get_template_names(self):
         names = super(WikiDetailView, self).get_template_names()
         names.append('wiki/wiki_detail.html')
@@ -29,7 +29,7 @@ class WikiDetailView(DetailView):
 
 
 class WikiListView(ListView):
-    """Display a list of :model:`wiki.Wiki` of a specific subclass."""
+    """Displays a list of :model:`wiki.Wiki` of a specific subclass."""
     def get_template_names(self):
         names = super(WikiListView, self).get_template_names()
         names.append('wiki/wiki_list.html')
@@ -42,7 +42,7 @@ class WikiListView(ListView):
 
 
 class WikiUpdateView(UpdateView):
-    """Display the form for editing an existing :model:`wiki.Wiki`."""
+    """Displays the form for editing an existing :model:`wiki.Wiki`."""
     def get_template_names(self):
         names = super(WikiUpdateView, self).get_template_names()
         names.append('wiki/wiki_form.html')
@@ -74,7 +74,7 @@ class WikiUpdateView(UpdateView):
 
 
 class WikiCreateView(CreateView):
-    """Display the form for creating a new :model:`wiki.Wiki`."""
+    """Displays the form for creating a new :model:`wiki.Wiki`."""
     def get_template_names(self):
         names = super(WikiCreateView, self).get_template_names()
         names.append('wiki/wiki_form.html')
@@ -105,7 +105,7 @@ class WikiCreateView(CreateView):
 
 
 class WikiDeleteView(DeleteView):
-    """Display the page for deleting an individual :model:`wiki.Wiki`."""
+    """Displays the page for deleting an individual :model:`wiki.Wiki`."""
     def get_template_names(self):
         names = super(WikiDeleteView, self).get_template_names()
         names.append('wiki/wiki_confirm_delete.html')
@@ -136,13 +136,14 @@ class WikiDeleteView(DeleteView):
 
 
 class WikiHistoryView(ListView):
-    """Display the edit history of an individual :model:`wiki.Wiki`."""
+    """Displays the edit history of an individual :model:`wiki.Wiki`."""
     template_name = 'wiki/wiki_history.html'
 
     def get_queryset(self):
         content_type = get_object_or_404(ContentType, model=self.kwargs['model'])
 
-        # Fetch the revisions for the wiki object using either the pk or slug, depending on what's provided
+        # Fetch the revisions for the wiki object using either the pk or slug,
+        # depending on what's provided
         if 'slug' in self.kwargs:
             self.wiki_object = content_type.get_object_for_this_type(slug=self.kwargs['slug'])
         else:
@@ -164,7 +165,7 @@ def process_wiki_history_form(request):
 
 
 def wiki_diff(request, old_version_pk, new_version_pk):
-    """Display a diff between two :model:`wiki.Wiki` versions."""
+    """Displays a diff between two :model:`wiki.Wiki` versions."""
     # Get the two versions to compare
     old_version = Version.objects.select_related('revision__user', 'revision__comment').get(pk=old_version_pk)
     new_version = Version.objects.select_related('revision__user', 'revision__comment').get(pk=new_version_pk)

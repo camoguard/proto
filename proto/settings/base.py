@@ -179,6 +179,8 @@ INSTALLED_APPS = [
 
 COMMENTS_APP = 'proto.comments'
 
+WSGI_APPLICATION = 'proto.wsgi.application'
+
 def custom_show_toolbar(request):
     return False
 

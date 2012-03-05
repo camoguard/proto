@@ -48,7 +48,7 @@ class WikiViewsTestCase(TestCase):
         response = self.client.get('/wiki/%s/%s/edit/' % (self.game._class, self.game.slug))
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(response.context['form'], forms.ModelForm)
-        # Test that the 'name' field has been removed from the form since we don't allow users
+        # Test that the 'name' field has been removed from the form since we don't allow non-staff users
         # to edit the names of wiki pages
         self.assertNotIn('name', response.context['form'].fields)
         self.assertEqual(response.context['object'], self.game)

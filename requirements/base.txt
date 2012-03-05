@@ -17,4 +17,5 @@ django-tastypie>=0.9.11
 -e git://github.com/toastdriven/django-haystack#egg=django-haystack
 requests>=0.10.6
 -e git://github.com/toastdriven/pyelasticsearch#egg=pyelasticsearch
+django-social-auth>=0.6.6
 -e hg+http://bitbucket.org/ubernostrum/django-registration/#egg=django-registration

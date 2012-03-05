@@ -5,6 +5,8 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 COMPRESS_ENABLED = not DEBUG
 
+ADMIN_FOR = ('proto.settings.production',)
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -16,10 +18,9 @@ STATIC_URL = 'http://cbsi-proto.s3.amazonaws.com/'
 STATICFILES_STORAGE = 'proto.common.storage.CachedS3BotoStorage'
 COMPRESS_STORAGE = STATICFILES_STORAGE
 
-MEDIA_ROOT = 'http://cbsi-proto.s3.amazonaws.com/uploads/'
+MEDIA_ROOT = 'https://s3.amazonaws.com/cbsi-proto/'
 MEDIA_URL = 'http://cbsi-proto.s3.amazonaws.com/uploads/'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-FILEBROWSER_DIRECTORY = ''
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'
 
@@ -33,5 +34,13 @@ TEMPLATE_LOADERS = (
         'django.template.loaders.app_directories.Loader',
     )),
 )
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
