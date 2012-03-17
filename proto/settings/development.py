@@ -32,4 +32,4 @@ HAYSTACK_CONNECTIONS = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-SENTRY_DSN = 'http://cdbf2a76e13c42b9a23e78399ba3babd:ece0f2959f5a42d085f0b3ed3d4bc98c@localhost:9000/1'
+# SENTRY_DSN = 'http://cdbf2a76e13c42b9a23e78399ba3babd:ece0f2959f5a42d085f0b3ed3d4bc98c@localhost:9000/1'

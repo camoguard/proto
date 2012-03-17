@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{% block head_title %}{% endblock %}{% block head_sitetitle %} - Example{% endblock %}</title>
+    <title>{% block head_title %}{% endblock %}{% block head_sitetitle %} - Giant Bomb{% endblock %}</title>
     {% load compress %}
 
     {% compress css %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css">
     {% endcompress %}
 
     {% compress js %}
@@ -28,10 +28,10 @@
       <div class="navbar">
         <div class="navbar-inner">
           <div class="container" style="width: auto;">
-            <a class="brand" href="{% url home %}">Example</a>
+            <a class="brand" href="{% url home %}">Giant Bomb</a>
 
             <ul class="nav">
-              <li><a href="{% url home %}">Home</a></li>
+              <li id="nav-home"><a href="{% url home %}">Home</a></li>
               <li><a href="{% url article-index-archive %}">News</a></li>
               <li><a href="{% url wiki-home %}">Wiki</a></li>
               <li><a href="#">Reviews</a></li>
@@ -94,7 +94,7 @@
         document.createElement('footer');
     </script>
     <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap-typeahead.js"></script>
     <script src="{{ STATIC_URL }}js/jquery-ajaxQueue.js"></script>
     <script src="{{ STATIC_URL }}js/main.js"></script>

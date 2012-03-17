@@ -10,14 +10,14 @@
 
 {{ object.body|safe }}
 
-{% if object.tags.all %}
-	<p>
-		Wiki Tags:
-		{% for tag in object.tags.all %}
-			<a href="{{ tag.get_absolute_url }}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
-		{% endfor %}
-	</p>
-{% endif %}
+<p>
+	Wiki Tags:
+	{% for tag in object.tags.all %}
+		<a href="{{ tag.get_absolute_url }}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
+	{% empty %}
+		None
+	{% endfor %}
+</p>
 
 {% include "comments/comment_list.html" %}
 {% endblock %}
