@@ -10,6 +10,7 @@ from tastypie.api import Api
 
 from proto.games.api import GameResource, PlatformResource, FranchiseResource, CharacterResource, \
     DLCResource, CompanyResource, GenreResource, ThemeResource
+from proto.news.api import ArticleResource
 
 
 admin.autodiscover()
@@ -23,6 +24,7 @@ v1_api.register(DLCResource())
 v1_api.register(CompanyResource())
 v1_api.register(GenreResource())
 v1_api.register(ThemeResource())
+v1_api.register(ArticleResource())
 
 urlpatterns = patterns('',
     # Examples:

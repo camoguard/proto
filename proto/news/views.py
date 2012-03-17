@@ -5,24 +5,24 @@ from proto.news.models import Article
 
 
 class ArticleDetailView(DetailView):
-    queryset = Article.on_site.all()
+    queryset = Article.public_objects.all()
 
 
 class ArticleIndexView(ArchiveIndexView):
-    queryset = Article.on_site.all()
+    queryset = Article.public_objects.all()
     date_field = 'pub_date'
 
 
 class ArticleYearView(YearArchiveView):
-    queryset = Article.on_site.all()
+    queryset = Article.public_objects.all()
     date_field = 'pub_date'
 
 
 class ArticleMonthView(MonthArchiveView):
-    queryset = Article.on_site.all()
+    queryset = Article.public_objects.all()
     date_field = 'pub_date'
 
 
 class ArticleDayView(DayArchiveView):
-    queryset = Article.on_site.all()
+    queryset = Article.public_objects.all()
     date_field = 'pub_date'
