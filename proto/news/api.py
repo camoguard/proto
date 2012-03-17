@@ -5,10 +5,6 @@ from proto.news.models import Article
 
 
 class ArticleResource(SearchModelResource):
-    """
-    Provides standardized API behavior of :model:`wiki.Wiki` subclasses.
-    This class should not be registered with Tastypie.
-    """
     class Meta:
         queryset = Article.public_objects.all()
         list_allowed_methods = ['get']
