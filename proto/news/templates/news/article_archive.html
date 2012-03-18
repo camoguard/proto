@@ -5,12 +5,13 @@
 {% load fb_versions %}
 
 {% block content %}
+
 {% for object in object_list %}
-<p>
-  <a href="{{ object.get_absolute_url }}">{{ object.title }}</a><br />
-  by {{ object.author.get_full_name }} {{ object.pub_date|date:"DATETIME_FORMAT" }}<br />
-  <img src="{% version object.image 'medium' %}" />
-</p>
+	<p>
+	  <a href="{{ object.get_absolute_url }}"><img src="{% version object.image 'medium' %}" /></a><br />
+	  <a href="{{ object.get_absolute_url }}">{{ object.title }}</a><br />
+	  by {{ object.author.get_full_name }} {{ object.pub_date|date:"DATETIME_FORMAT" }}
+	</p>
 {% endfor %}
 
 {% endblock %}

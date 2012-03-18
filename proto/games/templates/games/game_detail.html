@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "wiki/wiki_detail.html" %}
 
 {% load wiki_tags %}
 
@@ -19,41 +19,51 @@
   <br />
 
   <strong>Release Date</strong>
-  <p>{{ object.release_date|date }}</p>
+  <p>{{ object.release_date|date|default:"None" }}</p>
 
   <strong>Platforms</strong>
   <p>
-  {% for platform in object.platforms.all %}
-    <a href="{{ platform.get_absolute_url }}">{{ platform.name }}</a>
-  {% endfor %}
+    {% for platform in object.platforms.all %}
+      <a href="{{ platform.get_absolute_url }}">{{ platform.name }}</a>
+    {% empty %}
+      None
+    {% endfor %}
   </p>
 
   <strong>Developers</strong>
   <p>
-  {% for developer in object.developers.all %}
-    <a href="{{ developer.get_absolute_url }}">{{ developer.name }}</a>
-  {% endfor %}
+    {% for developer in object.developers.all %}
+      <a href="{{ developer.get_absolute_url }}">{{ developer.name }}</a>
+    {% empty %}
+      None
+    {% endfor %}
   </p>
 
   <strong>Publishers</strong>
   <p>
-  {% for publisher in object.publishers.all %}
-    <a href="{{ publisher.get_absolute_url }}">{{ publisher.name }}</a>
-  {% endfor %}
+    {% for publisher in object.publishers.all %}
+      <a href="{{ publisher.get_absolute_url }}">{{ publisher.name }}</a>
+    {% empty %}
+      None
+    {% endfor %}
   </p>
 
   <strong>Genres</strong>
   <p>
-  {% for genre in object.genres.all %}
-    <a href="{{ genre.get_absolute_url }}">{{ genre.name }}</a>
-  {% endfor %}
+    {% for genre in object.genres.all %}
+      <a href="{{ genre.get_absolute_url }}">{{ genre.name }}</a>
+    {% empty %}
+      None
+    {% endfor %}
   </p>
 
   <strong>Themes</strong>
   <p>
-  {% for theme in object.themes.all %}
-    <a href="{{ theme.get_absolute_url }}">{{ theme.name }}</a>
-  {% endfor %}
+    {% for theme in object.themes.all %}
+      <a href="{{ theme.get_absolute_url }}">{{ theme.name }}</a>
+    {% empty %}
+      None
+    {% endfor %}
   </p>
 
   <div id="wiki-content">

@@ -9,9 +9,7 @@
   <ul class="nav nav-tabs">
     <li><a href="{{ wiki_object.get_absolute_url }}">Read</a></li>
     <li><a href="{% url wiki-edit-slug wiki_object.get_class wiki_object.slug %}">Edit</a></li>
-    <li class="active">
-      <a href="#">View History</a>
-    </li>
+    <li class="active"><a href="#">View History</a></li>
   </ul>
 
   <h1>{{ wiki_object.name }}</h1>

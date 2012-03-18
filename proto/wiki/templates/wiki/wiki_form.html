@@ -15,9 +15,7 @@
 <div class="tabbable">
   <ul class="nav nav-tabs">
     <li><a href="{{ object.get_absolute_url }}">Read</a></li>
-    <li class="active">
-      <a href="#">Edit</a>
-    </li>
+    <li class="active"><a href="#">Edit</a></li>
     <li><a href="{% url wiki-history-slug object.get_class object.slug %}">View History</a></li>
   </ul>
 {% endif %}
@@ -33,7 +31,8 @@
     <label for="id-comment">Comment:</label>
     <input id="id-comment" type="text" max_length="100" name="comment" />
     <p>
-      <input type="submit" name="submit" value="{% if object %}Save changes{% else %}Create {{ model|get_verbose_name|capfirst }}{% endif %}" class="btn btn-primary" />
+      <input type="submit" name="submit" 
+        value="{% if object %}Save changes{% else %}Create {{ model|get_verbose_name|capfirst }}{% endif %}" class="btn btn-primary" />
       {% if not object %}
         <a href="{% url wiki-list 'game' %}"><input type="button" name="cancel" value="Cancel" class="btn" /></a>
       {% endif %}

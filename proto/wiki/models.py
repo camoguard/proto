@@ -16,6 +16,7 @@ class Wiki(InheritanceMixIn, models.Model):
     deck = models.CharField(max_length=100)
     wiki_content = models.TextField()
     image = models.ImageField(upload_to='images/wiki', null=True, blank=True)
+    # template_name = models.FilePathField(path='templates/wiki/', match='*\.html$', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 

@@ -9,10 +9,12 @@
 
 <br />
 
-{% for object in object_list %}
 <ul>
-  <li><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
+	{% for object in object_list %}
+		<li><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
+	{% empty %}
+		No {{ object_list|get_verbose_name_plural }} exist.
+	{% endfor %}
 </ul>
-{% endfor %}
 
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "wiki/wiki_detail.html" %}
 
 {% load wiki_tags %}
 
@@ -24,11 +24,13 @@
 
   <strong>Games</strong>
   <p>
-  {% for game in object.games.all|dictsort:"release_date" %}
-    <a href="{{ game.get_absolute_url }}">{{ game.name }}</a>
-    {% if game.release_date %}({{ game.release_date.year }}){% endif %}
-    <br />
-  {% endfor %}
+    {% for game in object.games.all|datesort:"release_date" %}
+      <a href="{{ game.get_absolute_url }}">{{ game.name }}</a>
+      {% if game.release_date %}({{ game.release_date.year }}){% endif %}
+      <br />
+    {% empty %}
+      None
+    {% endfor %}
   </p>
 
 </div>

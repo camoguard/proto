@@ -6,6 +6,6 @@
 
 {% block content %}
 {% for object in object_list %}
-  <a href="{{ object.get_absolute_url }}">{{ object.name }}</a><br />
+  <a href="{{ object.get_absolute_url }}">{{ object.name }} ({{ object.get_class }})</a><br />
 {% endfor %}
 {% endblock %}

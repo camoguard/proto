@@ -131,6 +131,13 @@ TEMPLATE_DIRS = [
     os.path.join(PROJECT_ROOT, 'templates')
 ]
 
+# COMPRESS_PRECOMPILERS = (
+#     ('text/coffeescript', 'coffee --compile --stdio'),
+#     ('text/less', 'lessc {infile} {outfile}'),
+#     ('text/x-sass', 'sass {infile} {outfile}'),
+#     ('text/x-scss', 'sass --scss {infile} {outfile}'),
+# )
+
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 ACCOUNT_ACTIVATION_DAYS = 3
