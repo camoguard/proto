@@ -27,4 +27,3 @@ class InheritanceMixIn(models.Model):
         except FieldDoesNotExist:
             pass
         return self
-
