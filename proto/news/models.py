@@ -25,7 +25,7 @@ class Article(models.Model):
     )
 
     title = models.CharField(max_length=70)
-    author = models.ForeignKey(User, limit_choices_to = {'is_staff': True})
+    author = models.ForeignKey(User, limit_choices_to={'is_staff': True})
     deck = models.CharField(max_length=100)
     slug = AutoSlugField(populate_from='title')
     body = models.TextField()

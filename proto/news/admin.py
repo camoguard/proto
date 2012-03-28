@@ -28,6 +28,7 @@ class ArticleAdmin(admin.ModelAdmin):
             'js/tinymce_setup.js'
         ]
 
+
 def make_published(self, request, queryset):
     rows_updated = queryset.update(status='p')
     if rows_updated == 1:

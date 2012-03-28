@@ -13,6 +13,7 @@ from proto.common.fields import AutoSlugField
 FORUM_LAST_POST_KEY = 'forums:forum:last_post:%i'
 THREAD_LAST_POST_KEY = 'forums:thread:last_post:%i'
 
+
 class Forum(models.Model):
     title = models.CharField(max_length=70)
     description = models.CharField(max_length=100)

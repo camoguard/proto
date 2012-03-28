@@ -22,11 +22,11 @@ class Review(models.Model):
         ('w', 'Withdrawn'),
     )
 
-    content_type = models.ForeignKey(ContentType, limit_choices_to = {'model__in': ['game', 'dlc']})
+    content_type = models.ForeignKey(ContentType, limit_choices_to={'model__in': ['game', 'dlc']})
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey()
 
-    author = models.ForeignKey(User, limit_choices_to = {'is_staff': True})
+    author = models.ForeignKey(User, limit_choices_to={'is_staff': True})
     deck = models.CharField(max_length=100)
     body = models.TextField()
     image = models.ImageField(upload_to='images/reviews')

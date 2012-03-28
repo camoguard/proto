@@ -13,6 +13,7 @@ from proto.videos.models import Video
 
 MAX_NUM_PROMOS = 20
 
+
 class PromoContainer(models.Model):
     site = models.ForeignKey(Site, unique=True, editable=False)
 
