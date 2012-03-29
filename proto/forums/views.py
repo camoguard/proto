@@ -93,10 +93,6 @@ def process_post_form(request, forum_slug, thread_slug):
         # and it gets moved to the top of its forum's thread list
         thread.save()
 
-        # Invalidate the last post cached for this post's thread and forum
-        cache.delete(THREAD_LAST_POST_KEY % thread.pk)
-        cache.delete(FORUM_LAST_POST_KEY % thread.forum.pk)
-
         messages.success(request, "Your post was successful.")
 
     return redirect(thread.get_absolute_url())

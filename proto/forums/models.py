@@ -5,6 +5,8 @@ from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.core.cache import cache
 from django.db import models
+from django.db.models.signals import post_save, pre_delete
+from django.dispatch import receiver
 
 from proto.common.fields import AutoSlugField
 
@@ -92,3 +94,10 @@ class Post(models.Model):
 
     def __unicode__(self):
         return "%s by %s" % (self.created, self.creator)
+
+
+@receiver(post_save, sender=Thread)
+def uncache_last_post(sender, instance, created, **kwargs):
+    # Invalidate the last post cached for the forum and thread
+    cache.delete(THREAD_LAST_POST_KEY % instance.pk)
+    cache.delete(FORUM_LAST_POST_KEY % instance.forum.pk)
