@@ -7,29 +7,31 @@
 <div id="comment-list">
 {% for comment in comment_list|fill_tree|annotate_tree %}
 
-    {% ifchanged comment.parent_id %}{% else %}
-        </li>
-    {% endifchanged %}
+  {% ifchanged comment.parent_id %}{% else %}
+  </li>
+  {% endifchanged %}
 
-    {% if not comment.open and not comment.close %}
-        </li>
-    {% endif %}
+  {% if not comment.open and not comment.close %}
+  </li>
+  {% endif %}
 
-    {% if comment.open %}
-        <ul>
-    {% endif %}
+  {% if comment.open %}
+  <ul>
+  {% endif %}
 
     <li id="comment-{{ comment.id }}" class="comment{% if comment.last %} last{% endif %}">
 
-    {{ comment.user }} {{ comment.submit_date }}
-    <p>{{ comment.comment }}</p>
+  {{ comment.user }} {{ comment.submit_date }}
+  <p>{{ comment.comment }}</p>
 
+  {% if comment.depth < 4 %}
     <a href="{% url ajax-comment-form comment.id %}" id="comment-reply-{{ comment.id }}" class="comment-reply">Reply</a>
+  {% endif %}
 
-    {% for close in comment.close %}
-        </li>
-        </ul>
-    {% endfor %}
+  {% for close in comment.close %}
+    </li>
+  </ul>
+  {% endfor %}
 
 {% endfor %}
 </div>
