@@ -57,4 +57,6 @@ jQuery(document).ready(function ($) {
 
     $('.chzn-select').chosen();
 
+    $('.helptext').remove();
+
 });
