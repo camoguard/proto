@@ -1,14 +1,13 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.cache import cache
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
 from proto.forums.forms import ThreadForm, PostInlineFormSet, PostForm
-from proto.forums.models import Forum, Thread, Post, FORUM_LAST_POST_KEY, THREAD_LAST_POST_KEY
+from proto.forums.models import Forum, Thread, Post
 
 
 class ForumListView(ListView):

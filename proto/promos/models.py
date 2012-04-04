@@ -33,6 +33,8 @@ class Promo(models.Model):
     object_id = models.PositiveIntegerField(editable=False)
     content_object = generic.GenericForeignKey()
     position = models.PositiveSmallIntegerField(unique=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['position']

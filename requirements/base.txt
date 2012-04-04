@@ -1,5 +1,6 @@
 Django>=1.4
 PIL>=1.1.7
+pytz
 docutils>=0.8.1
 pygments>=1.5
 south>=0.7.4
@@ -9,13 +10,12 @@ django-filebrowser>=3.4.2
 django-model-utils>=1.0.0
 django-extensions>=0.8
 django_compressor>=1.1.2
-django-debug-toolbar>=0.9.4
 django-reversion>=1.6
 diff-match-patch>=20110725.1
-python-creole>=1.0.1
+python-creole>=1.0.2
 django-tastypie>=0.9.11
 -e git://github.com/toastdriven/django-haystack#egg=django-haystack
-requests>=0.10.8
+requests>=0.11.1
 -e git://github.com/toastdriven/pyelasticsearch#egg=pyelasticsearch
 django-social-auth>=0.6.7
 django-registration>=0.8

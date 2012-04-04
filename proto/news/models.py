@@ -10,6 +10,12 @@ from proto.comments.models import ThreadedComment
 from proto.common.fields import AutoSlugField
 from proto.wiki.models import Wiki
 
+STATUS_CHOICES = (
+    ('d', 'Draft'),
+    ('p', 'Published'),
+    ('w', 'Withdrawn'),
+)
+
 
 class PublicManager(models.Manager):
     def get_query_set(self):
@@ -17,13 +23,9 @@ class PublicManager(models.Manager):
 
 
 class Article(models.Model):
-    " Stores a single news article. "
-    STATUS_CHOICES = (
-        ('d', 'Draft'),
-        ('p', 'Published'),
-        ('w', 'Withdrawn'),
-    )
-
+    """
+    Stores a single news article.
+    """
     title = models.CharField(max_length=70)
     author = models.ForeignKey(User, limit_choices_to={'is_staff': True})
     deck = models.CharField(max_length=100)

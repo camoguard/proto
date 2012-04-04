@@ -5,7 +5,7 @@ from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.core.cache import cache
 from django.db import models
-from django.db.models.signals import post_save, pre_delete
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from proto.common.fields import AutoSlugField
@@ -24,6 +24,8 @@ class Forum(models.Model):
     # object_id = models.PositiveIntegerField()
     # content_object = generic.GenericForeignKey('content_type', 'object_id')
     site = models.ForeignKey(Site)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     objects = models.Manager()
     on_site = CurrentSiteManager()
@@ -40,7 +42,7 @@ class Forum(models.Model):
             'forum_slug': self.slug})
 
     def last_post(self):
-        # Cache the last post so that we don't have to perform a database query for each forum on the forum list
+        # Caches the last post so that we don't have to perform a database query for each forum on the forum list
         last_post = cache.get(FORUM_LAST_POST_KEY % self.pk)
 
         if last_post is None:
@@ -74,7 +76,7 @@ class Thread(models.Model):
             'thread_slug': self.slug})
 
     def last_post(self):
-        # Cache the last post so that we don't have to perform a database query for each thread on the thread list
+        # Caches the last post so that we don't have to perform a database query for each thread on the thread list
         last_post = cache.get(THREAD_LAST_POST_KEY % self.pk)
         if last_post is None:
             last_post = self.post_set.select_related('creator').latest()
@@ -98,6 +100,6 @@ class Post(models.Model):
 
 @receiver(post_save, sender=Thread)
 def uncache_last_post(sender, instance, created, **kwargs):
-    # Invalidate the last post cached for the forum and thread
+    # Invalidates the last post cached for the forum and thread
     cache.delete(THREAD_LAST_POST_KEY % instance.pk)
     cache.delete(FORUM_LAST_POST_KEY % instance.forum.pk)

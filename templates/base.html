@@ -8,11 +8,11 @@
     {% compress css %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/chosen.css">
     {% endcompress %}
 
     {% compress js %}
-    <script type="text/javascript" src="{{ STATIC_URL }}js/less-1.2.1.min.js">
-    </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/less-1.2.1.min.js"></script>
     {% endcompress %}
 
     {% block extra_head %}
@@ -101,6 +101,7 @@
     <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap-typeahead.js"></script>
     <script src="{{ STATIC_URL }}js/jquery-ajaxQueue.js"></script>
+    <script src="{{ STATIC_URL }}js/chosen.jquery.min.js"></script>
     <script src="{{ STATIC_URL }}js/main.js"></script>
     {% block extra_script %}
     {% endblock %}

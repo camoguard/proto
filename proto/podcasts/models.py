@@ -12,6 +12,8 @@ class Podcast(models.Model):
     categories = models.ManyToManyField('PodcastCategory', null=True, blank=True)
     primary = models.BooleanField(default=False)
     site = models.ForeignKey(Site)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     objects = models.Manager()
     on_site = CurrentSiteManager()

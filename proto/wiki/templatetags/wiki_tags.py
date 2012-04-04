@@ -10,6 +10,7 @@ from django.utils.safestring import mark_safe
 
 register = template.Library()
 
+
 @register.filter()
 def get_verbose_name(value):
     "Gets the model's verbose name for either an individual object or a QuerySet."
