@@ -10,6 +10,8 @@ from django.views.generic import ListView
 from proto.forums.forms import ThreadForm, PostInlineFormSet, PostForm
 from proto.forums.models import Forum, Thread, Post
 
+from pure_pagination.mixins import PaginationMixin
+
 
 class ForumListView(ListView):
     """
@@ -34,10 +36,12 @@ class ThreadListView(ListView):
         return context
 
 
-class PostListView(ListView):
+class PostListView(PaginationMixin, ListView):
     """
     Displays a list of the posts in a particular thread.
     """
+    paginate_by = 10
+
     def get_queryset(self):
         self.thread = get_object_or_404(Thread.objects.select_related('forum'),
                                         slug=self.kwargs['thread_slug'], forum__site=settings.SITE_ID)

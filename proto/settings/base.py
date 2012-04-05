@@ -177,6 +177,7 @@ INSTALLED_APPS = [
     'reversion',
     'haystack',
     'tastypie',
+    'pure_pagination',
 
     'proto.common',
     'proto.comments',
