@@ -42,6 +42,7 @@ urlpatterns = patterns('',
     url(r'^comments/', include('proto.comments.urls')),
     url(r'^news/', include('proto.news.urls')),
     url(r'^forums/', include('proto.forums.urls')),
+    url(r'^videos/', include('proto.videos.urls')),
     url(r'^wiki/', include('proto.wiki.urls')),
 
     url(r'^search/', include('haystack.urls')),
