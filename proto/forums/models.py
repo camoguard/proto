@@ -1,3 +1,5 @@
+from django.utils.timezone import now
+
 from django.contrib.auth.models import User
 # from django.contrib.contenttypes import generic
 # from django.contrib.contenttypes.models import ContentType
@@ -96,6 +98,12 @@ class Post(models.Model):
 
     def __unicode__(self):
         return "%s by %s" % (self.created, self.creator)
+
+    @property
+    def editable(self):
+        if (now() - self.created).seconds < (5 * 60):  # 5 minutes
+            return True
+        return False
 
 
 @receiver(post_save, sender=Thread)

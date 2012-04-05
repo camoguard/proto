@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render
 
 from proto.comments.models import ThreadedComment
 
 
+@login_required
 def ajax_comment_form(request, comment_id):
     if not request.is_ajax():
         raise Http404

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
+from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
@@ -77,10 +78,16 @@ def create_thread(request, forum_slug):
 
 @login_required
 @require_POST
-def process_post_form(request, forum_slug, thread_slug):
+def process_post_form(request, forum_slug, thread_slug, post_id=None):
+    if post_id:
+        # User is editing a post
+        post = get_object_or_404(Post, pk=post_id)
+        if post.creator != request.user:
+            raise HttpResponseForbidden()
+
     # Makes sure that the user is posting to an existing thread
     thread = get_object_or_404(Thread.objects.select_related('forum'),
-                                pk=thread_slug, forum__slug=forum_slug, forum__site=settings.SITE_ID)
+                                slug=thread_slug, forum__slug=forum_slug, forum__site=settings.SITE_ID)
 
     form = PostForm(request.POST)
     if form.is_valid():
@@ -92,6 +99,23 @@ def process_post_form(request, forum_slug, thread_slug):
         # and it gets moved to the top of its forum's thread list
         thread.save()
 
-        messages.success(request, "Your post was successful.")
+        if post_id:
+            messages.success(request, "Your post was updated successfully.")
+        else:
+            messages.success(request, "Your post was successful.")
 
     return redirect(thread.get_absolute_url())
+
+
+def ajax_post_form(request, post_id):
+    if not request.is_ajax():
+        raise Http404
+
+    post = get_object_or_404(Post.objects, pk=post_id)
+    if post.creator != request.user:
+        raise Http404
+    post_form = PostForm(instance=post)
+    return render(request, 'forums/post_form.html', {
+        'post_form': post_form,
+        'post': post
+    })
