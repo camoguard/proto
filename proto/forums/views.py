@@ -106,14 +106,18 @@ def process_post_form(request, forum_slug, thread_slug, post_id=None):
         if post.creator != request.user:
             raise HttpResponseForbidden()
     else:
+        # User is creating a post
         post = Post(creator=request.user, thread=thread)
 
     form = PostForm(request.POST, instance=post)
     if form.is_valid():
         form.save()
-        # Saves the thread without any changes so that its modified field gets updated
-        # and it gets moved to the top of its forum's thread list
-        thread.save()
+
+        if created:
+            # Saves the thread without any changes so that its modified field gets updated
+            # and it gets moved to the top of its forum's thread list
+            # Only do this if it's a new post, not an edit of an existing post
+            thread.save()
 
         if not created:
             messages.success(request, "Your post was updated successfully.")
