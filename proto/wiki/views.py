@@ -44,6 +44,11 @@ class WikiListView(ListView):
         self.queryset = wiki_model.objects.all()
         return super(WikiListView, self).get_queryset()
 
+    def get_context_data(self, **kwargs):
+        context = super(WikiListView, self).get_context_data(**kwargs)
+        context['model'] = self.kwargs['model']
+        return context
+
 
 class WikiUpdateView(UpdateView):
     """

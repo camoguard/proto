@@ -31,7 +31,7 @@ class PostListView(ListView):
     def get_queryset(self):
         self.thread = get_object_or_404(Thread.objects.select_related('forum'),
                                         slug=self.kwargs['thread_slug'], forum__site=settings.SITE_ID)
-        return Post.objects.filter(thread=self.thread).select_related('creator')
+        return Post.objects.filter(thread=self.thread).select_related('creator', 'creator__userprofile')
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)

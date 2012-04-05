@@ -44,6 +44,7 @@ urlpatterns = patterns('',
     url(r'^forums/', include('proto.forums.urls')),
     url(r'^videos/', include('proto.videos.urls')),
     url(r'^wiki/', include('proto.wiki.urls')),
+    url(r'^users/', include('proto.accounts.urls')),
 
     url(r'^search/', include('haystack.urls')),
     url(r'^search/autocomplete/$', 'proto.views.ajax_autocomplete', name='ajax-autocomplete'),
