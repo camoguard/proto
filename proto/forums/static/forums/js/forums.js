@@ -6,7 +6,6 @@
         var post_body = '#post-body-' + post_id;
 
         $.ajaxQueue({
-
             'url': link.attr('href'),
             'dataType': 'html',
             'success': function (html) {
