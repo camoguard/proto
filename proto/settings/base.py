@@ -33,7 +33,6 @@ MANAGERS = ADMINS
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = 'America/Los_Angeles'
-USE_TZ = True
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -48,6 +47,9 @@ USE_I18N = False
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
 USE_L10N = True
+
+# If you set this to False, Django will not use timezone-aware datetimes.
+USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -126,6 +128,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 ROOT_URLCONF = 'proto.urls'
 
+# Python dotted path to the WSGI application used by Django's runserver.
+WSGI_APPLICATION = 'proto.wsgi.application'
+
 TEMPLATE_DIRS = [
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
@@ -187,8 +192,6 @@ INSTALLED_APPS = [
 ]
 
 COMMENTS_APP = 'proto.comments'
-
-WSGI_APPLICATION = 'proto.wsgi.application'
 
 def custom_show_toolbar(request):
     return False
