@@ -7,11 +7,11 @@ class VideoListView(ListView):
     """
     Displays a list of all the videos.
     """
-    queryset = Video.public_objects.all()
+    queryset = Video.public.all()
 
 
 class VideoDetailView(DetailView):
     """
     Displays a single video.
     """
-    queryset = Video.public_objects.all()
+    queryset = Video.public.all()
