@@ -22,7 +22,7 @@ class ForumListView(ListView):
                                             num_posts=Count('thread__post', distinct=True))
 
 
-class ThreadListView(ListView):
+class ThreadListView(PaginationMixin, ListView):
     """
     Displays a list of the threads in a particular forum.
     """
