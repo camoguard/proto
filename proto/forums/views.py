@@ -17,7 +17,7 @@ class ForumListView(ListView):
     """
     Displays a list of all the forums.
     """
-    # Retrieve the number of threads and posts in each forum for display with the queryset
+    # Retrieves the number of threads and posts in each forum for display with the queryset
     queryset = Forum.on_site.all().annotate(num_threads=Count('thread', distinct=True),
                                             num_posts=Count('thread__post', distinct=True))
 
@@ -57,7 +57,7 @@ class PostListView(PaginationMixin, ListView):
 @login_required
 def create_thread(request, forum_slug):
     """
-    Builds the form for a new thread.
+    Builds and displays the form for a new thread, and processes that form.
     """
     forum = get_object_or_404(Forum, slug=forum_slug, site=settings.SITE_ID)
 
@@ -102,7 +102,7 @@ def process_post_form(request, forum_slug, thread_slug, post_id=None):
 
     # Makes sure that the user is posting to an existing thread
     thread = get_object_or_404(Thread.objects.select_related('forum'),
-                                slug=thread_slug, forum__slug=forum_slug, forum__site=settings.SITE_ID)
+                               slug=thread_slug, forum__slug=forum_slug, forum__site=settings.SITE_ID)
 
     if not created:
         # User is editing a post
