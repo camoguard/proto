@@ -1,18 +1,17 @@
-from datetime import datetime
-
 from django.contrib.auth.models import User
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.db import models
+from django.utils.timezone import now
 
 from proto.comments.models import ThreadedComment
 
 
 class PublicManager(models.Manager):
     def get_query_set(self):
-        return super(PublicManager, self).get_query_set().filter(status='p', pub_date__lte=datetime.now())
+        return super(PublicManager, self).get_query_set().filter(status='p', pub_date__lte=now())
 
 
 class Review(models.Model):

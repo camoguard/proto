@@ -197,20 +197,26 @@ def wiki_diff(request, old_version_pk, new_version_pk):
 
     diff_html = {}
     for field, value in new_version.field_dict.items():
+        real_field = wiki_object._meta.get_field_by_name(field)[0]
 
-        if isinstance(value, list):
-            # Only the PKs of any foreign keys are stored in versions
-            # We need to replace these keys with the names of the objects to show meaningful values to the user
-            fk_pks = set(old_version.field_dict[field] + new_version.field_dict[field])
-            fk_objects = Wiki.objects.in_bulk(fk_pks)
+        # Only the PKs of any foreign keys are stored in versions
+        # We need to replace these keys with the names of the objects to show meaningful values to the user
+        if real_field.get_internal_type() in ['ManyToManyField', 'ForeignKey']:
+            if isinstance(value, list):  # m2m
+                old_pks = old_version.field_dict[field]
+                new_pks = new_version.field_dict[field]
+            else:  # fk
+                old_pks = [old_version.field_dict[field]]
+                new_pks = [new_version.field_dict[field]]
 
-            old_fk_names = [fk_objects[int(fk)].name for fk in old_version.field_dict[field]]
+            fk_objects = Wiki.objects.in_bulk(set(old_pks + new_pks))
+
+            old_fk_names = [fk_objects[int(fk)].name for fk in old_pks]
             old_version.field_dict[field] = ', '.join(old_fk_names)
 
-            new_fk_names = [fk_objects[int(fk)].name for fk in new_version.field_dict[field]]
+            new_fk_names = [fk_objects[int(fk)].name for fk in new_pks]
             new_version.field_dict[field] = ', '.join(new_fk_names)
 
-        real_field = wiki_object._meta.get_field_by_name(field)[0]
         if real_field.editable and field not in ['id', 'wiki_ptr']:
             diff_html[real_field.verbose_name] = generate_patch_html(old_version, new_version, field, cleanup='semantic')
 

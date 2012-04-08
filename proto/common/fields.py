@@ -1,6 +1,3 @@
-from fuzzydate.fields import FuzzyDateField
-from fuzzydate.core import FuzzyDate, DATE_PRECISIONS
-
 from django.template.defaultfilters import slugify
 from django.db.models import SlugField
 import re
