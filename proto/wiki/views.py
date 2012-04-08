@@ -199,7 +199,7 @@ def wiki_diff(request, old_version_pk, new_version_pk):
     for field, value in new_version.field_dict.items():
         real_field = wiki_object._meta.get_field_by_name(field)[0]
 
-        # Only the PKs of any foreign keys are stored in versions
+        # Only the pks of any foreign keys are stored in versions
         # We need to replace these keys with the names of the objects to show meaningful values to the user
         if real_field.get_internal_type() in ['ManyToManyField', 'ForeignKey']:
             if isinstance(value, list):  # m2m
