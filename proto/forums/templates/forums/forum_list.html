@@ -29,7 +29,7 @@
           <td>
           {% if last_post %}
             <a href="{{ last_post.thread.get_absolute_url }}">{{ last_post.thread }}</a>
-            by {{ last_post.creator }}
+            by {{ last_post.author }}
             {{ last_post.created|date:"DATETIME_FORMAT" }}
           {% endif %}
           </td>

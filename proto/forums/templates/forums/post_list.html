@@ -22,13 +22,13 @@
         <tr>
           <td width="15%">
             <center>
-              <img src="{{ object.creator.userprofile.avatar.url }}">
+              <img src="{{ object.author.userprofile.avatar.url }}">
               <br />
-              <a href="{% url user-detail object.creator.username %}">{{ object.creator }}</a>
+              <a href="{% url user-detail object.author.username %}">{{ object.author }}</a>
               <br />
               {{ object.created|date:"SHORT_DATETIME_FORMAT" }}
               <br />
-              {% if object.creator == request.user and object.editable %}
+              {% if object.author == request.user and object.editable %}
                 <a href="{% url ajax-post-form object.id %}" id="post-edit-{{ object.id }}" class="post-edit">Edit</a>
               {% endif %}
             </center>

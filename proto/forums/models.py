@@ -48,7 +48,7 @@ class Forum(models.Model):
 
         if last_post is None:
             try:
-                last_post = Post.objects.filter(thread__forum=self).select_related('thread', 'creator', 'thread__forum').latest()
+                last_post = Post.objects.filter(thread__forum=self).select_related('thread', 'author', 'thread__forum').latest()
             except Post.DoesNotExist:
                 last_post = None
             cache.set(FORUM_LAST_POST_KEY % self.pk, last_post, 60 * 60 * 24)  # 24 hours
@@ -80,14 +80,14 @@ class Thread(models.Model):
         # Caches the last post so that we don't have to perform a database query for each thread on the thread list
         last_post = cache.get(THREAD_LAST_POST_KEY % self.pk)
         if last_post is None:
-            last_post = self.post_set.select_related('creator').latest()
+            last_post = self.post_set.select_related('author').latest()
             cache.set(THREAD_LAST_POST_KEY % self.pk, last_post, 60 * 60 * 24)  # 24 hours
         return last_post
 
 
 class Post(models.Model):
     thread = models.ForeignKey(Thread)
-    creator = models.ForeignKey(User)
+    author = models.ForeignKey(User)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -96,7 +96,7 @@ class Post(models.Model):
         get_latest_by = 'created'
 
     def __unicode__(self):
-        return "%s by %s" % (self.created, self.creator)
+        return "%s by %s" % (self.created, self.author)
 
     @property
     def editable(self):

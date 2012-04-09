@@ -45,7 +45,7 @@ class PostListView(PaginationMixin, ListView):
     def get_queryset(self):
         self.thread = get_object_or_404(Thread.objects.select_related('forum'),
                                         slug=self.kwargs['thread_slug'], forum__site=settings.SITE_ID)
-        return Post.objects.filter(thread=self.thread).select_related('creator', 'creator__userprofile')
+        return Post.objects.filter(thread=self.thread).select_related('author', 'author__userprofile')
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
@@ -73,8 +73,8 @@ def create_thread(request, forum_slug):
             post_formset = PostInlineFormSet(request.POST, instance=thread)
             if post_formset.is_valid():
                 for form in post_formset.forms:
-                    # Sets the creator of the post
-                    form.instance.creator = request.user
+                    # Sets the author of the post
+                    form.instance.author = request.user
                 thread.save()
                 post_formset.save()
 
@@ -107,11 +107,11 @@ def process_post_form(request, forum_slug, thread_slug, post_id=None):
     if not created:
         # User is editing a post
         post = get_object_or_404(Post, pk=post_id)
-        if post.creator != request.user:
+        if post.author != request.user:
             raise HttpResponseForbidden()
     else:
         # User is creating a post
-        post = Post(creator=request.user, thread=thread)
+        post = Post(author=request.user, thread=thread)
 
     form = PostForm(request.POST, instance=post)
     if form.is_valid():

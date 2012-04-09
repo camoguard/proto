@@ -9,7 +9,7 @@ class ForumAdmin(admin.ModelAdmin):
 
 class PostInline(admin.TabularInline):
     model = Post
-    fields = ['creator', 'body', 'created']
+    fields = ['author', 'body', 'created']
     readonly_fields = ['created']
 
 

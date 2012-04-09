@@ -15,7 +15,7 @@ class PostForm(ModelForm):
 
     class Meta:
         model = Post
-        exclude = ('thread', 'creator')
+        exclude = ('thread', 'author')
 
 
 PostInlineFormSet = inlineformset_factory(Thread, Post, form=PostForm, can_delete=False, max_num=1)

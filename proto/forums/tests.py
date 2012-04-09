@@ -13,7 +13,7 @@ class ForumModelsTestCase(TestCase):
 
     def test_forum_last_post_caching(self):
         thread = Thread.objects.create(forum=self.forum, title='You Have To See This', creator=self.user)
-        post = Post.objects.create(thread=thread, body='Look at this cool thing I found.', creator=self.user)
+        post = Post.objects.create(thread=thread, body='Look at this cool thing I found.', author=self.user)
 
         # The last post isn't cached yet, so it should hit the database
         with self.assertNumQueries(1):
@@ -25,7 +25,7 @@ class ForumModelsTestCase(TestCase):
 
     def test_thread_last_post_caching(self):
         thread = Thread.objects.create(forum=self.forum, title='You Should Check This Out Too', creator=self.user)
-        post = Post.objects.create(thread=thread, body="It is way cooler than that other thing.", creator=self.user)
+        post = Post.objects.create(thread=thread, body="It is way cooler than that other thing.", author=self.user)
 
         # The last post isn't cached yet, so it should hit the database
         with self.assertNumQueries(1):
