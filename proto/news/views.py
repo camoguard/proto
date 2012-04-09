@@ -5,11 +5,11 @@ from proto.news.models import Article
 
 
 class ArticleDetailView(DetailView):
-    queryset = Article.public_objects.all()
+    queryset = Article.public_objects.all().select_related('author')
 
 
 class ArticleIndexView(ArchiveIndexView):
-    queryset = Article.public_objects.all()
+    queryset = Article.public_objects.all().select_related('author')
     date_field = 'pub_date'
 
 
