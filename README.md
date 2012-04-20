@@ -11,7 +11,7 @@ The wiki and forums are the two main components I spent time on. There are also 
 
 You can create a news article in the admin at `/admin/` to check out the threaded commenting.
 
-Wiki versioning is done using django-reversion, and the wiki history page allows you to generate a diff between version. Creating a new type of wiki model is as simple as creating a Wiki model subclass that simply inherits from the base Wiki model. Dynamic routing and views happen by introspecting the wiki models' class name.
+Wiki versioning is done using django-reversion, and the wiki history page allows you to generate a diff between version. Creating a new type of wiki model is as simple as creating a Wiki model subclass that simply inherits from the base Wiki model. In this case, `games` is the app that contains the Wiki object subclasses. Dynamic routing and views happen by introspecting the wiki models' class name. Wiki objects use a base template in the `wiki` app, unless an overriding template exists in the same app as the Wiki model subclass.
 
 You can create a wiki page for a game, as an example, by going to `/wiki/create/game/`.
 
