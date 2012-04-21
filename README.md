@@ -6,15 +6,15 @@ First...
 
 1. Install distribute: `curl http://python-distribute.org/distribute_setup.py | python`
 2. Install pip: `curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python`
-2. Install virtualenvwrapper by following these instructions: <http://www.doughellmann.com/docs/virtualenvwrapper/#introduction>
+3. Install virtualenvwrapper by following these instructions: <http://www.doughellmann.com/docs/virtualenvwrapper/#introduction>
 
 Then...
 
-1. Clone the repository
-2. `pip install -r requirements/development.txt`
+1. Clone the repository: `git clone git@github.com:sdornan/proto.git`
+2. Install the requirements: `pip install -r requirements/development.txt`
 3. Create an empty `site_media/uploads` folder in the project base directory
-4. `python manage.py development syncdb` and follow  prompts
-5. `python manage.py development runserver`
+4. Create the database: `python manage.py development syncdb` and follow the prompts
+5. Run the development server: `python manage.py development runserver`
 
 ## Details
 
@@ -24,7 +24,7 @@ You can create a news article in the admin at `/admin/` to check out the threade
 
 Wiki versioning is done using django-reversion, and the wiki history page allows you to generate a diff between version. Creating a new type of wiki model is as simple as creating a Wiki model subclass that inherits from the base Wiki model. In this case, `games` is the app that contains the Wiki object subclasses. Dynamic routing and views happen by introspecting the wiki models' class name. Wiki objects use a base template in the `wiki` app, unless an overriding template exists in the same app as the Wiki model subclass.
 
-You can create a wiki page for a game, as an example, by going to `/wiki/create/game/`. You can view then view all of the Wiki objects at `/wiki/`, or of particular type at `/wiki/game` for example.
+You can create a wiki page for a game, as an example, by going to `/wiki/create/game/`. You can view then view all of the Wiki objects at `/wiki/`, or of particular type at `/wiki/game/` for example.
 
 If you have Elasticsearch running (install with `brew install elasticsearch`) and do `manage.py development update_index`, it will handle autocompletion in the site's search field using Haystack.
 
