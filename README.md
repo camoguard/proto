@@ -28,7 +28,7 @@ You can create a wiki page for a game, as an example, by going to `/wiki/create/
 
 If you have Elasticsearch running (install with `brew install elasticsearch`) and do `manage.py development update_index`, it will handle autocompletion in the site's search field using Haystack.
 
-It has a fully functioning API using Tastypie. You can access the list of model endpoints at `/api/v1/?format=json'.
+It has a fully functioning API using Tastypie. You can access the list of model endpoints at `/api/v1/?format=json`.
 
 ## Sharing Apps Between Sites
 
