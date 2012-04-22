@@ -3,10 +3,10 @@ from django.db import models
 from model_utils.managers import InheritanceManager
 
 from proto.common.fields import AutoSlugField
-from proto.common.models import InheritanceMixIn
+from proto.common.mixins import InheritanceMixin
 
 
-class Wiki(InheritanceMixIn, models.Model):
+class Wiki(InheritanceMixin, models.Model):
     """
     Super class of wiki models.
     This model should not be instantiated directly; it should be subclassed.

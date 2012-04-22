@@ -3,7 +3,7 @@ from django.db.models.fields import FieldDoesNotExist
 from django.db.models.related import RelatedObject
 
 
-class InheritanceMixIn(models.Model):
+class InheritanceMixin(models.Model):
     _class = models.CharField(max_length=100, editable=False)
 
     class Meta:
@@ -18,7 +18,7 @@ class InheritanceMixIn(models.Model):
                     and klass.opts == self._meta:
                     self._class = klass.get_accessor_name()
                     break
-        return super(InheritanceMixIn, self).save(*args, **kwargs)
+        return super(InheritanceMixin, self).save(*args, **kwargs)
 
     def get_object(self):
         try:

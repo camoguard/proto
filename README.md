@@ -36,6 +36,6 @@ Each of the folders in the `proto/` directory is a Django app. Installing an app
 
 Base templates for apps are in each app's `templates/` directory. These can be overridden at the site level by putting a file in the base `templates/` directory with the same name and relative path as the base template that you want to override. This also works for image, CSS and Javascript files, which are in the `static/` directory.
 
-For example, if you want to override the forums app's `forums_list.html` template (`/proto/forums/templates/forums/forums_list.html`) at the site level, you would put the overriding template in the site's template directory. In proto's case, this would be `/templates/forums/forums_list.html`.
+For example, if you want to override the forums app's `forum_list.html` template (`/proto/forums/templates/forums/forum_list.html`) at the site level, you would put the overriding template in the site's template directory. In proto's case, this would be `/templates/forums/forums_list.html`.
 
 You could also extend any of the models and views, or reroute URLs, contained in the apps at the site level.
