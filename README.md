@@ -7,6 +7,7 @@ First...
 1. Install distribute: `curl http://python-distribute.org/distribute_setup.py | python`
 2. Install pip: `curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python`
 3. Install virtualenvwrapper by following these instructions: <http://www.doughellmann.com/docs/virtualenvwrapper/#introduction>
+4. Create a virtualenv for the next steps: `mkvirtualenv [env name]`
 
 Then...
 
