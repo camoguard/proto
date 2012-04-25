@@ -12,7 +12,7 @@ First...
 Then...
 
 1. Clone the repository: `git clone git@github.com:sdornan/proto.git`
-2. Install the requirements: `pip install -r requirements/development.txt`
+2. Install the requirements: `pip install -r requirements.txt`
 3. Create an empty `site_media/uploads` folder in the project base directory
 4. Create the database: `python manage.py development syncdb` and follow the prompts
 5. Run the development server: `python manage.py development runserver`
