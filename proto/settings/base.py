@@ -190,7 +190,8 @@ INSTALLED_APPS = [
     'proto.videos',
     'proto.games',
     'proto.wiki',
-    'proto.promos'
+    'proto.promos',
+    'proto.images'
 ]
 
 COMMENTS_APP = 'proto.comments'

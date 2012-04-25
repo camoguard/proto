@@ -15,7 +15,7 @@ class Image(models.Model):
     image = ImageField(upload_to='images')
     caption = models.CharField(max_length=255)
     user = models.ForeignKey(User)
-    tags = models.ManyToManyField(Wiki, null=True, blank=True)
+    # tags = models.ManyToManyField(Wiki)
     site = models.ForeignKey(Site)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
