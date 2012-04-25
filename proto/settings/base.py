@@ -177,7 +177,7 @@ INSTALLED_APPS = [
     'reversion',
     'haystack',
     'tastypie',
-    'sorl-thumbnail',
+    'sorl.thumbnail',
     'pure_pagination',
 
     'proto.common',
