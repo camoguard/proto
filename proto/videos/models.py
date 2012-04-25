@@ -7,6 +7,12 @@ from django.utils.timezone import now
 from proto.comments.models import ThreadedComment
 from proto.wiki.models import Wiki
 
+STATUS_CHOICES = (
+    ('d', 'Draft'),
+    ('p', 'Published'),
+    ('w', 'Withdrawn'),
+)
+
 
 class PublicManager(models.Manager):
     def get_query_set(self):
@@ -14,12 +20,6 @@ class PublicManager(models.Manager):
 
 
 class Video(models.Model):
-    STATUS_CHOICES = (
-        ('d', 'Draft'),
-        ('p', 'Published'),
-        ('w', 'Withdrawn'),
-    )
-
     title = models.CharField(max_length=70)
     deck = models.CharField(max_length=100)
     category = models.ForeignKey('VideoCategory')

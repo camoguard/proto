@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,7 +9,7 @@
     {% compress css %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/chosen.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/select2.css">
     {% endcompress %}
 
     {% compress js %}
@@ -101,7 +102,7 @@
     <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap-typeahead.js"></script>
     <script src="{{ STATIC_URL }}js/jquery-ajaxQueue.js"></script>
-    <script src="{{ STATIC_URL }}js/chosen.jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/select2.js"></script>
     <script src="{{ STATIC_URL }}js/main.js"></script>
     {% block extra_script %}
     {% endblock %}
