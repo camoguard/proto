@@ -42,7 +42,7 @@ class Forum(models.Model):
         return ('thread-list', (), {
             'forum_slug': self.slug})
 
-    def last_post(self):
+    def get_last_post(self):
         # Caches the last post so that we don't have to perform a database query for each forum on the forum list
         last_post = cache.get(FORUM_LAST_POST_KEY % self.pk)
 
@@ -76,7 +76,7 @@ class Thread(models.Model):
             'forum_slug': self.forum.slug,
             'thread_slug': self.slug})
 
-    def last_post(self):
+    def get_last_post(self):
         # Caches the last post so that we don't have to perform a database query for each thread on the thread list
         last_post = cache.get(THREAD_LAST_POST_KEY % self.pk)
         if last_post is None:
@@ -108,5 +108,5 @@ class Post(models.Model):
 @receiver(post_save, sender=Thread)
 def uncache_last_post(sender, instance, created, **kwargs):
     # Invalidates the last post cached for the forum and thread
-    cache.delete(THREAD_LAST_POST_KEY % instance.pk)
-    cache.delete(FORUM_LAST_POST_KEY % instance.forum.pk)
+    cache.delete_many([THREAD_LAST_POST_KEY % instance.pk,
+        FORUM_LAST_POST_KEY % instance.forum.pk])

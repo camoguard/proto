@@ -33,7 +33,7 @@
         <tr>
           <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
           <td>{{ object.creator }}</td>
-          {% with last_post=object.last_post %}
+          {% with last_post=object.get_last_post %}
             <td>{{ last_post.created|date:"SHORT_DATETIME_FORMAT" }} by {{ last_post.author }}</td>
           {% endwith %}
           <td>{{ object.num_posts|add:"-1" }}</td>
