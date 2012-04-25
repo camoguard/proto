@@ -53,7 +53,9 @@ jQuery(document).ready(function ($) {
         });
     });
 
-    $('select').select2();
+    $('select').addClass('chzn-select');
+
+    $('.chzn-select').chosen();
 
     $('.helptext').remove();
 
