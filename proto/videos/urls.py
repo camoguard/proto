@@ -5,5 +5,5 @@ from proto.videos.views import VideoDetailView, VideoListView
 
 urlpatterns = patterns('proto.videos.views',
     url(r'^$', VideoListView.as_view(), name='video-list'),
-    url(r'^$', VideoDetailView.as_view(), name='video-detail')
+    url(r'^(?P<slug>[-\w]+)/$', VideoDetailView.as_view(), name='video-detail')
 )
