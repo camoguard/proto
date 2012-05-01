@@ -24,7 +24,7 @@ django-registration>=0.8
 -e git://github.com/django-debug-toolbar/django-debug-toolbar#egg=django-debug-toolbar
 boto>=2.3.0
 django-storages>=1.1.4
-pylibmc>=1.2.2
+pylibmc>=1.2.3
 BeautifulSoup<4.0
 lxml>=2.3.4
-raven>=1.7.3
+raven>=1.7.5
