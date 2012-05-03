@@ -29,7 +29,7 @@ You can create a wiki page for a game, as an example, by going to `/wiki/create/
 
 If you have Elasticsearch running (install with `brew install elasticsearch`) and do `manage.py development update_index`, it will handle autocompletion in the site's search field using Haystack.
 
-It has a fully functioning API using Tastypie. You can access the list of model endpoints at `/api/v1/?format=json`.
+It has a fully functioning API using Tastypie. You can access the list of model endpoints at `/api/v1/?format=json`. Anytime the JavaScript code needs to get a JSON representation of a model, it could use this API. It could also potentially be used for making minor updates to models, but only if it's secured properly first.
 
 ## Sharing Apps Between Sites
 
@@ -40,3 +40,4 @@ Base templates for apps are in each app's `templates/` directory. These can be o
 For example, if you want to override the forums app's `forum_list.html` template (`/proto/forums/templates/forums/forum_list.html`) at the site level, you would put the overriding template in the site's template directory. In proto's case, this would be `/templates/forums/forums_list.html`.
 
 You could also extend any of the models and views, or reroute URLs, contained in the apps at the site level.
+
